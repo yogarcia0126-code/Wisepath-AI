@@ -1,2 +1,2 @@
 # Wisepath AI
-AI automation systemfor realtors and small buisness 
+AI automation system for realtors and small businesses 

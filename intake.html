@@ -1,1 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WisePath AI — Systems Intake</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background: #050d0b;
+      color: #f5f7f6;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .wrap {
+      max-width: 780px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    p.subtitle {
+      font-size: 14px;
+      color: #a8b5af;
+      margin-bottom: 24px;
+    }
+    form {
+      background: #0f2620;
+      border-radius: 16px;
+      border: 1px solid #1f3b32;
+      padding: 22px 18px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    label {
+      font-size: 13px;
+      font-weight: 600;
+    }
+    input,
+    textarea {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 10px;
+      border: 1px solid #1f3b32;
+      background: #071915;
+      color: #f5f7f6;
+      font-size: 13px;
+    }
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    button {
+      margin-top: 8px;
+      padding: 11px;
+      border-radius: 999px;
+      border: none;
+      background: #1ed38b;
+      color: #03100d;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #29e295;
+    }
+    .note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #77847f;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>WisePath AI — Systems Intake</h1>
+    <p class="subtitle">
+      Tell us how your business actually runs. This helps us see where systems and automation will hit the hardest.
+    </p>
 
+    <!-- IMPORTANT: this sends straight to your Outlook inbox -->
+    <form action="https://formsubmit.co/wisepath.ops@outlook.com" method="POST">
+      <!-- formsubmit settings -->
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_subject" value="New WisePath Systems Intake" />
+      <input type="hidden" name="_template" value="table" />
+
+      <label>Your name</label>
+      <input name="name" type="text" required />
+
+      <label>Business name</label>
+      <input name="business_name" type="text" required />
+
+      <label>Email</label>
+      <input name="email" type="email" required />
+
+      <label>Industry / business type</label>
+      <input name="industry" type="text" placeholder="Real estate, barbershop, gym, coaching, etc." required />
+
+      <label>What tools do you currently use?</label>
+      <textarea name="tools" placeholder="Google Workspace, Notion, ClickUp, IG DMs, Calendly, Shopify, etc."></textarea>
+
+      <label>What feels the most broken or stressful right now?</label>
+      <textarea name="pain_points" required></textarea>
+
+      <label>What would a ‘win’ look like if this worked?</label>
+      <textarea name="success_definition" ></textarea>
+
+      <button type="submit">Submit intake</button>
+
+      <div class="note">
+        After you submit, WisePath AI Operations will review your answers and follow up by email.
+      </div>
+    </form>
+  </div>
+</body>
+</html>

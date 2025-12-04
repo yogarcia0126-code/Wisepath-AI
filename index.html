@@ -1,434 +1,422 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WisePath Systems – AI Operations for Scalable Businesses</title>
-    <meta
-        name="description"
-        content="WisePath Systems builds AI-powered operational systems for SMBs—guaranteeing rapid deployment of lead recovery, automated follow-up, and booking flows to maximize profit."
-    />
-    <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        wp: {
-                            // Deep navy background (authority and tech feel)
-                            bg: "#050816",
-                            // Charcoal / softer navy (cards, sections)
-                            bgSoft: "#0B0F17",
-                            // Neon lime (primary CTA color, signaling growth/speed)
-                            primary: "#1ED38B",
-                            // Lighter lime for hover
-                            primarySoft: "#A6FF47",
-                            // Soft tech blue for subtle highlights/data flow lines
-                            accent: "#4DA3FF",
-                        },
-                    },
-                    // Using Inter font for modern look
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                },
-            },
-        };
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WisePath Systems | Operational Architecture</title>
+    <meta name="description" content="Turn chaotic SMBs into automated machines. WisePath installs the operational architecture your business is missing.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* Custom Styles for Glow and Pipeline */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        
-        .cta-glow {
-            box-shadow: 0 0 15px rgba(30, 211, 139, 0.4);
+        /* --- 1. CORE VARIABLES & RESET --- */
+        :root {
+            --bg-color: #FAFAFA;       /* Premium Off-White */
+            --card-bg: #F5F5F7;        /* Apple Panel Grey */
+            --text-main: #1D1D1F;      /* Almost Black */
+            --text-muted: #86868B;     /* Apple Grey */
+            --accent-blue: #0071E3;    /* Apple Action Blue */
+            --border-radius: 24px;     /* Smooth curves */
+            --nav-width: 400px;
         }
-        /* --- HOW IT WORKS PIPELINE --- */
-        .flow-container {
-            position: relative;
-            padding-bottom: 2rem;
-            padding-top: 2rem;
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        /* The central, connecting pipeline */
-        .flow-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* --- 2. FLOATING NAVIGATION ISLAND --- */
+        .nav-island {
+            position: fixed;
+            top: 24px;
             left: 50%;
-            width: 3px;
-            background: linear-gradient(to bottom, #1ED38B, #4DA3FF);
             transform: translateX(-50%);
-            z-index: 0;
-            opacity: 0.3;
+            width: 90%;
+            max-width: var(--nav-width);
+            height: 56px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px 6px 4px 24px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            z-index: 1000;
+            animation: slideDown 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        /* Responsive adjustment for the flow line on large screens */
-        @media (min-width: 1024px) {
-            .flow-container::before {
-                left: 10%; 
-            }
+
+        .nav-logo {
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+        }
+
+        .nav-cta {
+            background-color: var(--text-main);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 100px;
+            transition: opacity 0.2s;
+        }
+        .nav-cta:hover { opacity: 0.85; }
+
+        /* --- 3. HERO SECTION --- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 60px;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 96px); /* Responsive Scaling */
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #000;
+        }
+
+        .hero p {
+            font-size: clamp(18px, 2vw, 24px);
+            color: var(--text-muted);
+            max-width: 600px;
+            font-weight: 400;
+            margin-bottom: 40px;
+            line-height: 1.4;
+        }
+
+        .hero-btn {
+            background-color: #000;
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 100px;
+            font-size: 17px;
+            font-weight: 500;
+            transition: transform 0.2s;
+        }
+        .hero-btn:hover { transform: scale(1.02); }
+
+        .hero-caption {
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* --- 4. AGITATION SECTION --- */
+        .agitation {
+            padding: 100px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .agitation-text {
+            font-size: clamp(24px, 3vw, 40px);
+            text-align: center;
+            max-width: 800px;
+            color: var(--text-muted);
+            letter-spacing: -0.02em;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+        .agitation-text strong { color: var(--text-main); }
+
+        /* --- 5. BENTO GRID (The Signature System) --- */
+        .systems {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 140px;
+        }
+
+        .section-header {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .bento-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 340px;
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .bento-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-content h3 {
+            font-size: 24px;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .card-content h4 {
+            font-size: 17px;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+
+        .card-content p {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #424245;
+        }
+
+        .tech-spec {
+            font-size: 10px;
+            font-weight: 700;
+            color: #BCBCBD;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: auto;
+            padding-top: 30px;
+        }
+
+        /* --- 6. PROCESS SECTION (Vertical) --- */
+        .process {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 140px;
+        }
+
+        .process-step {
+            display: flex;
+            gap: 32px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .step-num {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+            width: 40px;
+            padding-top: 6px;
+        }
+
+        .step-content h3 {
+            font-size: 28px;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .step-content p {
+            font-size: 17px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* --- 7. FOOTER --- */
+        .footer-cta {
+            text-align: center;
+            padding: 100px 20px;
+            background-color: #000;
+            color: #fff;
+            border-radius: 40px 40px 0 0; /* Modern curved footer top */
+        }
+
+        .footer-cta h2 {
+            font-size: clamp(32px, 5vw, 56px);
+            letter-spacing: -0.03em;
+            margin-bottom: 32px;
+        }
+
+        .btn-white {
+            background: #fff;
+            color: #000;
+            padding: 16px 32px;
+            border-radius: 100px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        footer {
+            background-color: #000;
+            color: #555;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes slideDown {
+            from { top: -60px; opacity: 0; }
+            to { top: 24px; opacity: 1; }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .hero { padding-top: 140px; }
         }
     </style>
 </head>
-<body class="bg-wp-bg text-slate-100 min-h-screen">
-    
-    <!-- NAVBAR (Sticky and High-Contrast) -->
-    <header
-        class="border-b border-slate-800 bg-wp-bgSoft/80 backdrop-blur sticky top-0 z-40"
-    >
-        <div
-            class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 lg:py-4"
-        >
-            <!-- Logo/Brand -->
-            <div class="flex items-center gap-2">
-                <div
-                    class="h-9 w-9 rounded-xl bg-gradient-to-br from-wp-bgSoft to-wp-accent flex items-center justify-center text-xs font-bold tracking-tight text-wp-accent"
-                >
-                    WP
-                </div>
-                <div>
-                    <div class="text-sm font-bold uppercase tracking-widest text-white">
-                        WisePath
-                    </div>
-                    <p class="text-[11px] text-slate-400">
-                        AI Operations & Automation
-                    </p>
-                </div>
-            </div>
-            <!-- Navigation Links -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
-                <a href="#how-it-works" class="text-slate-300 hover:text-wp-accent transition"
-                    >Process</a>
-                <a href="#who-we-serve" class="text-slate-300 hover:text-wp-accent transition"
-                    >Clients</a>
-                <a href="#systems" class="text-slate-300 hover:text-wp-accent transition">Systems</a>
-            </nav>
-            <!-- Sticky CTA -->
-            <a
-                href="intake.html"
-                class="inline-flex items-center gap-2 rounded-full bg-wp-primary px-4 py-2 text-xs font-semibold text-black hover:bg-wp-primarySoft transition cta-glow"
-            >
-                Start Free 4-Min Audit
-            </a>
+<body>
+
+    <nav class="nav-island">
+        <a href="#" class="nav-logo">WisePath</a>
+        <a href="intake.html" class="nav-cta">Start Audit →</a>
+    </nav>
+
+    <section class="hero">
+        <h1>Chaos.<br>Automated.</h1>
+        <p>Turn your service business into a machine that never leaks revenue. We install the operational architecture you are missing.</p>
+        
+        <a href="intake.html" class="hero-btn">Start Systems Audit</a>
+        <div class="hero-caption">Deployment in 48 Hours. No Code Required.</div>
+    </section>
+
+    <section class="agitation">
+        <div class="agitation-text">
+            "Most service businesses don't die from starvation. They die from indigestion. <strong>You have the leads, but you lack the machine to process them.</strong>"
         </div>
-    </header>
-    <main>
-        <!-- HERO SECTION (Chaos to Automation Visuals) -->
-        <section class="border-b border-slate-800 relative overflow-hidden">
-            <!-- Subtle background mesh/grid for tech feel -->
-            <div class="absolute inset-0 z-0 opacity-10" style="background-image: radial-gradient(circle, #4DA3FF 1px, transparent 1px), radial-gradient(circle, #4DA3FF 1px, transparent 1px); background-size: 40px 40px; background-position: 0 0, 20px 20px;"></div>
-            
-            <div class="max-w-6xl mx-auto px-4 py-20 lg:py-32 grid lg:grid-cols-2 gap-10 relative z-10">
-                <!-- Left: Core Messaging -->
-                <div class="space-y-6">
-                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-wp-accent">
-                        Fractional Ops Engineering · AI First
-                    </p>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
-                        Turn chaotic<br class="hidden sm:block" />
-                        SMBs into
-                        <span class="text-wp-accent block mt-1">automated machines.</span>
-                    </h1>
-                    <p class="text-base sm:text-lg text-slate-300 max-w-xl">
-                        WisePath builds and deploys end-to-end systems for lead recovery, booking, and reactivation—so owners stop leaking revenue and start running on rails.
-                    </p>
-                    <div class="flex flex-wrap items-center gap-4 pt-3">
-                        <a
-                            href="intake.html"
-                            class="inline-flex items-center gap-3 rounded-full bg-wp-primary px-6 py-3 text-sm font-bold text-black hover:bg-wp-primarySoft transition cta-glow"
-                        >
-                            Start Your 4-Minute Systems Audit 
-                            <span class="text-[18px]">↗</span>
-                        </a>
-                    </div>
-                    
-                    <p class="text-xs text-slate-400 max-w-xs pt-2">
-                         You receive a concrete systems blueprint, not generic advice. Deployment starts immediately upon acceptance.
-                    </p>
-                    
-                    <div class="flex flex-wrap gap-6 text-xs text-slate-400 border-t border-slate-800 pt-4 mt-8">
-                        <div class="flex items-center gap-2">
-                            <span class="h-1.5 w-1.5 rounded-full bg-wp-primary shadow-lg shadow-wp-primary/50"></span>
-                            48-Hour Deployment
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="h-1.5 w-1.5 rounded-full bg-wp-primary shadow-lg shadow-wp-primary/50"></span>
-                            Template-Driven, Not Custom Code
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="h-1.5 w-1.5 rounded-full bg-wp-primary shadow-lg shadow-wp-primary/50"></span>
-                            No Long-Term Contracts
-                        </div>
-                    </div>
-                </div>
-                <!-- Right: Abstract Visual Reinforcement -->
-                <div class="hidden lg:flex items-center justify-center">
-                    <!-- Placeholder for the concept of automation -->
-                    <div class="w-full max-w-md h-72 border border-slate-700 rounded-3xl bg-wp-bgSoft/50 backdrop-blur-sm p-6 flex flex-col justify-between shadow-2xl shadow-wp-accent/10">
-                        <div class="text-xs font-mono text-wp-accent">
-                            // Transformation Flow State
-                        </div>
-                        <h3 class="text-xl font-semibold text-white">
-                            From <span class="text-red-400">Manual Drag</span> to <span class="text-wp-primary">Predictable Flow</span>.
-                        </h3>
-                        <!-- Abstract Data Flow Diagram Placeholder -->
-                        <div class="h-24 relative">
-                            <!-- Input -->
-                            <div class="absolute top-2 left-0 text-slate-400 text-xs">Chaos Input</div>
-                            <div class="absolute top-8 left-0 h-4 w-4 bg-red-600 rounded-full shadow-lg shadow-red-600/50"></div>
-                            
-                            <!-- Processing/Funnel -->
-                            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-0 h-full border-l border-r border-slate-700/50"></div>
-                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-wp-accent text-sm font-bold opacity-70">WISEPATH AI ENGINE</div>
-                            
-                            <!-- Output -->
-                            <div class="absolute bottom-8 right-0 h-4 w-4 bg-wp-primary rounded-full shadow-lg shadow-wp-primary/50"></div>
-                            <div class="absolute bottom-2 right-0 text-slate-400 text-xs">Profit Output</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    </section>
 
-        <!-- HOW IT WORKS (The Scaled Pipeline) -->
-        <section id="how-it-works" class="border-b border-slate-800 bg-wp-bgSoft pt-14 pb-16 lg:pt-20 lg:pb-24">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">The Scaled Process</h2>
-                    <p class="text-lg text-slate-400 mt-2">
-                        Systematic, predictable, and built for speed. We eliminate the human bottleneck.
-                    </p>
+    <section class="systems">
+        <div class="section-header">The WisePath Signature System</div>
+        
+        <div class="bento-grid">
+            <div class="bento-card">
+                <div class="card-content">
+                    <h3>Lead Engine.</h3>
+                    <h4>Total Capture.</h4>
+                    <p>Captures, tags, and routes every inquiry from web, SMS, and voice. No lead left behind.</p>
                 </div>
-                <!-- The Flow Container -->
-                <div class="flow-container">
-                    <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
-                        <!-- Step 1 -->
-                        <div class="lg:col-span-2 text-center lg:text-right relative lg:pr-12">
-                            <div class="flex items-center justify-center lg:justify-end mb-3">
-                                <div class="w-14 h-14 rounded-full bg-wp-primary flex items-center justify-center border-4 border-wp-bgSoft shadow-2xl cta-glow">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                                </div>
-                                <h3 class="text-4xl font-black ml-3 text-wp-accent">
-                                    01
-                                </h3>
-                            </div>
-                            <h4 class="text-2xl font-bold text-white mt-4 lg:mt-0">
-                                Automated Audit
-                            </h4>
-                            <p class="mt-2 text-slate-300">
-                                Your intake form is the audit. It instantly runs rules against the 6 indices, resulting in a precise blueprint.
-                            </p>
-                            <p class="mt-3 font-semibold text-sm text-wp-primary">
-                                → Time Cost: 4 Minutes (Client Time)
-                            </p>
-                        </div>
-                        <!-- Spacer -->
-                        <div class="hidden lg:block lg:col-span-1"></div>
-                        <!-- Step 2 -->
-                        <div class="lg:col-span-2 text-center lg:text-left relative lg:pl-12">
-                            <div class="flex items-center justify-center lg:justify-start mb-3">
-                                 <div class="w-14 h-14 rounded-full bg-wp-primary flex items-center justify-center border-4 border-wp-bgSoft shadow-2xl cta-glow">
-                                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                                 </div>
-                                <h3 class="text-4xl font-black ml-3 text-wp-accent">
-                                    02
-                                </h3>
-                            </div>
-                            <h4 class="text-2xl font-bold text-white mt-4 lg:mt-0">
-                                Rapid Deployment
-                            </h4>
-                            <p class="mt-2 text-slate-300">
-                                We deploy pre-engineered, checklist-driven templates for your vertical onto your existing tools. This is a deployment, not a custom build.
-                            </p>
-                            <p class="mt-3 font-semibold text-sm text-wp-primary">
-                                → Time Cost: Max 48 Hours (Our Time)
-                            </p>
-                        </div>
-                        <!-- Step 3 -->
-                        <div class="lg:col-span-2 text-center lg:text-right relative lg:pr-12">
-                            <div class="flex items-center justify-center lg:justify-end mb-3">
-                                <div class="w-14 h-14 rounded-full bg-wp-primary flex items-center justify-center border-4 border-wp-bgSoft shadow-2xl cta-glow">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check"><path d="M20 13V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7c0 4.2 2.7 7.6 6 8.5.5.1 1.1.1 1.6 0 3.3-.9 6-4.3 6-8.5Z"/><path d="m16 12 2 2 4-4"/></svg>
-                                </div>
-                                <h3 class="text-4xl font-black ml-3 text-wp-accent">
-                                    03
-                                </h3>
-                            </div>
-                            <h4 class="text-2xl font-bold text-white mt-4 lg:mt-0">
-                                Autonomous Maintenance
-                            </h4>
-                            <p class="mt-2 text-slate-300">
-                                The system self-monitors flow integrity, flags deviations, and uses AI for automatic refinement. Your cost of maintenance is minimized.
-                            </p>
-                            <p class="mt-3 font-semibold text-sm text-wp-primary">
-                                → Time Cost: &lt;15 Mins/Month (Your Time)
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <div class="tech-spec">99.9% UPTIME</div>
             </div>
-        </section>
 
-        <!-- SIGNATURE SYSTEMS -->
-        <section id="systems" class="border-b border-slate-800 bg-wp-bg pt-14 pb-16 lg:pt-20 lg:pb-24">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">WisePath Signature System</h2>
-                    <p class="text-lg text-slate-400 mt-2">
-                        One install. Six connected systems. Zero chaos.
-                    </p>
+            <div class="bento-card">
+                <div class="card-content">
+                    <h3>AI Follow-Up.</h3>
+                    <h4>Instant Velocity.</h4>
+                    <p>24/7 intelligent SMS & email sequences. Qualifies leads while you sleep with <60s latency.</p>
                 </div>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- System 1: Lead Engine -->
-                    <div class="rounded-xl border border-slate-800 bg-wp-bgSoft p-6 flex flex-col items-start gap-4 hover:border-wp-primary transition">
-                        <div class="p-3 rounded-full bg-wp-primary/10 border border-wp-primary/30 text-wp-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Lead Engine</h3>
-                        <p class="text-sm text-slate-400">
-                            Every inquiry (web, SMS, call) is captured, scored, and routed instantly. Never miss a high-intent lead again.
-                        </p>
-                    </div>
-                    <!-- System 2: AI Follow-Up -->
-                    <div class="rounded-xl border border-slate-800 bg-wp-bgSoft p-6 flex flex-col items-start gap-4 hover:border-wp-primary transition">
-                        <div class="p-3 rounded-full bg-wp-primary/10 border border-wp-primary/30 text-wp-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">AI Follow-Up</h3>
-                        <p class="text-sm text-slate-400">
-                            SMS and email sequences that run 24/7, never forget, and qualify leads to the point of booking before staff intervention.
-                        </p>
-                    </div>
-                    <!-- System 3: Booking Stack -->
-                    <div class="rounded-xl border border-slate-800 bg-wp-bgSoft p-6 flex flex-col items-start gap-4 hover:border-wp-primary transition">
-                        <div class="p-3 rounded-full bg-wp-primary/10 border border-wp-primary/30 text-wp-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-check"><path d="M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h4"/><path d="m19 19 2 2 4-4"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Booking Stack</h3>
-                        <p class="text-sm text-slate-400">
-                            Automated scheduling, instant confirmations, smart reminders, and easy reschedule/cancellation flows to reduce no-shows.
-                        </p>
-                    </div>
-                    
-                    <!-- System 4: Intake & Onboarding -->
-                    <div class="rounded-xl border border-slate-800 bg-wp-bgSoft p-6 flex flex-col items-start gap-4 hover:border-wp-primary transition">
-                        <div class="p-3 rounded-full bg-wp-primary/10 border border-wp-primary/30 text-wp-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-form-input"><rect width="20" height="12" x="2" y="6" rx="2"/><path d="M12 12h.01"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Intake & Onboarding</h3>
-                        <p class="text-sm text-slate-400">
-                            Automated forms, welcome sequences, and internal workflows triggered by client actions, ensuring a smooth handoff to staff.
-                        </p>
-                    </div>
-                    <!-- System 5: Reactivation -->
-                    <div class="rounded-xl border border-slate-800 bg-wp-bgSoft p-6 flex flex-col items-start gap-4 hover:border-wp-primary transition">
-                        <div class="p-3 rounded-full bg-wp-primary/10 border border-wp-primary/30 text-wp-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Reactivation</h3>
-                        <p class="text-sm text-slate-400">
-                            Automated win-back sequences targeting cold leads, past clients, and canceled members to drive low-cost repeat business.
-                        </p>
-                    </div>
-                    <!-- System 6: Dashboard -->
-                    <div class="rounded-xl border border-slate-800 bg-wp-bgSoft p-6 flex flex-col items-start gap-4 hover:border-wp-primary transition">
-                        <div class="p-3 rounded-full bg-wp-primary/10 border border-wp-primary/30 text-wp-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart-2"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Performance Dashboard</h3>
-                        <p class="text-sm text-slate-400">
-                            Clear, real-time clarity on bottlenecks, missed opportunities, and where revenue is leaking, ensuring continuous optimization.
-                        </p>
-                    </div>
-                </div>
+                <div class="tech-spec">Latency < 1min</div>
             </div>
-        </section>
 
-        <!-- WHO WE SERVE -->
-        <section id="who-we-serve" class="border-b border-slate-800 bg-wp-bg pt-14 pb-16 lg:pt-20 lg:pb-24">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Who WisePath is built for</h2>
-                    <p class="text-lg text-slate-400 mt-2">
-                        Service businesses where every missed call is real money.
-                    </p>
+            <div class="bento-card">
+                <div class="card-content">
+                    <h3>Booking Stack.</h3>
+                    <h4>Flow State.</h4>
+                    <p>Automated scheduling, confirmations, and reminders. Reduces no-shows by ~40%.</p>
                 </div>
-                <div class="grid md:grid-cols-3 gap-6 text-sm">
-                    <!-- Industry Card 1: Realtors -->
-                    <div class="rounded-xl border border-slate-800 bg-wp-bgSoft p-6 flex flex-col items-start gap-3 hover:bg-black/40 transition">
-                        <div class="p-3 rounded-full bg-wp-accent/10 border border-wp-accent/30 text-wp-accent">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                        </div>
-                        <h3 class="font-bold text-xl text-white">Realtors & Teams</h3>
-                        <ul class="mt-1 space-y-1 text-slate-400 list-inside text-sm">
-                             <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-wp-accent"></span>Guaranteed speed-to-lead for portal inquiries.</li>
-                             <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-wp-accent"></span>Automated booking for showings and consults.</li>
-                             <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-wp-accent"></span>Compliance reminders and document follow-up.</li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Industry Card 2: Gyms -->
-                    <div class="rounded-xl border border-slate-800 bg-wp-bgSoft p-6 flex flex-col items-start gap-3 hover:bg-black/40 transition">
-                        <div class="p-3 rounded-full bg-wp-accent/10 border border-wp-accent/30 text-wp-accent">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dumbbell"><path d="m14.4 14.4-2.8-2.8a2 2 0 0 0-2.8 2.8l2.8 2.8a2 2 0 0 0 2.8-2.8z"/><path d="M18 10l-4 4"/><path d="M10 18l-4-4"/><path d="M22 6l-6 6"/><path d="M6 22l6-6"/><path d="M2 2l4 4"/></svg>
-                        </div>
-                        <h3 class="font-bold text-xl text-white">Gyms, Trainers, Studios</h3>
-                         <ul class="mt-1 space-y-1 text-slate-400 list-inside text-sm">
-                             <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-wp-accent"></span>Automated follow-up on trial offers and signups.</li>
-                             <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-wp-accent"></span>Class reminders and membership renewal sequences.</li>
-                             <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-wp-accent"></span>Win-back flows for canceled or cold members.</li>
-                        </ul>
-                    </div>
-                    <!-- Industry Card 3: Clinics/Home Services -->
-                    <div class="rounded-xl border border-slate-800 bg-wp-bgSoft p-6 flex flex-col items-start gap-3 hover:bg-black/40 transition">
-                        <div class="p-3 rounded-full bg-wp-accent/10 border border-wp-accent/30 text-wp-accent">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-truck"><path d="M5 17a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4H5v4Z"/><path d="m12 17-2-2-4 4 4 4 2-2"/><path d="M19 17h-2a2 2 0 0 1-2-2v-2h6v2a2 2 0 0 1-2 2Z"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/></svg>
-                        </div>
-                        <h3 class="font-bold text-xl text-white">Clinics & Home Services</h3>
-                        <ul class="mt-1 space-y-1 text-slate-400 list-inside text-sm">
-                             <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-wp-accent"></span>New patient/client intake and automated estimate booking.</li>
-                             <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-wp-accent"></span>Treatment reminders and post-service follow-ups.</li>
-                             <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-wp-accent"></span>"No-answer" text callbacks and scheduling requests.</li>
-                        </ul>
-                    </div>
+                <div class="tech-spec">Sync: 2-Way</div>
+            </div>
+
+            <div class="bento-card">
+                <div class="card-content">
+                    <h3>Onboarding.</h3>
+                    <h4>Zero Friction.</h4>
+                    <p>Contracts, forms, and welcome sequences trigger automatically upon deposit.</p>
                 </div>
+                <div class="tech-spec">Digital Sig</div>
             </div>
-        </section>
 
-        <!-- FINAL CTA -->
-        <section class="bg-gradient-to-r from-wp-bgSoft via-wp-bg to-wp-bgSoft">
-            <div class="max-w-6xl mx-auto px-4 py-12 lg:py-20 flex flex-col items-center justify-center text-center gap-6">
-                
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white max-w-3xl">
-                    Stop Leaking Revenue. Start Running on Rails.
-                </h2>
-                
-                <p class="text-lg text-slate-300 max-w-3xl">
-                    Your operations have a blueprint problem. Let us solve it in 4 minutes and deploy the fix in 48 hours.
-                </p>
-                
-                <a
-                    href="intake.html"
-                    class="inline-flex items-center gap-3 rounded-full bg-wp-primary px-8 py-3.5 text-lg font-extrabold text-black hover:bg-wp-primarySoft transition cta-glow"
-                >
-                    Start the WisePath Intake Now
-                    <span class="text-[20px]">↗</span>
-                </a>
-                <p class="text-xs text-slate-400">
-                    No obligation. No spam. Just a serious systems conversation.
-                </p>
-                
+            <div class="bento-card">
+                <div class="card-content">
+                    <h3>Reactivation.</h3>
+                    <h4>Found Money.</h4>
+                    <p>Automated win-back campaigns turn cold leads and past clients into new revenue.</p>
+                </div>
+                <div class="tech-spec">ROI: High</div>
             </div>
-        </section>
-    </main>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-slate-800 bg-wp-bgSoft">
-        <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500">
-            <p>© <span id="year"></span> WisePath Systems. All rights reserved.</p>
-            <p>Built in Chicago. Operating everywhere.</p>
+            <div class="bento-card">
+                <div class="card-content">
+                    <h3>Dashboard.</h3>
+                    <h4>X-Ray Vision.</h4>
+                    <p>Real-time operational health metrics. Know exactly where your profit is leaking.</p>
+                </div>
+                <div class="tech-spec">Live Data</div>
+            </div>
         </div>
+    </section>
+
+    <section class="process">
+        <div class="section-header">The Process</div>
+
+        <div class="process-step">
+            <div class="step-num">01</div>
+            <div class="step-content">
+                <h3>Diagnose.</h3>
+                <p>We don't guess. Your intake form runs against our 6-point indexing engine to identify exactly where your revenue is leaking.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-num">02</div>
+            <div class="step-content">
+                <h3>Deploy.</h3>
+                <p>We deploy the Lead Engine, Booking Stack, and Reactivation flows directly into your business. Max 48 hours.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-num">03</div>
+            <div class="step-content">
+                <h3>Automate.</h3>
+                <p>The system runs in the background. It texts leads, books appointments, and chases payments. You only step in when money is on the table.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer-cta">
+        <h2>Stop running on chaos.<br>Start running on rails.</h2>
+        <a href="intake.html" class="btn-white">Begin Audit</a>
+    </div>
+
+    <footer>
+        WisePath Systems V2. Built in Chicago.
     </footer>
+
+</body>
+</html>
     <script>
         document.getElementById("year").textContent = new Date().getFullYear();
     </script>

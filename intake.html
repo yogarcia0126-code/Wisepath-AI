@@ -3,111 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WisePath Systems | Operational Audit</title>
-    
+    <title>WisePath Systems | Confidential Systems Intake</title>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
     <style>
-        /* --- COPYING THE CORE STYLES FROM INDEX.HTML --- */
-        :root {
-            --bg-color: #FAFAFA;
-            --card-bg: #FFFFFF; /* Using pure white for the form card to pop */
-            --text-main: #1D1D1F;
-            --text-muted: #86868B;
-            --border-radius: 24px;
-            --input-bg: #F5F5F7; /* Grey background for inputs */
+        /* RESET */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+        :root {
+            --bg-color: #FAFAFA;      /* Off-white background */
+            --paper-color: #FFFFFF;   /* White dossier */
+            --text-main: #111111;     /* Main text */
+            --text-muted: #6E6E73;    /* Muted grey */
+            --accent-blue: #0071E3;   /* Apple blue */
+            --input-bg: #F5F5F7;      /* Input background */
+            --border-radius: 18px;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
+            background-color: --bg-color;
+            background-color: #FAFAFA;
             color: var(--text-main);
-            line-height: 1.4;
+            line-height: 1.5;
+            padding-bottom: 120px; /* space for sticky bar */
         }
 
-        a { text-decoration: none; color: inherit; }
-
-        /* --- NAV ISLAND (Simplified for Intake) --- */
-        .nav-island {
-            position: fixed;
-            top: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 400px;
-            height: 56px;
-            border-radius: 100px;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 4px 6px 4px 24px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-            z-index: 1000;
-        }
-
-        .nav-logo { font-weight: 600; font-size: 15px; letter-spacing: -0.02em; }
-        
-        .nav-back {
-            background-color: #E5E5E5; /* Lighter button for "Back" */
-            color: #000;
-            font-size: 13px;
-            font-weight: 500;
-            padding: 10px 20px;
-            border-radius: 100px;
-            transition: opacity 0.2s;
-        }
-        .nav-back:hover { background-color: #D1D1D1; }
-
-        /* --- FORM CONTAINER --- */
-        .form-wrapper {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 140px; /* Clear the nav */
-            padding-bottom: 60px;
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-
-        .form-header {
+        /* HEADER */
+        .doc-header {
             text-align: center;
-            max-width: 600px;
-            margin-bottom: 40px;
+            padding: 80px 20px 40px;
         }
 
-        .form-header h1 {
-            font-size: 40px;
-            letter-spacing: -0.03em;
-            margin-bottom: 12px;
-        }
-
-        .form-header p {
+        .meta-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             color: var(--text-muted);
-            font-size: 18px;
+            border: 1px solid #E5E5E5;
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            background: #FFFFFF;
         }
 
-        /* --- THE FORM CARD --- */
-        .audit-card {
-            background: var(--card-bg);
-            width: 100%;
-            max-width: 500px;
-            padding: 40px;
+        .doc-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+            color: #000000;
+        }
+
+        .doc-header p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* DOSSIER CONTAINER */
+        .dossier-container {
+            max-width: 720px;
+            margin: 0 auto;
+            background: var(--paper-color);
             border-radius: var(--border-radius);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
-            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 48px 52px 72px;
         }
 
-        /* --- INPUT STYLING (The Apple Look) --- */
-        .form-group { margin-bottom: 24px; }
+        /* SECTION TITLES */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            margin-top: 44px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #E5E5E5;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        .section-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        /* FORM FIELDS */
+        .form-group {
+            margin-bottom: 26px;
+        }
 
         label {
             display: block;
@@ -117,122 +119,404 @@
             color: var(--text-main);
         }
 
-        input, select, textarea {
+        .help-text {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select,
+        textarea {
             width: 100%;
-            padding: 16px;
+            padding: 14px 16px;
             border-radius: 12px;
-            border: 1px solid transparent; /* No border initially */
+            border: 1px solid transparent;
             background-color: var(--input-bg);
             font-family: 'Inter', sans-serif;
-            font-size: 16px;
+            font-size: 15px;
             color: var(--text-main);
-            transition: all 0.2s;
             outline: none;
+            transition: 0.2s ease;
         }
 
-        input:focus, select:focus, textarea:focus {
-            background-color: #fff;
-            border-color: #0071E3; /* Apple Blue Focus */
-            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+        textarea {
+            resize: vertical;
+            min-height: 90px;
         }
 
-        /* Custom Select Arrow */
-        select {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat;
-            background-position: right 16px top 50%;
-            background-size: 12px auto;
+        input:focus,
+        select:focus,
+        textarea:focus {
+            background-color: #FFFFFF;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(0,113,227,0.12);
+        }
+
+        /* INLINE LAYOUTS */
+        .inline-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .inline-row .form-group {
+            flex: 1;
+        }
+
+        /* STICKY ACTION BAR */
+        .action-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .cancel-btn {
+            position: absolute;
+            left: 24px;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
         }
 
         .submit-btn {
-            width: 100%;
-            background-color: #000;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 600;
-            padding: 18px;
-            border-radius: 100px;
+            background-color: #000000;
+            color: #FFFFFF;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 12px 36px;
+            border-radius: 999px;
             border: none;
             cursor: pointer;
-            margin-top: 10px;
-            transition: transform 0.2s;
         }
 
-        .submit-btn:hover { transform: scale(1.02); }
+        .submit-btn:hover {
+            transform: translateY(-1px);
+        }
 
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .dossier-container {
+                padding: 32px 20px 60px;
+                box-shadow: none;
+                border-radius: 0;
+                border: none;
+            }
+
+            .doc-header {
+                padding-top: 56px;
+            }
+
+            .doc-header h1 {
+                font-size: 32px;
+            }
+
+            .inline-row {
+                flex-direction: column;
+            }
+
+            .cancel-btn {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="nav-island">
-        <a href="index.html" class="nav-logo">WisePath</a>
-        <a href="index.html" class="nav-back">✕ Close</a>
-    </nav>
+    <header class="doc-header">
+        <div class="meta-tag">Reference: WSS-AUDIT-V2</div>
+        <h1>Systems Intake</h1>
+        <p>Confidential operational analysis for WisePath Systems.</p>
+    </header>
 
-    <div class="form-wrapper">
-        
-        <div class="form-header">
-            <h1>System Diagnostic</h1>
-            <p>This data feeds the scoring engine. Be precise.</p>
-        </div>
-
-        <div class="audit-card">
-            <form action="#" method="POST">
-                
-                <div class="form-group">
-                    <label>Business Name</label>
-                    <input type="text" placeholder="e.g. Acme Realty Group" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Industry</label>
-                    <select required>
-                        <option value="" disabled selected>Select your sector...</option>
-                        <option value="Real Estate">Real Estate / Team</option>
-                        <option value="Gym/Fitness">Gym / Fitness Studio</option>
-                        <option value="Medical/Clinic">Med Spa / Clinic</option>
-                        <option value="Home Services">Home Services (HVAC, Plumbing)</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Estimated Monthly Revenue</label>
-                    <select required>
-                        <option value="" disabled selected>Select range...</option>
-                        <option value="<10k">&lt; $10k/mo</option>
-                        <option value="10k-50k">$10k – $50k/mo</option>
-                        <option value="50k-100k">$50k – $100k/mo</option>
-                        <option value="100k+">$100k+/mo</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Primary Operational Pain</label>
-                    <select required>
-                        <option value="" disabled selected>Where is the leak?</option>
-                        <option value="Missed Leads">Missed Leads (Slow response)</option>
-                        <option value="Scheduling">Booking Chaos (No-shows)</option>
-                        <option value="FollowUp">No Follow-Up System</option>
-                        <option value="Overwhelmed">Tool Overload / Confusion</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Current CRM / Tools (Optional)</label>
-                    <input type="text" placeholder="e.g. Salesforce, Excel, Pen & Paper">
-                </div>
-
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" placeholder="joseph@example.com" required>
-                </div>
-
-                <button type="submit" class="submit-btn">Run Analysis</button>
-            </form>
+    <div class="dossier-container">
+        <!-- FORM -->
+        <form action="https://usebasin.com/f/94ff6103b733" method="POST">
+            
+            <!-- 01 / BUSINESS SNAPSHOT -->
+            <div class="section-title">
+                <span>Business Snapshot</span>
+                <span class="section-number">01 / 06</span>
             </div>
 
+            <div class="form-group">
+                <label>Business Name</label>
+                <input name="business_name" type="text" placeholder="e.g. Southside Realty Group" required>
+            </div>
+
+            <div class="form-group">
+                <label>Industry</label>
+                <input name="industry" type="text" placeholder="e.g. Real Estate, Law, Med Spa, Gym" required>
+            </div>
+
+            <div class="inline-row">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input name="owner_name" type="text" placeholder="Full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Best Email</label>
+                    <input name="email" type="email" placeholder="you@business.com" required>
+                </div>
+            </div>
+
+            <div class="inline-row">
+                <div class="form-group">
+                    <label>Team Size</label>
+                    <select name="employees" required>
+                        <option value="" disabled selected>Select...</option>
+                        <option value="solo">Solo</option>
+                        <option value="2-5">2–5</option>
+                        <option value="6-15">6–15</option>
+                        <option value="16-30">16–30</option>
+                        <option value="30+">30+</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Monthly Revenue (approx.)</label>
+                    <select name="revenue_range" required>
+                        <option value="" disabled selected>Select...</option>
+                        <option value="<5k">Under $5k</option>
+                        <option value="5-15k">$5k – $15k</option>
+                        <option value="15-30k">$15k – $30k</option>
+                        <option value="30-60k">$30k – $60k</option>
+                        <option value="60k+">$60k+</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Top Services or Offers</label>
+                <input name="top_services" type="text" placeholder="e.g. Buyer representation, 1:1 training, Invisalign packages">
+            </div>
+
+            <!-- 02 / LEAD FLOW -->
+            <div class="section-title">
+                <span>Lead Flow & Tracking</span>
+                <span class="section-number">02 / 06</span>
+            </div>
+
+            <div class="form-group">
+                <label>Where do most of your leads come from?</label>
+                <div class="help-text">List main channels (e.g. Facebook Ads, referrals, Zillow, walk-ins).</div>
+                <input name="lead_sources" type="text">
+            </div>
+
+            <div class="inline-row">
+                <div class="form-group">
+                    <label>New leads per week (average)</label>
+                    <input name="leads_per_week" type="number" min="0" placeholder="e.g. 10">
+                </div>
+                <div class="form-group">
+                    <label>How do you track leads right now?</label>
+                    <select name="lead_tracking">
+                        <option value="" disabled selected>Select...</option>
+                        <option value="none">No tracking</option>
+                        <option value="paper">Paper / notebook</option>
+                        <option value="spreadsheet">Spreadsheet</option>
+                        <option value="crm">CRM / software</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Do leads fall through the cracks?</label>
+                <select name="lead_dropoff">
+                    <option value="" disabled selected>Select...</option>
+                    <option value="no">No, almost all are contacted</option>
+                    <option value="some">Some go cold / never contacted</option>
+                    <option value="many">Many never get a real follow-up</option>
+                </select>
+            </div>
+
+            <!-- 03 / OPERATIONS -->
+            <div class="section-title">
+                <span>Daily Operations</span>
+                <span class="section-number">03 / 06</span>
+            </div>
+
+            <div class="inline-row">
+                <div class="form-group">
+                    <label>Average response time to a new lead</label>
+                    <select name="response_time">
+                        <option value="" disabled selected>Select...</option>
+                        <option value="0-5">0–5 minutes</option>
+                        <option value="5-30">5–30 minutes</option>
+                        <option value="same_day">Same day</option>
+                        <option value="2+days">2+ days</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Who owns follow-up?</label>
+                    <select name="lead_owner">
+                        <option value="" disabled selected>Select...</option>
+                        <option value="owner">Me (owner)</option>
+                        <option value="staff">Specific staff member</option>
+                        <option value="shared">Shared / depends</option>
+                        <option value="nobody">Nobody clearly owns it</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Main communication channels with clients</label>
+                <div class="help-text">e.g. Phone, text, email, DMs, portal, etc.</div>
+                <input name="comm_channels" type="text">
+            </div>
+
+            <div class="inline-row">
+                <div class="form-group">
+                    <label>How much of your process is manual?</label>
+                    <select name="manual_repetition">
+                        <option value="" disabled selected>Select...</option>
+                        <option value="low">Mostly automated / low manual work</option>
+                        <option value="medium">50/50 manual and automated</option>
+                        <option value="high">Almost everything is manual</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>How often are you interrupted during the day?</label>
+                    <select name="interruptions">
+                        <option value="" disabled selected>Select...</option>
+                        <option value="5-10min">Every 5–10 minutes</option>
+                        <option value="hour">About once an hour</option>
+                        <option value="few_times">A few times per day</option>
+                        <option value="rarely">Rarely / almost never</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 04 / SYSTEMS & TOOLS -->
+            <div class="section-title">
+                <span>Systems & Tools</span>
+                <span class="section-number">04 / 06</span>
+            </div>
+
+            <div class="form-group">
+                <label>How documented are your processes?</label>
+                <select name="documentation_level">
+                    <option value="" disabled selected>Select...</option>
+                    <option value="none">Nothing is documented</option>
+                    <option value="some">Some checklists / SOPs</option>
+                    <option value="good">Most core processes are documented</option>
+                    <option value="excellent">Everything is written and followed</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>How many different tools do you switch between daily?</label>
+                <select name="tools_switching">
+                    <option value="" disabled selected>Select...</option>
+                    <option value="1-3">1–3 tools</option>
+                    <option value="4-6">4–6 tools</option>
+                    <option value="7+">7 or more tools</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Where do tasks get lost or forgotten?</label>
+                <textarea name="lost_tasks" placeholder="e.g. call-backs, sending invoices, rescheduling, follow-ups."></textarea>
+            </div>
+
+            <!-- 05 / CLIENT EXPERIENCE -->
+            <div class="section-title">
+                <span>Client Experience</span>
+                <span class="section-number">05 / 06</span>
+            </div>
+
+            <div class="form-group">
+                <label>How often do clients miss appointments, payments, or steps?</label>
+                <select name="missed_items">
+                    <option value="" disabled selected>Select...</option>
+                    <option value="rarely">Rarely</option>
+                    <option value="sometimes">Sometimes</option>
+                    <option value="often">Often</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Do clients ever seem confused about “what happens next”?</label>
+                <select name="client_confusion">
+                    <option value="" disabled selected>Select...</option>
+                    <option value="no">No, it’s very clear</option>
+                    <option value="some">Sometimes</option>
+                    <option value="yes">Yes, often</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>How often do customers return or buy again?</label>
+                <select name="repeat_rate">
+                    <option value="" disabled selected>Select...</option>
+                    <option value="low">Low – mostly one-off</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High – lots of repeat business</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Anything your clients regularly complain about?</label>
+                <textarea name="feedback" placeholder="Optional, but very helpful for us."></textarea>
+            </div>
+
+            <!-- 06 / GOALS & STYLE -->
+            <div class="section-title">
+                <span>Goals & Implementation Style</span>
+                <span class="section-number">06 / 06</span>
+            </div>
+
+            <div class="form-group">
+                <label>Your primary 90-day goal</label>
+                <div class="help-text">What would make this project an obvious win for you?</div>
+                <textarea name="goal_90"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Biggest pain point right now</label>
+                <textarea name="primary_pain" placeholder="If we fixed just one thing, what should it be?"></textarea>
+            </div>
+
+            <div class="inline-row">
+                <div class="form-group">
+                    <label>Preferred system style</label>
+                    <select name="system_style">
+                        <option value="" disabled selected>Select...</option>
+                        <option value="simple">Keep it minimal and simple</option>
+                        <option value="powerful">More advanced, powerful system</option>
+                        <option value="balanced">Balanced between simple and powerful</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Comfort with AI & automation</label>
+                    <select name="ai_comfort">
+                        <option value="" disabled selected>Select...</option>
+                        <option value="low">New to AI / a bit skeptical</option>
+                        <option value="medium">Comfortable, but want guardrails</option>
+                        <option value="high">Very comfortable, ready to lean in</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="height: 60px;"></div>
+            
+            <!-- STICKY ACTION BAR -->
+            <div class="action-bar">
+                <a href="index.html" class="cancel-btn">Cancel Audit</a>
+                <button type="submit" class="submit-btn">Submit for Analysis</button>
+            </div>
+
+        </form>
     </div>
 
 </body>

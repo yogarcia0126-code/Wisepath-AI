@@ -1,688 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WisePath AI | Automation for Serious Businesses</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg: #03100d;
-            --bg-soft: #0a201a;
-            --accent: #1ed38b;
-            --accent-soft: rgba(30, 211, 139, 0.14);
-            --text-main: #f5f7f6;
-            --text-muted: #a8b5af;
-            --border-subtle: #1f3b32;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: radial-gradient(circle at top, #12382a 0, #050d0b 50%, #010403 100%);
-            color: var(--text-main);
-            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        /* NAVBAR */
-
-        .nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(18px);
-            background: rgba(5, 14, 11, 0.9);
-            border-bottom: 1px solid rgba(73, 122, 103, 0.4);
-        }
-
-        .nav-inner {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 14px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-        }
-
-        .logo {
-            font-weight: 700;
-            letter-spacing: 0.09em;
-            text-transform: uppercase;
-            font-size: 14px;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 18px;
-            font-size: 13px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-muted);
-            padding: 6px 10px;
-            border-radius: 999px;
-            transition: all 0.25s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-main);
-            background: rgba(30, 211, 139, 0.12);
-        }
-
-        .nav-cta {
-            border-radius: 999px;
-            padding: 8px 16px;
-            border: 1px solid var(--accent);
-            color: #02140b;
-            background: var(--accent);
-            font-size: 13px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s;
-            white-space: nowrap;
-        }
-
-        .nav-cta:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
-            background: #29e295;
-        }
-
-        /* LAYOUT */
-
-        .page {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 32px 20px 72px;
-        }
-
-        section {
-            margin-bottom: 72px;
-        }
-
-        /* TOKENS / SMALL ELEMENTS */
-
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 10px;
-            border-radius: 999px;
-            background: var(--accent-soft);
-            color: var(--accent);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            margin-bottom: 12px;
-        }
-
-        .tag {
-            display: inline-block;
-            font-size: 11px;
-            padding: 4px 9px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--text-muted);
-            margin-top: 8px;
-        }
-
-        .badge-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .badge {
-            font-size: 11px;
-            padding: 4px 9px;
-            border-radius: 999px;
-            border: 1px solid var(--border-subtle);
-            color: var(--text-muted);
-        }
-
-        /* TYPOGRAPHY */
-
-        h1 {
-            font-size: clamp(32px, 4vw, 40px);
-            line-height: 1.08;
-            margin-bottom: 14px;
-        }
-
-        h2 {
-            font-size: 22px;
-            margin-bottom: 8px;
-        }
-
-        h3 {
-            font-size: 16px;
-            margin-bottom: 6px;
-        }
-
-        p {
-            font-size: 14px;
-        }
-
-        .about-muted {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        .section-header {
-            margin-bottom: 20px;
-        }
-
-        .section-header p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        /* HERO */
-
-        .hero {
-            max-width: 1120px;
-            margin: 36px auto 72px;
-            padding: 0 2px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 32px;
-            align-items: center;
-        }
-
-        .hero > div:first-child {
-            flex: 1 1 360px;
-            max-width: 560px;
-        }
-
-        .hero > div:last-child {
-            flex: 1 1 260px;
-        }
-
-        .hero-eyebrow {
-            font-size: 12px;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            color: #7fa497;
-            margin-bottom: 6px;
-        }
-
-        .hero p {
-            color: var(--text-muted);
-            font-size: 15px;
-            line-height: 1.75;
-        }
-
-        .hero-cta-row {
-            margin-top: 20px;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary,
-        .btn-ghost {
-            border-radius: 999px;
-            padding: 10px 18px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #02140b;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 14px 26px rgba(0, 0, 0, 0.4);
-            background: #29e295;
-        }
-
-        .btn-ghost {
-            border: 1px solid var(--border-subtle);
-            color: var(--text-muted);
-            background: transparent;
-        }
-
-        .btn-ghost:hover {
-            border-color: var(--accent);
-            color: var(--text-main);
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .hero-metrics {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 18px;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 18px;
-        }
-
-        .hero-metrics strong {
-            display: block;
-            font-size: 19px;
-            color: var(--text-main);
-        }
-
-        /* CARDS AND GRIDS */
-
-        .card {
-            background: var(--bg-soft);
-            border-radius: 18px;
-            border: 1px solid var(--border-subtle);
-            padding: 20px 20px 22px;
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 18px;
-        }
-
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-            gap: 16px;
-        }
-
-        .process-step-number {
-            font-size: 11px;
-            letter-spacing: 0.09em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 4px;
-        }
-
-        .contact-card p {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
-
-        .contact-card a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .contact-card a:hover {
-            text-decoration: underline;
-        }
-
-        /* FOOTER */
-
-        footer {
-            border-top: 1px solid var(--border-subtle);
-            padding: 18px 20px 26px;
-            font-size: 12px;
-            color: var(--text-muted);
-            background: #020806;
-        }
-
-        footer a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Reveal / Apple-like motion */
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Mobile */
-
-        @media (max-width: 780px) {
-            .nav-inner {
-                padding: 10px 14px;
-                gap: 10px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .page {
-                padding: 26px 16px 56px;
-            }
-
-            .hero {
-                margin-top: 24px;
-                margin-bottom: 56px;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            section {
-                margin-bottom: 56px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>WisePath Systems – The Operating System for Your Business</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
-
 <body>
-
-<nav class="nav">
-    <div class="nav-inner">
-        <div class="logo">
-            WISEPATH <span>AI</span>
-        </div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="services.html">Services</a>
-            <a href="sectors.html">Sectors</a>
-            <a href="insights.html">Insights</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-            <a href="contract.html">Service Agreement</a>
-        </div>
-        <a class="nav-cta" href="intake.html">Book a consult</a>
+  <!-- HEADER -->
+  <header class="wp-header">
+    <div class="wp-container">
+      <div class="wp-logo">
+        <img src="assets/img/wisepath-crown.svg" alt="WisePath logo" class="wp-logo-mark" />
+        <span class="wp-logo-text">WISEPATH</span>
+      </div>
+      <nav class="wp-nav">
+        <a href="#method">Method</a>
+        <a href="#services">Services</a>
+        <a href="#score">Score</a>
+        <a href="#contact">Audit</a>
+      </nav>
     </div>
-</nav>
+  </header>
 
-<div class="page">
-
+  <main>
     <!-- HERO -->
-    <section class="hero reveal">
-        <div>
-            <p class="hero-eyebrow">WisePath AI · Chicago</p>
-            <div class="pill">AI automation for real businesses — not theory</div>
-            <h1>Systems that work while you sleep.</h1>
+    <section class="wp-hero">
+      <div class="wp-container">
+        <p class="wp-kicker">Clarity · Automation · Control</p>
+        <h1>THE OPERATING SYSTEM<br />FOR YOUR BUSINESS.</h1>
+        <p class="wp-hero-sub">
+          You’re drowning in manual work. We diagnose the leaks, automate the workflow,
+          and build a system in the background.
+        </p>
+        <div class="wp-hero-buttons">
+          <a href="#contact" class="btn btn-primary">Start Your System Audit</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ONE SENTENCE VALUE -->
+    <section class="wp-strip">
+      <div class="wp-container">
+        <p><strong>We turn chaotic businesses into structured, automated operating machines.</strong></p>
+      </div>
+    </section>
+
+    <!-- METHOD -->
+    <section id="method" class="wp-section">
+      <div class="wp-container">
+        <h2>The WisePath Method</h2>
+        <p>
+          Every business has moving parts. We give those parts a structure, a flow, and a system
+          that doesn’t depend on you manually holding everything together.
+          The WisePath Method is a five–step framework for taking a noisy operation and turning
+          it into a stable, automated machine.
+        </p>
+        <div class="wp-grid wp-grid-5">
+          <div class="wp-card">
+            <h3>1. Diagnose</h3>
             <p>
-                WisePath AI builds custom automation for realtors, small businesses, and creators in Chicago
-                and beyond. We plug AI into your existing tools so you stop losing leads, stop repeating manual work,
-                and start operating like a firm with a full-time ops team.
+              We start with a deep audit of your current systems, tools, communication, and bottlenecks.
+              We map where time is wasted, where information gets lost, and where money leaks out.
             </p>
-
-            <div class="hero-cta-row">
-                <a class="btn-primary" href="intake.html">Schedule a free systems audit →</a>
-                <a class="btn-ghost" href="#services">See what we automate</a>
-            </div>
-
-            <div class="hero-metrics">
-                <div>
-                    <strong>24/7</strong>
-                    Smart client follow-up with no extra staff.
-                </div>
-                <div>
-                    <strong>+30–50%</strong>
-                    More leads contacted once automation is live.
-                </div>
-            </div>
+          </div>
+          <div class="wp-card">
+            <h3>2. Identify</h3>
+            <p>
+              We identify the critical processes that drive your business—sales, fulfillment,
+              customer experience, scheduling, reporting—and define exactly what “healthy” should look like.
+            </p>
+          </div>
+          <div class="wp-card">
+            <h3>3. Build</h3>
+            <p>
+              We design and build your architecture: workflows, automations, dashboards, and data structures.
+              Everything is documented and designed to be understood by your team, not just a developer.
+            </p>
+          </div>
+          <div class="wp-card">
+            <h3>4. Structure</h3>
+            <p>
+              We implement the systems in your real environment—CRMs, calendars, project tools, forms, inboxes—
+              and create clear roles, handoffs, and checklists so the business can run the same way every day.
+            </p>
+          </div>
+          <div class="wp-card">
+            <h3>5. Adjust</h3>
+            <p>
+              We monitor performance, track key metrics, and make adjustments as your business grows.
+              Systems are living things—we tune them so they stay clean, stable, and reliable.
+            </p>
+          </div>
         </div>
-
-        <div>
-            <div class="card">
-                <h3>Snapshot: a realtor on WisePath</h3>
-                <p class="about-muted" style="margin-top: 8px;">
-                    • New leads from Zillow, IG, and referrals drop into one clean pipeline.<br>
-                    • Each lead gets an instant text + email, sent in their tone of voice.<br>
-                    • Showings, follow-ups, and reminders are scheduled without the agent touching a keyboard.
-                </p>
-                <span class="tag">Built on tools you already use — no hype platforms.</span>
-            </div>
-        </div>
+      </div>
     </section>
 
     <!-- SERVICES -->
-    <section id="services" class="reveal">
-        <div class="section-header">
-            <h2>Services</h2>
-            <p>We keep the menu simple on purpose. Every build is custom, but these are the core systems.</p>
+    <section id="services" class="wp-section wp-alt">
+      <div class="wp-container">
+        <h2>What We Build With You</h2>
+        <p>
+          WisePath is not a “tool stack recommendation” or a one–off automation.
+          We help you build a durable operating system around three pillars.
+        </p>
+        <div class="wp-grid">
+          <div class="wp-card">
+            <h3>Pillar I — Business Architecture</h3>
+            <ul>
+              <li>Process mapping and documentation</li>
+              <li>Role and responsibility mapping</li>
+              <li>Communication flow design</li>
+              <li>System selection and integration strategy</li>
+              <li>Standard operating procedures (SOPs)</li>
+            </ul>
+          </div>
+          <div class="wp-card">
+            <h3>Pillar II — Automation Design</h3>
+            <ul>
+              <li>CRM, calendar, and scheduling automations</li>
+              <li>Lead capture and intake flows</li>
+              <li>Notifications, reminders, and follow-ups</li>
+              <li>Zapier / Make / native integrations</li>
+              <li>AI-assisted workflows and automated reporting</li>
+            </ul>
+          </div>
+          <div class="wp-card">
+            <h3>Pillar III — Performance Monitoring</h3>
+            <ul>
+              <li>Custom dashboards for owners and managers</li>
+              <li>Health score tracking for key processes</li>
+              <li>Monthly performance reviews</li>
+              <li>Quarterly system overhauls</li>
+              <li>WisePath Score reports with clear recommendations</li>
+            </ul>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <div class="card-grid">
-            <div class="card">
-                <h3>Lead Capture & Routing</h3>
-                <p class="about-muted">
-                    Turn forms, DMs, and website hits into a single organized pipeline.
-                    No more “I forgot to text them back.”
-                </p>
-                <span class="tag">CRMs · Forms · Website → one source of truth</span>
-            </div>
-            <div class="card">
-                <h3>AI Follow-Up Messaging</h3>
-                <p class="about-muted">
-                    Automated but human-sounding text + email sequences that keep leads warm
-                    without sounding like a robot.
-                </p>
-                <span class="tag">Sequences that match your tone</span>
-            </div>
-            <div class="card">
-                <h3>Internal Automation</h3>
-                <p class="about-muted">
-                    Notifications, task creation, and handoffs so your team knows exactly
-                    what to do next without a manager repeating themselves.
-                </p>
-                <span class="tag">ClickUp · Notion · Google Workspace · more</span>
-            </div>
-            <div class="card">
-                <h3>AI-Optimized Websites</h3>
-                <p class="about-muted">
-                    Fast, clean sites wired directly into your automations instead of
-                    pretty pages that don’t move revenue.
-                </p>
-                <span class="tag">Strategy-first web builds</span>
-            </div>
+    <!-- WISEPATH SCORE -->
+    <section id="score" class="wp-section">
+      <div class="wp-container">
+        <h2>The WisePath Score</h2>
+        <p>
+          Most owners run on gut feeling. We give you a number.
+          The WisePath Score measures the health of your business across seven indices so you can see,
+          in plain language, where you are strong and where you are at risk.
+        </p>
+        <div class="wp-grid wp-grid-3">
+          <div class="wp-card">
+            <h3>OCI — Operational Clarity Index</h3>
+            <p>How clear your team is on who does what, when, and with which tools.</p>
+          </div>
+          <div class="wp-card">
+            <h3>CEM — Client Experience Metric</h3>
+            <p>How consistent, smooth, and predictable your client or customer experience is.</p>
+          </div>
+          <div class="wp-card">
+            <h3>AIS — Automation Integration Score</h3>
+            <p>How much of your work is structured and automated versus manual and reactive.</p>
+          </div>
+          <div class="wp-card">
+            <h3>RES — Reliability &amp; Error Score</h3>
+            <p>How often things fall through the cracks—missed follow-ups, lost files, rework.</p>
+          </div>
+          <div class="wp-card">
+            <h3>SMS — System Maturity Score</h3>
+            <p>How durable and documented your systems are. Could they survive turnover or growth?</p>
+          </div>
+          <div class="wp-card">
+            <h3>ODS — Organizational Data Structure</h3>
+            <p>How well your information is stored, named, and accessible across tools and teams.</p>
+          </div>
+          <div class="wp-card">
+            <h3>WPR — WisePath Performance Rating</h3>
+            <p>Your combined rating showing overall operational health and room to grow.</p>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- WHO WE SERVE -->
-    <section id="who" class="reveal">
-        <div class="section-header">
-            <h2>Who We Serve</h2>
-            <p>We work best with operators who are serious about their craft and tired of chaos.</p>
+    <section class="wp-section wp-alt">
+      <div class="wp-container">
+        <h2>Built for Owners Who Want Order</h2>
+        <p>
+          WisePath works best with businesses that are already moving and want structure, not theory.
+        </p>
+        <div class="wp-tags">
+          <span>Real estate agents</span>
+          <span>Creative studios</span>
+          <span>Photographers</span>
+          <span>Contractors</span>
+          <span>Restaurants</span>
+          <span>Barbershops &amp; salons</span>
+          <span>Coaches &amp; consultants</span>
+          <span>Churches &amp; community orgs</span>
+          <span>Early-stage startups</span>
         </div>
-
-        <div class="card-grid">
-            <div class="card">
-                <h3>Realtors & Small Brokerages</h3>
-                <p class="about-muted">
-                    Tight follow-up, showing coordination, and simple dashboards so you know where
-                    every deal lives.
-                </p>
-            </div>
-            <div class="card">
-                <h3>Local Service Businesses</h3>
-                <p class="about-muted">
-                    Gyms, barbers, coaches, and clinics that want booking, reminders,
-                    and payments to run without constant manual work.
-                </p>
-            </div>
-            <div class="card">
-                <h3>Creators & Solo Brands</h3>
-                <p class="about-muted">
-                    Capture attention once, then let systems keep nurturing and booking sales calls
-                    while you focus on the work.
-                </p>
-            </div>
-        </div>
+      </div>
     </section>
 
-    <!-- PROCESS -->
-    <section id="process" class="reveal">
-        <div class="section-header">
-            <h2>Process</h2>
-            <p>Simple, documented, and structured. No black-box magic. You see every step.</p>
-        </div>
-
-        <div class="process-steps">
-            <div class="card">
-                <div class="process-step-number">Step 01</div>
-                <h3>Systems Audit</h3>
-                <p class="about-muted">
-                    We map how work actually moves through your day:
-                    tools, bottlenecks, and where leads die.
-                </p>
-            </div>
-            <div class="card">
-                <div class="process-step-number">Step 02</div>
-                <h3>Design & Approval</h3>
-                <p class="about-muted">
-                    You see the proposed automations, flows, and touchpoints.
-                    Nothing is built until you sign off.
-                </p>
-            </div>
-            <div class="card">
-                <div class="process-step-number">Step 03</div>
-                <h3>Build & Test</h3>
-                <p class="about-muted">
-                    We wire the automations into your real tools and test against
-                    real leads or dummy data before launch.
-                </p>
-            </div>
-            <div class="card">
-                <div class="process-step-number">Step 04</div>
-                <h3>Launch & Iterate</h3>
-                <p class="about-muted">
-                    We monitor results, tighten weak spots, and leave you with a documented
-                    system you actually understand.
-                </p>
-            </div>
-        </div>
+    <!-- CHICAGO SECTION -->
+    <section class="wp-section">
+      <div class="wp-container">
+        <h2>Rooted in Chicago. Designed for the World.</h2>
+        <p>
+          WisePath Systems is based on the South Side of Chicago.
+          We understand what it means to build something real in a real city—tight margins,
+          real people depending on you, and no patience for fluff.
+          Our work is local and personal, but our systems are built to scale anywhere.
+        </p>
+      </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="reveal">
-        <div class="section-header">
-            <h2>About WisePath</h2>
-            <p>Built in Chicago with a law-firm mindset: precision, documentation, and long-term relationships.</p>
-        </div>
-
-        <div class="card-grid" style="grid-template-columns: minmax(0, 2.4fr) minmax(0, 2.2fr);">
-            <div class="card">
-                <h3>Why WisePath exists</h3>
-                <p class="about-muted">
-                    WisePath AI was created to give small operators the kind of systems
-                    you normally only see inside large firms. You shouldn’t need a
-                    $10k/month operations team to run a disciplined business.
-                </p>
-                <p class="about-muted" style="margin-top: 10px;">
-                    Every build is grounded in clear communication, written processes,
-                    and respect for your data and your clients.
-                </p>
-            </div>
-            <div class="card">
-                <h3>How we think</h3>
-                <p class="about-muted">
-                    • Law-firm level attention to detail<br>
-                    • Automation only where it truly helps<br>
-                    • No dark patterns, no spam, no shortcuts<br>
-                    • Systems that would still make sense five years from now
-                </p>
-                <div class="badge-row">
-                    <span class="badge">Chicago-based</span>
-                    <span class="badge">Operator-first</span>
-                    <span class="badge">AI + workflow design</span>
-                </div>
-            </div>
-        </div>
+    <!-- CTA / CONTACT -->
+    <section id="contact" class="wp-section wp-cta">
+      <div class="wp-container">
+        <h2>Start With a Business Audit</h2>
+        <p>
+          One focused session. One clear score. A prioritized path to a quieter, more stable business.
+        </p>
+        <!-- TODO: replace href with your real Calendly/Cal.com booking link -->
+        <a href="mailto:hello@wisepathsystems.com" class="btn btn-primary">
+          Start Your System Audit
+        </a>
+        <p class="wp-micro">
+          You’ll answer a short intake and we’ll schedule a time that works for you.
+        </p>
+      </div>
     </section>
+  </main>
 
-    <!-- CONTACT -->
-    <section id="contact" class="reveal">
-        <div class="section-header">
-            <h2>Contact</h2>
-            <p>Ready for your business to run on systems instead of stress? Start with a short conversation.</p>
-        </div>
-
-        <div class="card contact-card">
-            <p>
-                Send a short message about your business, your current tools, and what
-                feels the most broken right now. You’ll get a reply with one or two
-                clear next steps — no spam, no pressure.
-            </p>
-            <p>
-                📧 Email: <a href="mailto:services@wisepath.com">services@wisepath.com</a><br>
-                🕒 Typical response time: under 24 hours.
-            </p>
-            <a class="btn-primary" href="mailto:services@wisepath.com">
-                Email WisePath AI →
-            </a>
-        </div>
-    </section>
-
-</div>
-
-<footer>
-    <div style="max-width: 1120px; margin: 0 auto; text-align: left;">
-        <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: flex-start;">
-            <div>
-                <div style="font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 12px;">
-                    WisePath AI
-                </div>
-                <div style="font-size: 12px; margin-top: 6px;">
-                    Chicago, Illinois • Automation &amp; AI Systems Consulting
-                </div>
-            </div>
-            <div style="font-size: 12px; display: flex; flex-wrap: wrap; gap: 14px;">
-                <a href="contract.html">Service Agreement</a>
-                <span>·</span>
-                <span>Privacy Policy (coming soon)</span>
-                <span>·</span>
-                <a href="contact.html">Contact</a>
-            </div>
-        </div>
-        <div style="font-size: 11px; color: #77847f; margin-top: 10px; text-align: left;">
-            © 2025 WisePath AI. All rights reserved. This site and its content are for informational purposes only and do not constitute legal, financial, or tax advice.
-        </div>
+  <!-- FOOTER -->
+  <footer class="wp-footer">
+    <div class="wp-container">
+      <div>
+        <strong>WisePath Systems</strong><br />
+        Based in Chicago, Illinois
+      </div>
+      <div>
+        <a href="privacy.html">Privacy Policy</a> ·
+        <a href="terms.html">Terms of Use</a><br />
+        <a href="mailto:hello@wisepathsystems.com">hello@wisepathsystems.com</a>
+      </div>
+      <div class="wp-copy">
+        © WisePath Systems. All rights reserved.
+      </div>
     </div>
-</footer>
-
-<script>
-    // Simple scroll-reveal animation
-    const reveals = document.querySelectorAll('.reveal');
-
-    const onScroll = () => {
-        const triggerBottom = window.innerHeight * 0.88;
-
-        reveals.forEach((el) => {
-            const boxTop = el.getBoundingClientRect().top;
-            if (boxTop < triggerBottom) {
-                el.classList.add('visible');
-            }
-        });
-    };
-
-    window.addEventListener('scroll', onScroll);
-    window.addEventListener('load', onScroll);
-</script>
-
+  </footer>
 </body>
 </html>

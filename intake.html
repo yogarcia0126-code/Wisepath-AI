@@ -17,20 +17,19 @@
             --paper-color: #FFFFFF;
             --text-main: #111111;
             --text-muted: #6E6E73;
-            --accent-blue: #0071E3; /* Apple Blue */
-            --input-bg: #F5F5F7;    /* Apple Grey */
-            --border-radius: 18px;  /* Apple Smooth Curve */
-            --kirkland-red: #8A1538; /* Subtle nod to Kirkland, used for alerts/important */
+            --accent-blue: #0071E3;
+            --input-bg: #F5F5F7;
+            --border-radius: 18px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
 
         body {
-            font-family: 'Inter', sans-serif; /* Default to clean UI font */
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.5;
-            padding-bottom: 80px;
+            padding-bottom: 100px; /* Space for sticky footer */
         }
 
         /* --- THE "LEGAL" HEADER --- */
@@ -40,7 +39,7 @@
         }
 
         .doc-header h1 {
-            font-family: 'Playfair Display', serif; /* The Kirkland Touch */
+            font-family: 'Playfair Display', serif;
             font-size: 48px;
             letter-spacing: -0.02em;
             margin-bottom: 16px;
@@ -56,24 +55,25 @@
             display: inline-block;
             padding: 6px 12px;
             border-radius: 4px;
+            margin-bottom: 16px;
         }
 
         /* --- THE "DOSSIER" CONTAINER --- */
         .dossier-container {
-            max-width: 640px;
+            max-width: 700px;
             margin: 0 auto;
             background: var(--paper-color);
             border-radius: var(--border-radius);
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             border: 1px solid rgba(0,0,0,0.05);
             padding: 60px;
-            position: relative;
         }
 
-        /* --- FORM TYPOGRAPHY --- */
+        /* --- TYPOGRAPHY --- */
         .section-title {
             font-family: 'Playfair Display', serif;
             font-size: 24px;
+            margin-top: 60px;
             margin-bottom: 24px;
             padding-bottom: 12px;
             border-bottom: 1px solid #E5E5E5;
@@ -83,6 +83,8 @@
             align-items: center;
         }
         
+        .section-title:first-child { margin-top: 0; }
+
         .section-number {
             font-family: 'Inter', sans-serif;
             font-size: 12px;
@@ -92,20 +94,32 @@
             letter-spacing: 0.05em;
         }
 
-        /* --- APPLE STYLE INPUTS --- */
+        .section-sub {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: -12px;
+            margin-bottom: 32px;
+        }
+
+        /* --- INPUTS --- */
         .form-group { margin-bottom: 32px; }
 
         label {
             display: block;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 10px;
             color: var(--text-main);
         }
 
-        input, select, textarea {
+        /* Standard Text Inputs */
+        input[type="text"], 
+        input[type="email"], 
+        input[type="number"], 
+        select, 
+        textarea {
             width: 100%;
-            padding: 18px;
+            padding: 16px 18px;
             border-radius: 12px;
             border: 1px solid transparent; 
             background-color: var(--input-bg);
@@ -116,20 +130,39 @@
             outline: none;
         }
 
-        /* The Focus State (Apple Blue Glow) */
+        textarea { resize: vertical; min-height: 100px; }
+
         input:focus, select:focus, textarea:focus {
             background-color: #fff;
             box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.12);
             border-color: var(--accent-blue);
         }
 
-        /* Custom Select Arrow */
-        select {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 16px center;
-            background-size: 16px;
+        /* --- CHECKBOXES & RADIOS (Custom Layout) --- */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .check-label {
+            display: flex;
+            align-items: center;
+            font-weight: 400; /* Regular weight for options */
+            cursor: pointer;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background-color: #FAFAFA; /* Very subtle bg for options */
+            transition: background 0.2s;
+        }
+
+        .check-label:hover { background-color: #F0F0F0; }
+
+        .check-label input {
+            width: auto;
+            margin-right: 12px;
+            accent-color: #000; /* Black checks */
+            transform: scale(1.1);
         }
 
         /* --- ACTION BAR (Sticky Bottom) --- */
@@ -172,111 +205,273 @@
             text-decoration: none;
         }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .dossier-container { padding: 30px 20px; margin: 0 10px; }
             .doc-header h1 { font-size: 36px; }
-            .cancel-btn { display: none; } /* Hide back button on mobile sticky bar for space */
+            .cancel-btn { display: none; }
         }
     </style>
 </head>
 <body>
 
     <header class="doc-header">
-        <div class="meta-data">Reference: WSS-V2-AUDIT</div>
-        <h1>Operational Intake</h1>
+        <div class="meta-data">Reference: WSS-AUDIT-V2</div>
+        <h1>Systems Intake</h1>
         <p style="color: var(--text-muted); font-size: 16px; max-width: 460px; margin: 0 auto; line-height: 1.5;">
-            Confidential analysis of operational infrastructure. <br>
-            Please provide precise data for accurate scoring.
+            Confidential Analysis. Honest answers generate accurate blueprints.
         </p>
     </header>
 
     <div class="dossier-container">
         
-        <form action="#" method="POST">
+        <form action="https://usebasin.com/f/94ff6103b733" method="POST">
             
             <div class="section-title">
-                Organization Identity
-                <span class="section-number">01 / 04</span>
+                Business Snapshot
+                <span class="section-number">01 / 06</span>
+            </div>
+            <div class="section-sub">Context for the architecture.</div>
+
+            <div class="form-group">
+                <label>Business Name</label>
+                <input name="business_name" type="text" placeholder="e.g. Southside Realty Group" required>
             </div>
 
             <div class="form-group">
-                <label>Legal Entity Name</label>
-                <input type="text" placeholder="e.g. Acme Holdings LLC" required>
+                <label>Industry</label>
+                <input name="industry" type="text" placeholder="e.g. Real Estate, Law, Clinic" required>
             </div>
 
             <div class="form-group">
-                <label>Primary Sector</label>
-                <select required>
-                    <option value="" disabled selected>Select Classification...</option>
-                    <option value="Real Estate">Real Estate / Brokerage</option>
-                    <option value="Medical">Medical / Healthcare</option>
-                    <option value="Legal">Legal Services</option>
-                    <option value="Fitness">Fitness / Wellness</option>
-                    <option value="Contracting">Trade / Contracting</option>
-                </select>
-            </div>
-
-            <div class="section-title" style="margin-top: 60px;">
-                Revenue & Velocity
-                <span class="section-number">02 / 04</span>
+                <label>Your Name</label>
+                <input name="owner_name" type="text" required>
             </div>
 
             <div class="form-group">
-                <label>Monthly Gross Revenue (Avg)</label>
-                <select required>
-                    <option value="" disabled selected>Select Range...</option>
-                    <option value="<20k">Under $20,000</option>
-                    <option value="20k-50k">$20,000 – $50,000</option>
-                    <option value="50k-100k">$50,000 – $100,000</option>
-                    <option value="100k+">$100,000+</option>
-                </select>
+                <label>Best Email (for report delivery)</label>
+                <input name="email" type="email" placeholder="you@business.com" required>
             </div>
 
             <div class="form-group">
-                <label>Current Lead Volume (Monthly)</label>
-                <input type="number" placeholder="e.g. 150">
-            </div>
-
-            <div class="section-title" style="margin-top: 60px;">
-                Operational Pathology
-                <span class="section-number">03 / 04</span>
-            </div>
-
-            <div class="form-group">
-                <label>Primary Failure Point</label>
-                <select required>
-                    <option value="" disabled selected>Identify the bottleneck...</option>
-                    <option value="Speed">Lead Response Time (Too Slow)</option>
-                    <option value="Conversion">Low Conversion Rate</option>
-                    <option value="Retention">Client Retention / Churn</option>
-                    <option value="Chaos">Administrative Chaos</option>
+                <label>Team Size</label>
+                <select name="employees">
+                    <option value="" disabled selected>Select...</option>
+                    <option value="solo">Solo Founder</option>
+                    <option value="2-5">2-5 Employees</option>
+                    <option value="6-15">6-15 Employees</option>
+                    <option value="16-30">16-30 Employees</option>
+                    <option value="30+">30+ Employees</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>Current Technical Stack</label>
-                <textarea rows="3" placeholder="List current CRMs, tools, or software..."></textarea>
-            </div>
-
-            <div class="section-title" style="margin-top: 60px;">
-                Officer Contact
-                <span class="section-number">04 / 04</span>
+                <label>Monthly Revenue Range</label>
+                <select name="revenue_range">
+                    <option value="" disabled selected>Select...</option>
+                    <option value="<5k">Under $5k</option>
+                    <option value="5-15k">$5k – $15k</option>
+                    <option value="15-30k">$15k – $30k</option>
+                    <option value="30-60k">$30k – $60k</option>
+                    <option value="60k+">$60k+</option>
+                </select>
             </div>
 
             <div class="form-group">
-                <label>Direct Email</label>
-                <input type="email" placeholder="name@firm.com" required>
+                <label>Top 3 Services / Offers</label>
+                <textarea name="top_services" placeholder="e.g. Buyer Rep, Listings, Rental Mgmt"></textarea>
             </div>
-            
+
+
+            <div class="section-title">
+                Lead Flow
+                <span class="section-number">02 / 06</span>
+            </div>
+            <div class="section-sub">Acquisition and tracking.</div>
+
+            <div class="form-group">
+                <label>Where do leads come from?</label>
+                <div class="options-grid">
+                    <label class="check-label"><input type="checkbox" name="lead_sources[]" value="website"> Website</label>
+                    <label class="check-label"><input type="checkbox" name="lead_sources[]" value="instagram"> Instagram / Social</label>
+                    <label class="check-label"><input type="checkbox" name="lead_sources[]" value="referrals"> Referrals</label>
+                    <label class="check-label"><input type="checkbox" name="lead_sources[]" value="marketplaces"> Marketplaces (Zillow/Yelp)</label>
+                    <label class="check-label"><input type="checkbox" name="lead_sources[]" value="other"> Other</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Avg. New Leads Per Week</label>
+                <input name="leads_per_week" type="number" placeholder="Estimate is fine">
+            </div>
+
+            <div class="form-group">
+                <label>Current Tracking Method</label>
+                <select name="lead_tracking">
+                    <option value="" disabled selected>Select...</option>
+                    <option value="dont">I do not track them</option>
+                    <option value="notes_app">Notes App / Paper</option>
+                    <option value="spreadsheet">Spreadsheet</option>
+                    <option value="crm">CRM</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Do leads fall through the cracks?</label>
+                <div class="options-grid">
+                    <label class="check-label"><input type="radio" name="lead_dropoff" value="constantly"> Constantly</label>
+                    <label class="check-label"><input type="radio" name="lead_dropoff" value="sometimes"> Sometimes</label>
+                    <label class="check-label"><input type="radio" name="lead_dropoff" value="never"> Never</label>
+                </div>
+            </div>
+
+
+            <div class="section-title">
+                Operations & Speed
+                <span class="section-number">03 / 06</span>
+            </div>
+
+            <div class="form-group">
+                <label>Average Response Time</label>
+                <select name="response_time">
+                    <option value="" disabled selected>Select...</option>
+                    <option value="0-5">0-5 minutes (Elite)</option>
+                    <option value="5-30">5-30 minutes</option>
+                    <option value="same_day">Same Day</option>
+                    <option value="2+days">2+ Days (Slow)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Primary Communication Channels</label>
+                <div class="options-grid">
+                    <label class="check-label"><input type="checkbox" name="comm_channels[]" value="phone"> Phone</label>
+                    <label class="check-label"><input type="checkbox" name="comm_channels[]" value="sms"> SMS / Text</label>
+                    <label class="check-label"><input type="checkbox" name="comm_channels[]" value="email"> Email</label>
+                    <label class="check-label"><input type="checkbox" name="comm_channels[]" value="dm"> Social DMs</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Current Automation Level</label>
+                <div class="options-grid">
+                    <label class="check-label"><input type="radio" name="automation_level" value="none"> None (All Manual)</label>
+                    <label class="check-label"><input type="radio" name="automation_level" value="some"> Some</label>
+                    <label class="check-label"><input type="radio" name="automation_level" value="full"> Full Automation</label>
+                </div>
+            </div>
+
+
+            <div class="section-title">
+                Bottlenecks
+                <span class="section-number">04 / 06</span>
+            </div>
+
+            <div class="form-group">
+                <label>Primary Slowdowns (Select top 2)</label>
+                <div class="options-grid">
+                    <label class="check-label"><input type="checkbox" name="top_bottlenecks[]" value="scheduling"> Scheduling</label>
+                    <label class="check-label"><input type="checkbox" name="top_bottlenecks[]" value="lead_response"> Lead Response</label>
+                    <label class="check-label"><input type="checkbox" name="top_bottlenecks[]" value="follow_up"> Follow Up</label>
+                    <label class="check-label"><input type="checkbox" name="top_bottlenecks[]" value="onboarding"> Client Onboarding</label>
+                    <label class="check-label"><input type="checkbox" name="top_bottlenecks[]" value="admin"> Admin / Staff Coord</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Interruption Frequency</label>
+                <select name="interruptions">
+                    <option value="" disabled selected>Select...</option>
+                    <option value="5-10min">Every 5-10 minutes</option>
+                    <option value="hour">Once per hour</option>
+                    <option value="rarely">Rarely</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Process Documentation</label>
+                <select name="documentation_level">
+                    <option value="" disabled selected>Select...</option>
+                    <option value="none">Not Documented (In my head)</option>
+                    <option value="partial">Partially Documented</option>
+                    <option value="full">Fully Documented SOPs</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Tools/Apps used daily (Estimate)</label>
+                <input name="tools_switching" type="number" placeholder="e.g. 5">
+            </div>
+
+
+            <div class="section-title">
+                Retention
+                <span class="section-number">05 / 06</span>
+            </div>
+
+            <div class="form-group">
+                <label>Do you collect feedback?</label>
+                <div class="options-grid">
+                    <label class="check-label"><input type="radio" name="feedback" value="yes"> Yes</label>
+                    <label class="check-label"><input type="radio" name="feedback" value="no"> No</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Repeat Client Rate</label>
+                <select name="repeat_rate">
+                    <option value="" disabled selected>Select...</option>
+                    <option value="<20">Under 20%</option>
+                    <option value="20-40">20-40%</option>
+                    <option value="40-60">40-60%</option>
+                    <option value="60+">60%+</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Are clients ever confused about next steps?</label>
+                <div class="options-grid">
+                    <label class="check-label"><input type="radio" name="client_confusion" value="yes"> Yes</label>
+                    <label class="check-label"><input type="radio" name="client_confusion" value="no"> No</label>
+                </div>
+            </div>
+
+
+            <div class="section-title">
+                Goals & AI
+                <span class="section-number">06 / 06</span>
+            </div>
+
+            <div class="form-group">
+                <label>Primary 90-Day Goal</label>
+                <textarea name="goal_90" placeholder="e.g. Book 10 more consults without adding staff"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Preferred System Style</label>
+                <div class="options-grid">
+                    <label class="check-label"><input type="radio" name="system_style" value="simple"> Simple & Fast</label>
+                    <label class="check-label"><input type="radio" name="system_style" value="advanced"> Advanced Automation</label>
+                    <label class="check-label"><input type="radio" name="system_style" value="full_ai"> Full AI Integration</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Comfort with AI Messaging</label>
+                <div class="options-grid">
+                    <label class="check-label"><input type="radio" name="ai_comfort" value="yes"> Comfortable</label>
+                    <label class="check-label"><input type="radio" name="ai_comfort" value="maybe"> Maybe (with guardrails)</label>
+                    <label class="check-label"><input type="radio" name="ai_comfort" value="no"> Not Comfortable</label>
+                </div>
+            </div>
+
             <div style="height: 60px;"></div>
 
-        </form>
-    </div>
+            <div class="action-bar">
+                <a href="index.html" class="cancel-btn">Cancel Audit</a>
+                <button type="submit" class="submit-btn">Submit for Analysis</button>
+            </div>
 
-    <div class="action-bar">
-        <a href="index.html" class="cancel-btn">Cancel Audit</a>
-        <button type="submit" class="submit-btn">Submit for Analysis</button>
+        </form>
     </div>
 
 </body>

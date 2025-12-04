@@ -12,23 +12,28 @@
   <!-- Tailwind CDN – no local CSS needed -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            wp: {
-              bg: "#050816",
-              bgSoft: "#0B1220",
-              primary: "#0EA76A",
-              primarySoft: "#22C55E",
-              accent: "#38BDF8",
-            },
+ <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          wp: {
+            // Deep navy background (main site background)
+            bg: "#050816",
+            // Charcoal / softer navy (cards, sections)
+            bgSoft: "#0B0F17",
+            // Neon lime (primary CTA color)
+            primary: "#1ED38B",
+            // Lighter lime for hover and soft accents
+            primarySoft: "#A6FF47",
+            // Soft tech blue for subtle highlights
+            accent: "#4DA3FF",
           },
         },
       },
-    };
-  </script>
+    },
+  };
+</script>
 </head>
 <body class="bg-wp-bg text-slate-100 min-h-screen">
   <!-- NAVBAR -->

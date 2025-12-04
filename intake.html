@@ -3,669 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WisePath AI | Systems Audit Intake</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>WisePath Systems | Confidential Intake</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* --- CORE VARIABLES --- */
         :root {
-            --bg: #071915;
-            --bg-soft: #0f2620;
-            --accent: #1ed38b;
-            --accent-soft: rgba(30, 211, 139, 0.12);
-            --text-main: #f5f7f6;
-            --text-muted: #a8b5af;
-            --border-subtle: #1f3b32;
+            --bg-color: #FAFAFA;
+            --paper-color: #FFFFFF;
+            --text-main: #111111;
+            --text-muted: #6E6E73;
+            --accent-blue: #0071E3; /* Apple Blue */
+            --input-bg: #F5F5F7;    /* Apple Grey */
+            --border-radius: 18px;  /* Apple Smooth Curve */
+            --kirkland-red: #8A1538; /* Subtle nod to Kirkland, used for alerts/important */
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
 
         body {
-            background: radial-gradient(circle at top, #12382a 0, #050d0b 50%, #010403 100%);
+            font-family: 'Inter', sans-serif; /* Default to clean UI font */
+            background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.5;
+            padding-bottom: 80px;
         }
 
-        /* NAVBAR */
-        .nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(16px);
-            background: rgba(5, 14, 11, 0.88);
-            border-bottom: 1px solid rgba(73, 122, 103, 0.4);
+        /* --- THE "LEGAL" HEADER --- */
+        .doc-header {
+            text-align: center;
+            padding: 80px 20px 40px;
         }
 
-        .nav-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 14px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .doc-header h1 {
+            font-family: 'Playfair Display', serif; /* The Kirkland Touch */
+            font-size: 48px;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
         }
 
-        .logo {
-            font-weight: 700;
-            letter-spacing: 0.08em;
+        .doc-header .meta-data {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
             text-transform: uppercase;
-            font-size: 15px;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            font-size: 14px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
+            letter-spacing: 0.1em;
             color: var(--text-muted);
-            padding: 6px 10px;
-            border-radius: 999px;
-            transition: all 0.25s ease;
+            border: 1px solid #E5E5E5;
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
         }
 
-        .nav-links a:hover {
-            color: var(--text-main);
-            background: rgba(30, 211, 139, 0.1);
-        }
-
-        .nav-cta {
-            border-radius: 999px;
-            padding: 8px 16px;
-            border: 1px solid var(--accent);
-            color: #000;
-            background: var(--accent);
-            font-size: 13px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s;
-        }
-
-        .nav-cta:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
-            background: #29e295;
-        }
-
-        /* LAYOUT */
-        .page {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 36px 20px 60px;
-        }
-
-        section {
-            margin-bottom: 40px;
-        }
-
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 10px;
-            border-radius: 999px;
-            background: var(--accent-soft);
-            color: var(--accent);
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-
-        h1 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-
-        .section-lead {
-            color: var(--text-muted);
-            font-size: 14px;
-            line-height: 1.7;
+        /* --- THE "DOSSIER" CONTAINER --- */
+        .dossier-container {
             max-width: 640px;
-            margin-bottom: 22px;
+            margin: 0 auto;
+            background: var(--paper-color);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 60px;
+            position: relative;
         }
 
-        .card {
-            background: var(--bg-soft);
-            border-radius: 16px;
-            border: 1px solid var(--border-subtle);
-            padding: 20px;
-        }
-
-        .form-section-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .form-section-sub {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 14px;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 14px 20px;
-            margin-bottom: 18px;
-        }
-
-        .form-group {
+        /* --- FORM TYPOGRAPHY --- */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #E5E5E5;
+            color: var(--text-main);
             display: flex;
-            flex-direction: column;
-            gap: 5px;
-            font-size: 13px;
+            justify-content: space-between;
+            align-items: center;
         }
+        
+        .section-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* --- APPLE STYLE INPUTS --- */
+        .form-group { margin-bottom: 32px; }
 
         label {
+            display: block;
+            font-size: 13px;
             font-weight: 500;
-        }
-
-        .hint {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="number"],
-        select,
-        textarea {
-            border-radius: 10px;
-            border: 1px solid var(--border-subtle);
-            background: #04110e;
+            margin-bottom: 10px;
             color: var(--text-main);
-            font-size: 13px;
-            padding: 8px 10px;
-            outline: none;
+        }
+
+        input, select, textarea {
             width: 100%;
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid transparent; 
+            background-color: var(--input-bg);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+            outline: none;
         }
 
-        textarea {
-            min-height: 80px;
-            resize: vertical;
+        /* The Focus State (Apple Blue Glow) */
+        input:focus, select:focus, textarea:focus {
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.12);
+            border-color: var(--accent-blue);
         }
 
-        input::placeholder,
-        textarea::placeholder {
-            color: #6f7f79;
+        /* Custom Select Arrow */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
         }
 
-        .options-column {
+        /* --- ACTION BAR (Sticky Bottom) --- */
+        .action-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding: 20px;
             display: flex;
-            flex-direction: column;
-            gap: 4px;
-            font-size: 13px;
-        }
-
-        .options-inline {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px 14px;
-            font-size: 13px;
-        }
-
-        .options-inline label,
-        .options-column label {
-            font-weight: 400;
-            color: var(--text-muted);
-            display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 6px;
-            cursor: pointer;
+            z-index: 100;
         }
 
-        input[type="radio"],
-        input[type="checkbox"] {
-            transform: scale(0.9);
-            accent-color: var(--accent);
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #000;
-            border-radius: 999px;
-            padding: 11px 20px;
+        .submit-btn {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 14px 40px;
+            border-radius: 100px;
             border: none;
-            font-weight: 600;
-            font-size: 14px;
             cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s;
+            transition: transform 0.2s;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 14px 26px rgba(0, 0, 0, 0.4);
-            background: #29e295;
-        }
+        .submit-btn:hover { transform: scale(1.02); }
 
-        .required {
-            color: var(--accent);
-        }
-
-        footer {
-            border-top: 1px solid var(--border-subtle);
-            padding: 18px 20px 26px;
-            font-size: 12px;
+        .cancel-btn {
+            position: absolute;
+            left: 40px;
+            font-size: 14px;
             color: var(--text-muted);
-            text-align: center;
+            text-decoration: none;
         }
 
-        @media (max-width: 780px) {
-            .nav-links {
-                display: none;
-            }
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .dossier-container { padding: 30px 20px; margin: 0 10px; }
+            .doc-header h1 { font-size: 36px; }
+            .cancel-btn { display: none; } /* Hide back button on mobile sticky bar for space */
         }
     </style>
 </head>
 <body>
 
-<nav class="nav">
-    <div class="nav-inner">
-        <div class="logo">
-            WISEPATH <span>AI</span>
-        </div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="services.html">Services</a>
-            <a href="sectors.html">Sectors</a>
-            <a href="insights.html">Insights</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-            <a href="contract.html">Service Agreement</a>
-            <a href="intake.html">Systems Audit</a>
-        </div>
-        <a class="nav-cta" href="contact.html">Book a consult</a>
-    </div>
-</nav>
-
-<div class="page">
-    <section>
-        <div class="pill">WisePath Systems Audit Intake</div>
-        <h1>Tell us how your business actually runs.</h1>
-        <p class="section-lead">
-            This intake gives us enough signal to run the WisePath Method and return a clear view of your systems:
-            where work is getting stuck, where automation makes sense, and what to fix first. Honest, simple answers
-            are better than perfect ones.
+    <header class="doc-header">
+        <div class="meta-data">Reference: WSS-V2-AUDIT</div>
+        <h1>Operational Intake</h1>
+        <p style="color: var(--text-muted); font-size: 16px; max-width: 460px; margin: 0 auto; line-height: 1.5;">
+            Confidential analysis of operational infrastructure. <br>
+            Please provide precise data for accurate scoring.
         </p>
+    </header>
 
-        <div class="card">
-            <!-- Replace the action URL with your real Basin endpoint -->
-          <form action="https://usebasin.com/f/94ff6103b733" method="POST">
-                <!-- SECTION 1 - BUSINESS SNAPSHOT -->
-                <div class="form-section-title">1. Business snapshot</div>
-                <div class="form-section-sub">Basic context so we understand who we are building systems for.</div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="business_name">Business name <span class="required">*</span></label>
-                        <input id="business_name" name="business_name" type="text" required placeholder="Example: Southside Realty Group">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="industry">Industry <span class="required">*</span></label>
-                        <input id="industry" name="industry" type="text" required placeholder="Real estate, law, barbershop, gym, clinic, etc.">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="owner_name">Your name <span class="required">*</span></label>
-                        <input id="owner_name" name="owner_name" type="text" required placeholder="Full name">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Best email for follow up <span class="required">*</span></label>
-                        <input id="email" name="email" type="email" required placeholder="you@business.com">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="employees">Number of employees</label>
-                        <select id="employees" name="employees">
-                            <option value="">Select</option>
-                            <option value="solo">Solo</option>
-                            <option value="2-5">2-5</option>
-                            <option value="6-15">6-15</option>
-                            <option value="16-30">16-30</option>
-                            <option value="30+">30+</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="revenue_range">Monthly revenue range</label>
-                        <select id="revenue_range" name="revenue_range">
-                            <option value="">Prefer not to say</option>
-                            <option value="<5k">Under $5k</option>
-                            <option value="5-15k">$5k-$15k</option>
-                            <option value="15-30k">$15k-$30k</option>
-                            <option value="30-60k">$30k-$60k</option>
-                            <option value="60k+">$60k+</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label for="top_services">Top 3 services or offers</label>
-                    <textarea id="top_services" name="top_services" placeholder="Example: buyer representation, listings, rental management."></textarea>
-                </div>
-
-                <!-- SECTION 2 - LEAD FLOW -->
-                <div class="form-section-title">2. Lead flow and client acquisition</div>
-                <div class="form-section-sub">How people currently find you and how you track them.</div>
-
-                <div class="form-group">
-                    <label>Where do your leads currently come from? <span class="required">*</span></label>
-                    <div class="options-column">
-                        <label><input type="checkbox" name="lead_sources[]" value="website"> Website</label>
-                        <label><input type="checkbox" name="lead_sources[]" value="instagram"> Instagram</label>
-                        <label><input type="checkbox" name="lead_sources[]" value="facebook"> Facebook</label>
-                        <label><input type="checkbox" name="lead_sources[]" value="tiktok"> TikTok</label>
-                        <label><input type="checkbox" name="lead_sources[]" value="email_list"> Email list</label>
-                        <label><input type="checkbox" name="lead_sources[]" value="referrals"> Real life referrals</label>
-
-                        <label><input type="checkbox" name="lead_sources[]" value="marketplaces"> Zillow / Yelp / ZocDoc / marketplaces</label>
-                        <label><input type="checkbox" name="lead_sources[]" value="walkins"> Walk ins or foot traffic</label>
-                        <label><input type="checkbox" name="lead_sources[]" value="other"> Other</label>
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="leads_per_week">Average number of new leads per week</label>
-                        <input id="leads_per_week" name="leads_per_week" type="number" min="0" placeholder="Estimate is fine">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="lead_tracking">How do you track leads right now?</label>
-                        <select id="lead_tracking" name="lead_tracking">
-                            <option value="">Select</option>
-                            <option value="dont">I do not track them</option>
-                            <option value="notes_app">Notes app</option>
-                            <option value="paper">Paper notebook</option>
-                            <option value="spreadsheet">Spreadsheet</option>
-                            <option value="crm">CRM</option>
-                            <option value="assistant">Assistant handles it</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Do leads ever fall through the cracks?</label>
-                        <div class="options-inline">
-                            <label><input type="radio" name="lead_dropoff" value="constantly"> Constantly</label>
-                            <label><input type="radio" name="lead_dropoff" value="sometimes"> Sometimes</label>
-                            <label><input type="radio" name="lead_dropoff" value="rarely"> Rarely</label>
-                            <label><input type="radio" name="lead_dropoff" value="never"> Never</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Who is responsible for responding to new leads?</label>
-                        <div class="options-inline">
-                            <label><input type="radio" name="lead_owner" value="me"> Me</label>
-                            <label><input type="radio" name="lead_owner" value="employee"> An employee</label>
-                            <label><input type="radio" name="lead_owner" value="shared"> Shared</label>
-                            <label><input type="radio" name="lead_owner" value="none"> No one consistently</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SECTION 3 - FOLLOW UP & OPERATIONS -->
-                <div class="form-section-title">3. Follow up and daily operations</div>
-                <div class="form-section-sub">How fast you move, how you communicate, and how much is manual.</div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Average response time to a new lead</label>
-                        <div class="options-column">
-                            <label><input type="radio" name="response_time" value="0-5"> 0-5 minutes</label>
-                            <label><input type="radio" name="response_time" value="5-30"> 5-30 minutes</label>
-                            <label><input type="radio" name="response_time" value="30-120"> 30-120 minutes</label>
-                            <label><input type="radio" name="response_time" value="same_day"> Same day</label>
-                            <label><input type="radio" name="response_time" value="next_day"> Next day</label>
-                            <label><input type="radio" name="response_time" value="2+days"> 2+ days</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>How do you mainly communicate with clients?</label>
-                        <div class="options-column">
-                            <label><input type="checkbox" name="comm_channels[]" value="phone"> Phone calls</label>
-                            <label><input type="checkbox" name="comm_channels[]" value="sms"> SMS</label>
-                            <label><input type="checkbox" name="comm_channels[]" value="email"> Email</label>
-                            <label><input type="checkbox" name="comm_channels[]" value="whatsapp"> WhatsApp</label>
-                            <label><input type="checkbox" name="comm_channels[]" value="dm"> Social DMs</label>
-                            <label><input type="checkbox" name="comm_channels[]" value="booking_app"> Booking app messages</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Do you have automatic reminders or follow ups in place?</label>
-                        <div class="options-inline">
-                            <label><input type="radio" name="automation_level" value="none"> None</label>
-                            <label><input type="radio" name="automation_level" value="some"> Some</label>
-                            <label><input type="radio" name="automation_level" value="full"> Full automation</label>
-                            <label><input type="radio" name="automation_level" value="unsure"> Unsure</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>How often do you repeat the same tasks or messages by hand?</label>
-                        <div class="options-inline">
-                            <label><input type="radio" name="manual_repetition" value="all_the_time"> All the time</label>
-                            <label><input type="radio" name="manual_repetition" value="often"> Often</label>
-                            <label><input type="radio" name="manual_repetition" value="rarely"> Rarely</label>
-                            <label><input type="radio" name="manual_repetition" value="never"> Never</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SECTION 4 - INTERNAL WORKFLOW -->
-                <div class="form-section-title">4. Internal workflow and bottlenecks</div>
-                <div class="form-section-sub">Where work slows down and where you feel the most friction.</div>
-
-                <div class="form-group">
-                    <label>Which of these slows your business down the most? Choose up to 2.</label>
-                    <div class="options-column">
-                        <label><input type="checkbox" name="top_bottlenecks[]" value="scheduling"> Scheduling</label>
-                        <label><input type="checkbox" name="top_bottlenecks[]" value="lead_response"> Lead response</label>
-                        <label><input type="checkbox" name="top_bottlenecks[]" value="payments"> Payments</label>
-                        <label><input type="checkbox" name="top_bottlenecks[]" value="onboarding"> Client onboarding</label>
-                        <label><input type="checkbox" name="top_bottlenecks[]" value="follow_up"> Follow up</label>
-                        <label><input type="checkbox" name="top_bottlenecks[]" value="staff"> Staff coordination</label>
-                        <label><input type="checkbox" name="top_bottlenecks[]" value="inventory"> Inventory</label>
-                        <label><input type="checkbox" name="top_bottlenecks[]" value="marketing"> Marketing content</label>
-                        <label><input type="checkbox" name="top_bottlenecks[]" value="inconsistent_workflow"> Inconsistent workflow</label>
-                        <label><input type="checkbox" name="top_bottlenecks[]" value="other"> Other</label>
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>How often are you interrupted during a normal workday?</label>
-                        <div class="options-inline">
-                            <label><input type="radio" name="interruptions" value="5-10min"> Every 5-10 minutes</label>
-                            <label><input type="radio" name="interruptions" value="30min"> Every 30 minutes</label>
-                            <label><input type="radio" name="interruptions" value="hour"> About once per hour</label>
-                            <label><input type="radio" name="interruptions" value="few_times"> A few times per day</label>
-                            <label><input type="radio" name="interruptions" value="rarely"> Rarely</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Do you ever forget tasks or lose track of information?</label>
-                        <div class="options-inline">
-                            <label><input type="radio" name="lost_tasks" value="frequently"> Frequently</label>
-                            <label><input type="radio" name="lost_tasks" value="sometimes"> Sometimes</label>
-                            <label><input type="radio" name="lost_tasks" value="rarely"> Rarely</label>
-                            <label><input type="radio" name="lost_tasks" value="never"> Never</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>How documented are your core processes?</label>
-                        <div class="options-inline">
-                            <label><input type="radio" name="documentation_level" value="none"> Not documented</label>
-                            <label><input type="radio" name="documentation_level" value="partial"> Partially documented</label>
-                            <label><input type="radio" name="documentation_level" value="mostly"> Mostly documented</label>
-                            <label><input type="radio" name="documentation_level" value="full"> Fully documented</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="tools_switching">How many different apps or tools do you switch between in a typical day?</label>
-                        <input id="tools_switching" name="tools_switching" type="number" min="0" placeholder="Estimate is fine">
-                    </div>
-                </div>
-
-                <!-- SECTION 5 - RETENTION -->
-                <div class="form-section-title">5. Retention and client experience</div>
-                <div class="form-section-sub">What happens after someone becomes a client.</div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Do you collect client feedback?</label>
-                        <div class="options-inline">
-                            <label><input type="radio" name="feedback" value="yes"> Yes</label>
-                            <label><input type="radio" name="feedback" value="no"> No</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Repeat client rate (rough estimate)</label>
-                        <select name="repeat_rate">
-                            <option value="">Select</option>
-                            <option value="<20">Under 20%</option>
-                            <option value="20-40">20-40%</option>
-                            <option value="40-60">40-60%</option>
-                            <option value="60-80">60-80%</option>
-                            <option value="80+">80%+</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Do clients miss appointments or payments?</label>
-                        <div class="options-inline">
-                            <label><input type="radio" name="missed_items" value="constant"> Yes, constantly</label>
-                            <label><input type="radio" name="missed_items" value="sometimes"> Sometimes</label>
-                            <label><input type="radio" name="missed_items" value="rarely"> Rarely</label>
-                            <label><input type="radio" name="missed_items" value="never"> Never</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Are clients ever confused about next steps?</label>
-                        <div class="options-inline">
-                            <label><input type="radio" name="client_confusion" value="yes"> Yes</label>
-                            <label><input type="radio" name="client_confusion" value="no"> No</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SECTION 6 - GOALS -->
-                <div class="form-section-title">6. Goals and constraints</div>
-                <div class="form-section-sub">What you want next and how aggressive we can be with systems.</div>
-
-                <div class="form-group">
-                    <label for="goal_90">Biggest goal in the next 90 days</label>
-                    <textarea id="goal_90" name="goal_90" placeholder="Example: book 10 more consults per month without adding staff."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>What feels like the biggest pain right now? Choose one.</label>
-                    <div class="options-column">
-                        <label><input type="radio" name="primary_pain" value="leads"> Leads</label>
-                        <label><input type="radio" name="primary_pain" value="conversions"> Conversions</label>
-                        <label><input type="radio" name="primary_pain" value="follow_ups"> Follow ups</label>
-                        <label><input type="radio" name="primary_pain" value="operations"> Operations</label>
-                        <label><input type="radio" name="primary_pain" value="scheduling"> Scheduling</label>
-                        <label><input type="radio" name="primary_pain" value="staff"> Staff coordination</label>
-                        <label><input type="radio" name="primary_pain" value="payments"> Payments</label>
-                        <label><input type="radio" name="primary_pain" value="time"> Time</label>
-                        <label><input type="radio" name="primary_pain" value="marketing"> Marketing</label>
-                        <label><input type="radio" name="primary_pain" value="client_experience"> Client experience</label>
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Preferred system style</label>
-                        <div class="options-inline">
-                            <label><input type="radio" name="system_style" value="simple"> Simple and fast</label>
-                            <label><input type="radio" name="system_style" value="advanced"> More advanced automation</label>
-                            <label><input type="radio" name="system_style" value="full_ai"> Full AI integration</label>
-                            <label><input type="radio" name="system_style" value="unsure"> Not sure yet</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Comfort level with AI handling some messaging</label>
-                        <div class="options-inline">
-                            <label><input type="radio" name="ai_comfort" value="yes"> Comfortable</label>
-                            <label><input type="radio" name="ai_comfort" value="maybe"> Maybe, with guardrails</label>
-                            <label><input type="radio" name="ai_comfort" value="no"> Not comfortable</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group" style="margin-top: 10px;">
-                    <button type="submit" class="btn-primary">
-                        Submit systems audit intake
-                    </button>
-                    <div class="hint" style="margin-top: 6px;">
-                        After you submit, WisePath will review and respond with a short summary of your systems and recommended next steps.
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
-</div>
-
-<footer>
-    <div style="max-width: 1100px; margin: 0 auto; text-align: left;">
-        <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: flex-start;">
-            <div>
-                <div style="font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 12px;">
-                    WisePath AI
-                </div>
-                <div style="font-size: 12px; margin-top: 6px;">
-                    Chicago, Illinois • Automation and AI Systems Consulting
-                </div>
+    <div class="dossier-container">
+        
+        <form action="#" method="POST">
+            
+            <div class="section-title">
+                Organization Identity
+                <span class="section-number">01 / 04</span>
             </div>
-            <div style="font-size: 12px; display: flex; flex-wrap: wrap; gap: 14px;">
-                <a href="contract.html" style="color: inherit; text-decoration: none;">Service Agreement</a>
-                <span>·</span>
-                <span>Privacy Policy (coming soon)</span>
-                <span>·</span>
-                <a href="contact.html" style="color: inherit; text-decoration: none;">Contact</a>
+
+            <div class="form-group">
+                <label>Legal Entity Name</label>
+                <input type="text" placeholder="e.g. Acme Holdings LLC" required>
             </div>
-        </div>
-        <div style="font-size: 11px; color: #77847f; margin-top: 10px; text-align: left;">
-            © 2025 WisePath AI. All rights reserved. This site and its content are for informational purposes only and do not constitute legal, financial, or tax advice.
-        </div>
+
+            <div class="form-group">
+                <label>Primary Sector</label>
+                <select required>
+                    <option value="" disabled selected>Select Classification...</option>
+                    <option value="Real Estate">Real Estate / Brokerage</option>
+                    <option value="Medical">Medical / Healthcare</option>
+                    <option value="Legal">Legal Services</option>
+                    <option value="Fitness">Fitness / Wellness</option>
+                    <option value="Contracting">Trade / Contracting</option>
+                </select>
+            </div>
+
+            <div class="section-title" style="margin-top: 60px;">
+                Revenue & Velocity
+                <span class="section-number">02 / 04</span>
+            </div>
+
+            <div class="form-group">
+                <label>Monthly Gross Revenue (Avg)</label>
+                <select required>
+                    <option value="" disabled selected>Select Range...</option>
+                    <option value="<20k">Under $20,000</option>
+                    <option value="20k-50k">$20,000 – $50,000</option>
+                    <option value="50k-100k">$50,000 – $100,000</option>
+                    <option value="100k+">$100,000+</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Current Lead Volume (Monthly)</label>
+                <input type="number" placeholder="e.g. 150">
+            </div>
+
+            <div class="section-title" style="margin-top: 60px;">
+                Operational Pathology
+                <span class="section-number">03 / 04</span>
+            </div>
+
+            <div class="form-group">
+                <label>Primary Failure Point</label>
+                <select required>
+                    <option value="" disabled selected>Identify the bottleneck...</option>
+                    <option value="Speed">Lead Response Time (Too Slow)</option>
+                    <option value="Conversion">Low Conversion Rate</option>
+                    <option value="Retention">Client Retention / Churn</option>
+                    <option value="Chaos">Administrative Chaos</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Current Technical Stack</label>
+                <textarea rows="3" placeholder="List current CRMs, tools, or software..."></textarea>
+            </div>
+
+            <div class="section-title" style="margin-top: 60px;">
+                Officer Contact
+                <span class="section-number">04 / 04</span>
+            </div>
+
+            <div class="form-group">
+                <label>Direct Email</label>
+                <input type="email" placeholder="name@firm.com" required>
+            </div>
+            
+            <div style="height: 60px;"></div>
+
+        </form>
     </div>
-</footer>
+
+    <div class="action-bar">
+        <a href="index.html" class="cancel-btn">Cancel Audit</a>
+        <button type="submit" class="submit-btn">Submit for Analysis</button>
+    </div>
 
 </body>
 </html>

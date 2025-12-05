@@ -9,7 +9,7 @@
   <meta name="robots" content="index,follow"/>
   <meta name="theme-color" content="#0b0f14"/>
   <!-- Open Graph -->
-  <meta property="og:title" content="WisePath — Systems for Chaos">
+  <meta property="og:title" content="WisePath — Systems for curing Chaos">
   <meta property="og:description" content="Clean, high-end automations for real businesses.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://wisepathsystems.com/">
@@ -104,6 +104,37 @@
     .card.tall{grid-column:span 8}
     .pill{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; font-size:12px; font-weight:600; color:var(--text); background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1)}
 
+    /* ===== Clients (logos) ===== */
+    .logos{display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:12px}
+    .logo-item{
+      display:grid; place-items:center; height:64px; border-radius:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      color:var(--muted); font-weight:700; letter-spacing:.06em;
+    }
+    @media (max-width:980px){ .logos{grid-template-columns:repeat(3,1fr);} }
+    @media (max-width:560px){ .logos{grid-template-columns:repeat(2,1fr);} }
+
+    /* ===== Screens (gallery) ===== */
+    .screens { padding-block:56px; }
+    .screens-grid{
+      display:grid; grid-template-columns:repeat(12,1fr); gap:16px;
+    }
+    .screen{
+      grid-column:span 6;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px; overflow:hidden;
+    }
+    .screen .frame{
+      aspect-ratio: 16/9;
+      background:radial-gradient(600px 300px at 100% 0%, rgba(255,255,255,.06), transparent 60%), #0f141a;
+      display:grid; place-items:center;
+      color:#9aa4b2; font-weight:600; letter-spacing:.06em;
+    }
+    .screen img{ width:100%; height:auto; display:block; }
+    @media (max-width:980px){ .screen{ grid-column:1/-1; } }
+
     /* ===== Footer ===== */
     .footer{padding-block:48px; color:var(--muted); border-top:1px solid rgba(255,255,255,.06); background:linear-gradient(180deg, rgba(255,255,255,.02), transparent)}
     .footer .cols{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:24px}
@@ -166,8 +197,10 @@
       <nav class="navlinks">
         <a href="#solutions">Solutions</a>
         <a href="#industries">Industries</a>
-        <a href="#pricing">Pricing</a>
+        <a href="#clients">Clients</a>
         <a href="#work">Work</a>
+        <a href="#screens">Screens</a>
+        <a href="#pricing">Pricing</a>
         <a href="#resources">Resources</a>
       </nav>
       <div class="cta-row">
@@ -179,8 +212,10 @@
     <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Mobile Menu">
       <a href="#solutions" onclick="closeDrawer()">Solutions</a>
       <a href="#industries" onclick="closeDrawer()">Industries</a>
-      <a href="#pricing" onclick="closeDrawer()">Pricing</a>
+      <a href="#clients" onclick="closeDrawer()">Clients</a>
       <a href="#work" onclick="closeDrawer()">Work</a>
+      <a href="#screens" onclick="closeDrawer()">Screens</a>
+      <a href="#pricing" onclick="closeDrawer()">Pricing</a>
       <a href="#resources" onclick="closeDrawer()">Resources</a>
       <a href="/intake.html" class="pill" onclick="closeDrawer()">Start Intake →</a>
     </div>
@@ -296,6 +331,29 @@
       </div>
     </section>
 
+    <!-- Clients -->
+    <section class="stripe" id="clients" aria-labelledby="clients-h">
+      <div class="container">
+        <h2 id="clients-h" class="headline" style="font-size:28px; margin:0 0 18px;">Clients</h2>
+        <p class="sub">Trusted by teams in real estate, clinics, and law—Chicago built, nationwide ready.</p>
+
+        <div class="logos" style="margin-top:18px">
+          <!-- Replace these placeholders with your SVG/PNG logos when you have them -->
+          <div class="logo-item">ACME REALTY</div>
+          <div class="logo-item">NORTHSIDE DENTAL</div>
+          <div class="logo-item">RIVER PT. LAW</div>
+          <div class="logo-item">LAKEVIEW PM</div>
+          <div class="logo-item">BRONZEVILLE PT</div>
+          <div class="logo-item">SOUTH LOOP SPA</div>
+        </div>
+
+        <div class="hero-cta" style="margin-top:20px">
+          <a class="btn primary" href="/intake.html">Become a client</a>
+          <a class="btn ghost" href="#work">See case studies</a>
+        </div>
+      </div>
+    </section>
+
     <!-- Pricing -->
     <section class="stripe" id="pricing" aria-labelledby="pricing-h">
       <div class="container">
@@ -355,6 +413,27 @@
             </div>
             <div class="art" aria-hidden="true"></div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screens -->
+    <section class="stripe screens" id="screens" aria-labelledby="screens-h">
+      <div class="container">
+        <h2 id="screens-h" class="headline" style="font-size:28px; margin:0 0 18px;">Screens</h2>
+        <p class="sub">A quick look at the actual surfaces clients touch—clean, fast, and branded.</p>
+
+        <div class="screens-grid" style="margin-top:18px">
+          <!-- Placeholder frames – replace with <img src="/img/screen-1.jpg" alt="..."> when ready -->
+          <article class="screen"><div class="frame">INTAKE HUB — DESKTOP</div></article>
+          <article class="screen"><div class="frame">AI CALL DASHBOARD</div></article>
+          <article class="screen"><div class="frame">DOCS & E-SIGN FLOW</div></article>
+          <article class="screen"><div class="frame">REAL-TIME ANALYTICS</div></article>
+        </div>
+
+        <div class="hero-cta" style="margin-top:20px">
+          <a class="btn primary" href="/intake.html">Build this for my team</a>
+          <a class="btn ghost" href="#work">See outcomes</a>
         </div>
       </div>
     </section>
@@ -483,10 +562,10 @@
       });
     })();
 
-    // PERF: progressive on-view reveal for headlines + cards
+    // PERF: progressive on-view reveal for headlines + cards + clients + screens
     (function(){
       const targets = document.querySelectorAll(
-        '#solutions .headline, #industries .headline, #pricing .headline, #work .headline, #resources .headline, #contact .headline, .card'
+        '#solutions .headline, #industries .headline, #clients .headline, #screens .headline, #pricing .headline, #work .headline, #resources .headline, #contact .headline, .card, .logo-item, .screen'
       );
       targets.forEach(el => el.classList.add('onview'));
       const io = new IntersectionObserver((entries)=>{
@@ -517,3 +596,4 @@
   <noscript><div style="color:#9aa4b2; text-align:center; padding:8px 0;">JavaScript is disabled. Navigation and animations are simplified.</div></noscript>
 </body>
 </html>
+```0

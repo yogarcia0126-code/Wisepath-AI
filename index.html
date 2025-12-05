@@ -1,782 +1,519 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WisePath Systems – Operational Architecture for SMBs</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        :root {
-            /* WisePath Green Palette */
-            --green-deep: #013222;   /* strongest green */
-            --green-core: #004D14;   /* nav / headings */
-            --green-action: #046200; /* primary CTA */
-
-            --bg-main: #F6F7F2;      /* page background */
-            --card-bg: #E9EDE4;      /* cards / panels */
-            --border-soft: #E1E5DC;  /* dividers */
-
-            --text-main: #111111;
-            --text-muted: #6E6E73;
-        }
-
-        body {
-            font-family: "Inter", sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            line-height: 1.5;
-        }
-
-        a { text-decoration: none; color: inherit; }
-
-        /* NAVBAR */
-        .nav {
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            background: rgba(246, 247, 242, 0.96);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid var(--border-soft);
-        }
-
-        .nav-inner {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 14px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-mark {
-            width: 30px;
-            height: 30px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--green-core), var(--green-action));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
-            color: #fff;
-        }
-
-        .logo-text {
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-
-        .logo-sub {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .nav-links a:hover {
-            color: var(--green-core);
-        }
-
-        .nav-cta {
-            padding: 10px 20px;
-            border-radius: 999px;
-            background-color: var(--green-action);
-            color: #fff;
-            font-size: 14px;
-            font-weight: 500;
-            border: none;
-            cursor: pointer;
-        }
-
-        .nav-cta:hover {
-            background-color: var(--green-core);
-        }
-
-        /* LAYOUT WRAPPER */
-        .page {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 40px 20px 80px;
-        }
-
-        /* HERO */
-        .hero {
-            display: grid;
-            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-            gap: 40px;
-            align-items: center;
-            padding: 40px 0 60px;
-        }
-
-        .hero-tag {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: var(--green-core);
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .hero-title {
-            font-family: "Playfair Display", serif;
-            font-size: clamp(40px, 6vw, 64px);
-            letter-spacing: -0.04em;
-            margin-bottom: 18px;
-            color: var(--green-deep);
-        }
-
-        .hero-title span {
-            color: var(--green-action);
-        }
-
-        .hero-sub {
-            font-size: 17px;
-            color: var(--text-muted);
-            max-width: 480px;
-            margin-bottom: 26px;
-        }
-
-        .hero-cta-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            align-items: center;
-            margin-bottom: 18px;
-        }
-
-        .hero-btn {
-            padding: 14px 28px;
-            border-radius: 999px;
-            background-color: var(--green-action);
-            color: #fff;
-            font-size: 15px;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-        }
-
-        .hero-btn:hover {
-            background-color: var(--green-core);
-        }
-
-        .hero-note {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .hero-metrics {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 26px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .metric-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .metric-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 999px;
-            background-color: var(--green-action);
-        }
-
-        /* HERO RIGHT – DIAGRAM */
-        .hero-card {
-            background-color: var(--card-bg);
-            border-radius: 24px;
-            border: 1px solid var(--border-soft);
-            padding: 24px 22px;
-        }
-
-        .hero-card-header {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .hero-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 18px;
-        }
-
-        .hero-pill {
-            font-size: 11px;
-            padding: 6px 10px;
-            border-radius: 999px;
-            background-color: #fff;
-            border: 1px solid var(--border-soft);
-            color: var(--green-core);
-        }
-
-        .diagram {
-            margin-top: 10px;
-            border-radius: 18px;
-            background: #fff;
-            border: 1px solid var(--border-soft);
-            padding: 16px 16px 18px;
-        }
-
-        .diagram-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-
-        .diagram-label {
-            color: var(--text-muted);
-        }
-
-        .diagram-chip {
-            padding: 4px 10px;
-            border-radius: 999px;
-            background-color: var(--green-action);
-            color: #fff;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .diagram-line {
-            margin-top: 8px;
-            height: 4px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, var(--green-core), var(--green-action));
-        }
-
-        /* SECTION WRAPPER */
-        .section {
-            padding: 40px 0;
-            border-top: 1px solid var(--border-soft);
-        }
-
-        .section-header {
-            margin-bottom: 26px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .section-kicker {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .section-title {
-            font-family: "Playfair Display", serif;
-            font-size: 28px;
-            letter-spacing: -0.02em;
-            color: var(--green-deep);
-        }
-
-        .section-sub {
-            font-size: 14px;
-            color: var(--text-muted);
-            max-width: 520px;
-        }
-
-        /* SIGNATURE SYSTEM (BENTO) */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 20px;
-            padding: 22px 20px 24px;
-            border: 1px solid var(--border-soft);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .card-label {
-            font-size: 11px;
-            color: var(--green-core);
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-        }
-
-        .card-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--green-deep);
-        }
-
-        .card-body {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        /* PROCESS */
-        .process-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .process-item {
-            display: flex;
-            gap: 16px;
-            padding: 18px 16px;
-            border-radius: 18px;
-            background-color: #fff;
-            border: 1px solid var(--border-soft);
-        }
-
-        .process-number {
-            width: 26px;
-            height: 26px;
-            border-radius: 999px;
-            background-color: var(--green-action);
-            color: #fff;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-        }
-
-        .process-main {
-            flex: 1;
-        }
-
-        .process-main h3 {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--green-core);
-            margin-bottom: 4px;
-        }
-
-        .process-main p {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .process-meta {
-            font-size: 11px;
-            color: var(--green-core);
-            margin-top: 4px;
-        }
-
-        /* WHO WE SERVE */
-        .grid-3-tight {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 18px;
-        }
-
-        .serve-card {
-            background-color: #fff;
-            border-radius: 18px;
-            border: 1px solid var(--border-soft);
-            padding: 18px 18px 20px;
-        }
-
-        .serve-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--green-core);
-            margin-bottom: 8px;
-        }
-
-        .serve-list {
-            list-style: none;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .serve-list li {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 4px;
-        }
-
-        .serve-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 999px;
-            background-color: var(--green-action);
-            margin-top: 6px;
-        }
-
-        /* FINAL CTA */
-        .final-cta {
-            margin-top: 40px;
-            border-radius: 28px;
-            background-color: var(--green-deep);
-            color: #fdfdfd;
-            padding: 32px 22px 34px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 16px;
-        }
-
-        .final-cta h2 {
-            font-family: "Playfair Display", serif;
-            font-size: 26px;
-            letter-spacing: -0.02em;
-        }
-
-        .final-cta p {
-            font-size: 14px;
-            max-width: 520px;
-            color: rgba(255,255,255,0.8);
-        }
-
-        .final-cta-btn {
-            padding: 14px 32px;
-            border-radius: 999px;
-            background-color: #F6F7F2;
-            color: var(--green-deep);
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        .final-cta-btn:hover {
-            background-color: #E9EDE4;
-        }
-
-        /* FOOTER */
-        footer {
-            border-top: 1px solid var(--border-soft);
-            padding: 16px 20px 26px;
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        footer .footer-inner {
-            max-width: 1120px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 6px;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .hero {
-                grid-template-columns: 1fr;
-            }
-            .nav-inner {
-                flex-wrap: wrap;
-                justify-content: space-between;
-            }
-            .nav-links {
-                display: none;
-            }
-            .grid-3,
-            .grid-3-tight {
-                grid-template-columns: 1fr;
-            }
-            .final-cta {
-                border-radius: 24px 24px 0 0;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WisePath — Systems for Chaos</title>
+  <meta name="description" content="WisePath builds clean, high-end automations and AI systems for local businesses." />
+  <meta name="robots" content="index,follow"/>
+  <meta name="theme-color" content="#0b0f14"/>
+  <!-- Open Graph -->
+  <meta property="og:title" content="WisePath — Systems for Chaos">
+  <meta property="og:description" content="Clean, high-end automations for real businesses.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wisepathsystems.com/">
+  <meta property="og:image" content="/og.png">
+  <link rel="canonical" href="https://wisepathsystems.com/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0f14; --bg-2:#0f141a; --card:#121821;
+      --text:#e7eaf0; --muted:#9aa4b2;
+      --accent:#38bdf8; --accent-2:#a78bfa;
+      --ring:rgba(56,189,248,.35);
+      --radius:16px; --container:1180px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--container); margin-inline:auto; padding-inline:20px}
+
+    /* ===== A11y focus ===== */
+    :focus-visible{outline:2px solid var(--accent); outline-offset:2px; box-shadow:0 0 0 6px var(--ring)}
+
+    /* ===== Header ===== */
+    .header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(140%) blur(10px);
+      background:linear-gradient(180deg, rgba(13,18,24,.78), rgba(13,18,24,.55));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; height:64px}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{display:inline-block; width:28px; height:28px}
+    .wordmark{font-weight:700; letter-spacing:.2px}
+    .navlinks{display:flex; align-items:center; gap:20px}
+    .navlinks a{color:var(--muted); font-weight:500; font-size:14.5px; padding:10px 12px; border-radius:10px; transition:color .2s ease, background .2s ease}
+    .navlinks a:hover{color:var(--text); background:rgba(255,255,255,.05)}
+    .cta-row{display:flex; align-items:center; gap:10px}
+    .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; height:40px; padding:0 14px; border-radius:12px; font-weight:600; font-size:14px; border:1px solid transparent; cursor:pointer; transition:all .2s ease}
+    .btn.primary{background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#051018}
+    .btn.primary:hover{filter:saturate(110%) brightness(1.06)}
+    .btn.ghost{background:transparent; color:var(--text); border-color:rgba(255,255,255,.12)}
+    .btn.ghost:hover{background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.18)}
+    .menu-btn{display:none; width:40px; height:40px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--text)}
+
+    /* ===== Hero ===== */
+    .hero{
+      position:relative; isolation:isolate; overflow:hidden;
+      background:
+        radial-gradient(1200px 600px at 80% -100px, rgba(56,189,248,.22), transparent 60%),
+        radial-gradient(900px 500px at 0%   -50px, rgba(167,139,250,.20), transparent 55%),
+        var(--bg);
+    }
+    .hero:before{
+      content:""; position:absolute; inset:-2px; z-index:-1; opacity:.22;
+      background-image:
+        radial-gradient(1px 1px at 20px 30px, #fff, transparent),
+        radial-gradient(1px 1px at 140px 120px, #fff, transparent),
+        radial-gradient(1px 1px at 240px 60px, #fff, transparent),
+        radial-gradient(1px 1px at 420px 180px, #fff, transparent),
+        radial-gradient(1px 1px at 680px 90px, #fff, transparent);
+      background-size:700px 220px, 900px 260px, 800px 260px, 1000px 300px, 1100px 320px;
+      background-repeat:repeat;
+    }
+    .hero .wrap{padding-block:92px}
+    .eyebrow{display:inline-flex; gap:8px; align-items:center; color:var(--muted); font-weight:600; letter-spacing:.12em; font-size:12px; text-transform:uppercase; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); padding:8px 12px; border-radius:999px}
+    .headline{font-size:clamp(36px,6vw,64px); line-height:1.05; letter-spacing:-.02em; font-weight:800; margin:16px 0 14px}
+    .sub{max-width:720px; color:var(--muted); font-size:clamp(16px,2.2vw,18px)}
+    .hero-cta{display:flex; gap:12px; margin-top:26px}
+
+    /* Badge */
+    .badge{display:inline-flex; align-items:center; gap:12px; margin-top:28px; color:var(--muted)}
+    .badge svg{opacity:.9}
+
+    /* ===== Stripes / Cards ===== */
+    .stripe{padding-block:56px; background:linear-gradient(180deg, transparent, rgba(255,255,255,.02) 30%, rgba(255,255,255,.03) 100%)}
+    .cards{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
+    .card{grid-column:span 6; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); overflow:hidden; position:relative}
+    .card .inner{padding:28px}
+    .card h3{margin:0 0 8px; font-size:22px}
+    .card p{margin:0; color:var(--muted)}
+    .card .art{height:220px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, rgba(56,189,248,.1), rgba(167,139,250,.06)), radial-gradient(600px 200px at 100% 0%, rgba(255,255,255,.06), transparent 60%), var(--card)}
+    .card.small{grid-column:span 4}
+    .card.tall{grid-column:span 8}
+    .pill{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; font-size:12px; font-weight:600; color:var(--text); background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1)}
+
+    /* ===== Footer ===== */
+    .footer{padding-block:48px; color:var(--muted); border-top:1px solid rgba(255,255,255,.06); background:linear-gradient(180deg, rgba(255,255,255,.02), transparent)}
+    .footer .cols{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:24px}
+    .footer h4{margin:0 0 10px; font-size:13px; color:var(--text); text-transform:uppercase; letter-spacing:.12em}
+    .footer a{display:block; color:var(--muted); padding:6px 0; font-size:14px}
+    .copyright{margin-top:18px; font-size:13px}
+
+    /* ===== Responsive ===== */
+    @media (max-width:980px){
+      .navlinks{display:none}
+      .menu-btn{display:inline-grid; place-items:center}
+      .drawer{position:fixed; inset:64px 10px 10px; border:1px solid rgba(255,255,255,.1); background:rgba(10,14,20,.94); backdrop-filter:saturate(140%) blur(10px); border-radius:18px; padding:14px; display:none}
+      .drawer.open{display:block}
+      .drawer a{display:block; padding:14px 10px; border-radius:12px; margin:2px 0; color:var(--text)}
+      .drawer a:hover{background:rgba(255,255,255,.06)}
+      .cards{grid-template-columns:1fr}
+      .card,.card.small,.card.tall{grid-column:1/-1}
+      .footer .cols{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:560px){
+      .footer .cols{grid-template-columns:1fr}
+    }
+
+    /* Animations */
+    .reveal{opacity:0; transform:translateY(8px); animation:reveal .6s ease .05s forwards}
+    .reveal-2{animation-delay:.15s}
+    .reveal-3{animation-delay:.3s}
+    @keyframes reveal{to{opacity:1; transform:none}}
+
+    /* PERF: render below-the-fold later for a faster first paint */
+    .stripe{content-visibility:auto; contain-intrinsic-size:800px;}
+
+    /* PERF: cheap on-view reveal that respects reduced motion */
+    .onview{opacity:0; transform:translateY(8px);}
+    .onview.viewed{animation:reveal .6s ease forwards;}
+    @media (prefers-reduced-motion: reduce){
+      .reveal,.reveal-2,.reveal-3{animation:none; opacity:1; transform:none}
+      .onview, .onview.viewed{opacity:1; transform:none; animation:none}
+      html{scroll-behavior:auto}
+    }
+  </style>
 </head>
 <body>
+  <!-- Header / Global Nav -->
+  <header class="header">
+    <div class="container nav" role="navigation" aria-label="Primary">
+      <a href="#" class="brand" aria-label="WisePath home">
+        <!-- Constellation crown -->
+        <svg class="logo" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+          <circle cx="10" cy="44" r="3" stroke="url(#g)" stroke-width="2"/>
+          <circle cx="54" cy="44" r="3" stroke="url(#g)" stroke-width="2"/>
+          <circle cx="32" cy="14" r="3" fill="url(#g)"/>
+          <circle cx="20" cy="30" r="2" fill="url(#g)"/>
+          <circle cx="44" cy="30" r="2" fill="url(#g)"/>
+          <path d="M10 44 L20 30 L32 14 L44 30 L54 44" stroke="url(#g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="wordmark">WisePath</span>
+      </a>
+      <nav class="navlinks">
+        <a href="#solutions">Solutions</a>
+        <a href="#industries">Industries</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#work">Work</a>
+        <a href="#resources">Resources</a>
+      </nav>
+      <div class="cta-row">
+        <a class="btn ghost" href="#contact">Contact</a>
+        <a class="btn primary" href="/intake.html">Start Intake</a>
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="drawer" aria-expanded="false">☰</button>
+      </div>
+    </div>
+    <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Mobile Menu">
+      <a href="#solutions" onclick="closeDrawer()">Solutions</a>
+      <a href="#industries" onclick="closeDrawer()">Industries</a>
+      <a href="#pricing" onclick="closeDrawer()">Pricing</a>
+      <a href="#work" onclick="closeDrawer()">Work</a>
+      <a href="#resources" onclick="closeDrawer()">Resources</a>
+      <a href="/intake.html" class="pill" onclick="closeDrawer()">Start Intake →</a>
+    </div>
+  </header>
 
-    <!-- NAV -->
-    <header class="nav">
-        <div class="nav-inner">
-            <div class="nav-left">
-                <div class="logo-mark">WP</div>
-                <div>
-                    <div class="logo-text">WisePath Systems</div>
-                    <div class="logo-sub">Operational Architecture · AI First</div>
-                </div>
-            </div>
-            <nav class="nav-links">
-                <a href="#systems">Systems</a>
-                <a href="#process">Process</a>
-                <a href="#clients">Who We Serve</a>
-            </nav>
-            <a href="intake.html" class="nav-cta">Start 4-Minute Audit →</a>
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="h1">
+      <div class="container wrap">
+        <span class="eyebrow reveal">Systems for chaos</span>
+        <h1 id="h1" class="headline reveal-2">Clean, high-end automations<br/>for real businesses.</h1>
+        <p class="sub reveal-3">We design Apple-clean experiences with ruthless practicality: client intake hubs, AI voice agents, document workflows, and analytics that actually ship.</p>
+        <div class="hero-cta reveal-3">
+          <a class="btn primary" href="/intake.html">Build my system</a>
+          <a class="btn ghost" href="#work">See examples</a>
         </div>
-    </header>
-
-    <main class="page">
-        <!-- HERO -->
-        <section class="hero">
-            <div>
-                <div class="hero-tag">Fractional operations · AI deployment</div>
-                <h1 class="hero-title">
-                    Turn chaotic<br />
-                    <span>service businesses</span><br />
-                    into systems.
-                </h1>
-                <p class="hero-sub">
-                    WisePath builds and deploys end-to-end operational systems for lead capture, follow-up, booking, and reactivation—so you stop leaking revenue and start running on rails.
-                </p>
-                <div class="hero-cta-row">
-                    <a href="intake.html" class="hero-btn">Start Systems Intake (4 minutes)</a>
-                </div>
-                <p class="hero-note">
-                    You get a concrete systems blueprint, not generic advice. Deployment can begin within 48 hours of acceptance.
-                </p>
-
-                <div class="hero-metrics">
-                    <div class="metric-pill">
-                        <span class="metric-dot"></span>
-                        48-hour deployment window
-                    </div>
-                    <div class="metric-pill">
-                        <span class="metric-dot"></span>
-                        Template-driven – no custom dev
-                    </div>
-                    <div class="metric-pill">
-                        <span class="metric-dot"></span>
-                        No long-term contracts
-                    </div>
-                </div>
-            </div>
-
-            <aside class="hero-card">
-                <div class="hero-card-header">
-                    <span>WisePath Signature System</span>
-                    <span style="color: var(--green-core); font-weight: 600;">WSS-01</span>
-                </div>
-                <div class="hero-pills">
-                    <div class="hero-pill">Lead Engine</div>
-                    <div class="hero-pill">AI Follow-Up</div>
-                    <div class="hero-pill">Booking Stack</div>
-                    <div class="hero-pill">Intake & Onboarding</div>
-                    <div class="hero-pill">Reactivation</div>
-                </div>
-
-                <div class="diagram">
-                    <div class="diagram-row">
-                        <span class="diagram-label">Chaos Input</span>
-                        <span class="diagram-chip">Missed calls, DMs, forms</span>
-                    </div>
-                    <div class="diagram-line"></div>
-                    <div class="diagram-row" style="margin-top: 12px;">
-                        <span class="diagram-label">WisePath Engine</span>
-                        <span class="diagram-chip" style="background-color:#fff; color:var(--green-core); border:1px solid var(--border-soft);">
-                            Scored · Routed · Booked
-                        </span>
-                    </div>
-                    <div class="diagram-line"></div>
-                    <div class="diagram-row" style="margin-top: 12px;">
-                        <span class="diagram-label">Profit Output</span>
-                        <span class="diagram-chip">Predictable pipeline</span>
-                    </div>
-                </div>
-            </aside>
-        </section>
-
-        <!-- SIGNATURE SYSTEM -->
-        <section id="systems" class="section">
-            <div class="section-header">
-                <div class="section-kicker">WisePath Signature System</div>
-                <h2 class="section-title">One install. Six connected systems. Zero chaos.</h2>
-                <p class="section-sub">
-                    We don’t sell “AI tools.” We architect the operational engine that your business runs on—so every inquiry is captured, worked, and booked.
-                </p>
-            </div>
-
-            <div class="grid-3">
-                <div class="card">
-                    <div class="card-label">01 · Capture</div>
-                    <div class="card-title">Lead Engine</div>
-                    <p class="card-body">
-                        Every inquiry—web form, text, call, DM—is captured, tagged, and routed into a single pipeline. No more “who was that person from last week?”
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="card-label">02 · Convert</div>
-                    <div class="card-title">AI Follow-Up</div>
-                    <p class="card-body">
-                        SMS and email follow-up that responds instantly, qualifies, and moves people to booking without needing a human to remember anything.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="card-label">03 · Lock-In</div>
-                    <div class="card-title">Booking Stack</div>
-                    <p class="card-body">
-                        Smart scheduling, confirmations, reminders, and reschedules—to cut no-shows and keep your calendar full with the right clients.
-                    </p>
-                </div>
-            </div>
-
-            <div class="grid-3" style="margin-top:20px;">
-                <div class="card">
-                    <div class="card-label">04 · Prepare</div>
-                    <div class="card-title">Intake & Onboarding</div>
-                    <p class="card-body">
-                        Intake forms, expectations, and internal tasks fire automatically when someone books—so your team walks in already prepared.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="card-label">05 · Reactivate</div>
-                    <div class="card-title">Win-Back Flows</div>
-                    <p class="card-body">
-                        Reactivation campaigns for cold leads, past clients, and canceled members—turning old data into new revenue.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="card-label">06 · See Clearly</div>
-                    <div class="card-title">Performance View</div>
-                    <p class="card-body">
-                        Simple dashboards that show where leads come from, where they stall, and where money is leaking—so fixes are obvious instead of guesswork.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- PROCESS -->
-        <section id="process" class="section">
-            <div class="section-header">
-                <div class="section-kicker">Process</div>
-                <h2 class="section-title">A 3-step deployment, not an endless project.</h2>
-                <p class="section-sub">
-                    WisePath is productized on purpose—so setup is fast, expectations are concrete, and you’re not paying for open-ended consulting hours.
-                </p>
-            </div>
-
-            <div class="process-list">
-                <div class="process-item">
-                    <div class="process-number">01</div>
-                    <div class="process-main">
-                        <h3>Systems Intake (4 minutes)</h3>
-                        <p>
-                            You complete the WisePath intake. We run it through our internal scoring model and map exactly where your operational leaks are.
-                        </p>
-                        <div class="process-meta">Time cost: your 4 minutes · Output: diagnostic + recommended build</div>
-                    </div>
-                </div>
-
-                <div class="process-item">
-                    <div class="process-number">02</div>
-                    <div class="process-main">
-                        <h3>Template Deployment (48 hours)</h3>
-                        <p>
-                            We install the WisePath Signature System for your business—using proven templates tuned for your vertical and stage.
-                        </p>
-                        <div class="process-meta">Time cost: our 48 hours · Output: live system inside your tools</div>
-                    </div>
-                </div>
-
-                <div class="process-item">
-                    <div class="process-number">03</div>
-                    <div class="process-main">
-                        <h3>Monitor & Refine</h3>
-                        <p>
-                            We track performance, adjust flows, and keep the system running so your team can stay focused on delivery—not chasing admin.
-                        </p>
-                        <div class="process-meta">Time cost: ~15 minutes/month review · Output: stable, compounding pipeline</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- WHO WE SERVE -->
-        <section id="clients" class="section">
-            <div class="section-header">
-                <div class="section-kicker">Who We Serve</div>
-                <h2 class="section-title">Service businesses where every missed call is real money.</h2>
-                <p class="section-sub">
-                    We work with owner-led teams who feel their days slipping into inboxes, DMs, and callbacks instead of controlled systems.
-                </p>
-            </div>
-
-            <div class="grid-3-tight">
-                <div class="serve-card">
-                    <div class="serve-title">Realtors & Real Estate Teams</div>
-                    <ul class="serve-list">
-                        <li><span class="serve-dot"></span><span>Speed-to-lead on portal and website inquiries.</span></li>
-                        <li><span class="serve-dot"></span><span>Automated showing and consult booking.</span></li>
-                        <li><span class="serve-dot"></span><span>Compliance reminders and document follow-up.</span></li>
-                    </ul>
-                </div>
-
-                <div class="serve-card">
-                    <div class="serve-title">Gyms, Trainers, & Studios</div>
-                    <ul class="serve-list">
-                        <li><span class="serve-dot"></span><span>Follow-up on trials, leads, and walk-ins.</span></li>
-                        <li><span class="serve-dot"></span><span>Class reminders and membership renewals.</span></li>
-                        <li><span class="serve-dot"></span><span>Win-back flows for cold or canceled members.</span></li>
-                    </ul>
-                </div>
-
-                <div class="serve-card">
-                    <div class="serve-title">Clinics & Home Services</div>
-                    <ul class="serve-list">
-                        <li><span class="serve-dot"></span><span>Call-to-text capture for missed calls.</span></li>
-                        <li><span class="serve-dot"></span><span>Automated estimates, intake, and reminders.</span></li>
-                        <li><span class="serve-dot"></span><span>Post-visit follow-ups and reactivation nudges.</span></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="final-cta">
-                <h2>Stop leaking revenue. Start running on rails.</h2>
-                <p>
-                    If you’re answering the same questions, chasing the same leads, and plugging the same holes every week, you don’t need more effort—you need a system.
-                </p>
-                <a href="intake.html" class="final-cta-btn">Begin the WisePath Systems Intake →</a>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-inner">
-            <span>© <span id="year"></span> WisePath Systems. All rights reserved.</span>
-            <span>Built in Chicago. Operating everywhere.</span>
+        <div class="badge reveal-3" aria-hidden="true">
+          <svg width="120" height="24" viewBox="0 0 120 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="l" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+            <path d="M4 20 L28 6 L60 14 L92 8 L116 20" stroke="url(#l)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>Charcoal UI • Constellation brand • Chicago-built</span>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
+    <!-- Solutions -->
+    <section class="stripe" id="solutions" aria-labelledby="solutions-h">
+      <div class="container">
+        <h2 id="solutions-h" class="headline" style="font-size:28px; margin:0 0 18px;">Solutions</h2>
+        <div class="cards">
+          <article class="card tall">
+            <div class="inner">
+              <span class="pill">Automation Suite</span>
+              <h3>Client Intake Hub</h3>
+              <p>Smart forms, routing, and CRM handoff. Frictionless for clients, structured for ops.</p>
+            </div>
+            <div class="art" aria-hidden="true">
+              <svg width="340" height="120" viewBox="0 0 340 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="gg1" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+                <path d="M0 90 Q60 10 120 60 T240 50 T340 30" stroke="url(#gg1)" stroke-width="3" fill="none"/>
+                <circle cx="120" cy="60" r="3" fill="#38bdf8"/>
+                <circle cx="240" cy="50" r="3" fill="#a78bfa"/>
+              </svg>
+            </div>
+          </article>
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Voice</span>
+              <h3>AI Call Agent</h3>
+              <p>Answers, books, confirms. Your tone, your rules, 24/7.</p>
+            </div>
+            <div class="art" aria-hidden="true"></div>
+          </article>
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Docs</span>
+              <h3>Signature & Files</h3>
+              <p>Generate, e-sign, store, and sync to your drive without touching a mouse.</p>
+            </div>
+            <div class="art" aria-hidden="true"></div>
+          </article>
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Analytics</span>
+              <h3>Ops Dashboard</h3>
+              <p>One board: pipeline, SLAs, revenue, and missed calls. See it. Fix it.</p>
+            </div>
+            <div class="art" aria-hidden="true"></div>
+          </article>
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Integrations</span>
+              <h3>Square • Gmail • Sheets</h3>
+              <p>Glue the tools you already use—no rip & replace.</p>
+            </div>
+            <div class="art" aria-hidden="true"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Industries -->
+    <section class="stripe" id="industries" aria-labelledby="industries-h">
+      <div class="container">
+        <h2 id="industries-h" class="headline" style="font-size:28px; margin:0 0 18px;">Industries</h2>
+        <div class="cards">
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Real Estate</span>
+              <h3>Brokerages & Property Mgmt</h3>
+              <p>Route leads, book tours, send disclosures, push to CRM in seconds.</p>
+            </div>
+            <div class="art" aria-hidden="true"></div>
+          </article>
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Clinics</span>
+              <h3>Dental • PT • Med Spa</h3>
+              <p>Insurance capture, consent e-sign, reminders, no-show rescue flows.</p>
+            </div>
+            <div class="art" aria-hidden="true"></div>
+          </article>
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Law</span>
+              <h3>PI • Immigration • Family</h3>
+              <p>Conflict checks, matter intake, fee agreements, and doc assembly.</p>
+            </div>
+            <div class="art" aria-hidden="true"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="stripe" id="pricing" aria-labelledby="pricing-h">
+      <div class="container">
+        <h2 id="pricing-h" class="headline" style="font-size:28px; margin:0 0 18px;">Pricing</h2>
+        <div class="cards">
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Pilot</span>
+              <h3>$1,500 setup</h3>
+              <p>One flow live in 2 weeks. Includes intake hub + simple dashboard.</p>
+            </div>
+          </article>
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Core</span>
+              <h3>$4,000 project</h3>
+              <p>Voice agent + docs + analytics. Most small teams start here.</p>
+            </div>
+          </article>
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Enterprise</span>
+              <h3>Custom</h3>
+              <p>Multi-location, SSO, SLAs. Request a scoped proposal.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work -->
+    <section class="stripe" id="work" aria-labelledby="work-h">
+      <div class="container">
+        <h2 id="work-h" class="headline" style="font-size:28px; margin:0 0 18px;">Work</h2>
+        <div class="cards">
+          <article class="card tall">
+            <div class="inner">
+              <span class="pill">Snapshot</span>
+              <h3>Cut missed calls by 62%</h3>
+              <p>We deployed a call agent + SMS capture for a 4-office clinic. Booking time dropped to under 90s.</p>
+            </div>
+            <div class="art" aria-hidden="true"></div>
+          </article>
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Snapshot</span>
+              <h3>Tour booking in one tap</h3>
+              <p>Property managers received qualified leads with pre-screening and ID verification.</p>
+            </div>
+            <div class="art" aria-hidden="true"></div>
+          </article>
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Snapshot</span>
+              <h3>Faster fee agreements</h3>
+              <p>Auto-generated retainer + e-sign shaved 24 hours off new matter onboarding.</p>
+            </div>
+            <div class="art" aria-hidden="true"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resources -->
+    <section class="stripe" id="resources" aria-labelledby="resources-h">
+      <div class="container">
+        <h2 id="resources-h" class="headline" style="font-size:28px; margin:0 0 18px;">Resources</h2>
+        <div class="cards">
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Guide</span>
+              <h3>Intake that converts</h3>
+              <p>5 patterns to capture leads without adding staff hours.</p>
+            </div>
+          </article>
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Checklist</span>
+              <h3>AI call agent readiness</h3>
+              <p>Scripts, escalation, compliance—what to prep before you deploy.</p>
+            </div>
+          </article>
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">Playbook</span>
+              <h3>Docs & e-sign flow</h3>
+              <p>From template to signed PDF in under two minutes.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intake (anchor target) -->
+    <section class="stripe" id="intake" aria-labelledby="intake-h">
+      <div class="container">
+        <h2 id="intake-h" class="headline" style="font-size:28px; margin:0 0 18px;">Start Intake</h2>
+        <p class="sub">Ready to move? Kick off with the short form. We’ll reply same-day.</p>
+        <div class="hero-cta" style="margin-top:18px">
+          <a class="btn primary" href="/intake.html">Open the intake form</a>
+          <a class="btn ghost" href="#contact">Prefer email? Contact us</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="stripe" id="contact" aria-labelledby="contact-h">
+      <div class="container">
+        <h2 id="contact-h" class="headline" style="font-size:28px; margin:0 0 18px;">Contact</h2>
+        <div class="cards">
+          <article class="card tall">
+            <div class="inner">
+              <span class="pill">Email</span>
+              <h3><a href="mailto:hello@wisepathsystems.com?subject=WisePath%20Inquiry">hello@wisepathsystems.com</a></h3>
+              <p>Send context, links, and any current tools you use. We’ll scope fast.</p>
+            </div>
+          </article>
+          <article class="card small">
+            <div class="inner">
+              <span class="pill">HQ</span>
+              <h3>Chicago, IL</h3>
+              <p>Serving teams nationwide. Remote-first builds, on-site go-lives by request.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="cols">
+        <div>
+          <h4>WisePath</h4>
+          <a href="#work">Case Studies</a>
+          <a href="#resources">Guides</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div>
+          <h4>Solutions</h4>
+          <a href="#solutions">Automation Suite</a>
+          <a href="#solutions">AI Call Agent</a>
+          <a href="#solutions">Signature & Files</a>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <a href="#pricing">Pricing</a>
+          <a href="/intake.html">Start Intake</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+      <div class="copyright">© <span id="y"></span> WisePath Systems. Built in Chicago.</div>
+    </div>
+  </footer>
+
+  <script defer>
+    // Mobile drawer
+    const btn = document.getElementById('menuBtn');
+    const drawer = document.getElementById('drawer');
+    function closeDrawer(){ drawer.classList.remove('open'); btn?.setAttribute('aria-expanded','false'); }
+    btn?.addEventListener('click', () => {
+      const open = drawer.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // PERF: prefetch intake.html on first intent (hover/focus)
+    (function(){
+      const prefetch = (url) => {
+        const l = document.createElement('link');
+        l.rel = 'prefetch'; l.as = 'document'; l.href = url;
+        document.head.appendChild(l);
+      };
+      document.querySelectorAll('a[href="/intake.html"]').forEach(a=>{
+        const go = () => prefetch('/intake.html');
+        a.addEventListener('pointerenter', go, { once:true });
+        a.addEventListener('focus',        go, { once:true });
+      });
+    })();
+
+    // PERF: progressive on-view reveal for headlines + cards
+    (function(){
+      const targets = document.querySelectorAll(
+        '#solutions .headline, #industries .headline, #pricing .headline, #work .headline, #resources .headline, #contact .headline, .card'
+      );
+      targets.forEach(el => el.classList.add('onview'));
+      const io = new IntersectionObserver((entries)=>{
+        for(const e of entries){
+          if(e.isIntersecting){
+            e.target.classList.add('viewed');
+            io.unobserve(e.target);
+          }
+        }
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+      targets.forEach(el => io.observe(el));
+    })();
+  </script>
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "WisePath Systems",
+    "url": "https://wisepathsystems.com/",
+    "logo": "https://wisepathsystems.com/favicon.svg",
+    "sameAs": [],
+    "address": { "@type": "PostalAddress", "addressLocality": "Chicago", "addressRegion": "IL", "addressCountry": "US" }
+  }
+  </script>
+
+  <noscript><div style="color:#9aa4b2; text-align:center; padding:8px 0;">JavaScript is disabled. Navigation and animations are simplified.</div></noscript>
 </body>
 </html>

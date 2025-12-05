@@ -1,39 +1,363 @@
-<!-- SECTION 06 -->
-<div class="section-title">
-    Goals
-    <span class="section-number">06 / 07</span>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WisePath Systems | Systems Intake</title>
 
-<div class="form-group">
-    <label>Primary 90-Day Goal</label>
-    <textarea name="goal_90" rows="4"></textarea>
-</div>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-<!-- SECTION 07 -->
-<div class="section-title">
-    Additional Context
-    <span class="section-number">07 / 07</span>
-</div>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
 
-<div class="form-group">
-    <label>Anything else we should know about how your business runs?</label>
-    <textarea 
-        name="ops_context" 
-        rows="4" 
-        style="resize: vertical;" 
-        placeholder="Optional, but helpful. For example: how quickly you reply to leads, what tools you use now, where things get stuck, missed payments, staff issues, repeat clients, etc."
-    ></textarea>
-</div>
+        :root {
+            --bg-color: #F6F7F2;      /* page background */
+            --paper-color: #FFFFFF;   /* form card */
+            --text-main: #111111;
+            --text-muted: #6E6E73;
 
-<div style="height: 60px;"></div>
+            /* WisePath greens */
+            --accent-main: #046200;   /* primary */
+            --accent-deep: #013222;   /* hover / headings */
+            --input-bg: #E9EDE4;
+            --border-radius: 18px;
+        }
 
-<div class="action-bar">
-    <a href="index.html" class="cancel-btn">Cancel Audit</a>
-    <button type="submit" class="submit-btn">Submit for Analysis</button>
-</div>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding-bottom: 120px;
+        }
+
+        .doc-header {
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+
+        .doc-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            color: var(--accent-deep);
+        }
+
+        .meta-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            border: 1px solid #E1E5DC;
+            padding: 6px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 16px;
+            background-color: #fff;
+        }
+
+        .dossier-container {
+            max-width: 640px;
+            margin: 0 auto;
+            background: var(--paper-color);
+            border-radius: var(--border-radius);
+            padding: 60px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+            border: 1px solid #E1E5DC;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-top: 60px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #E1E5DC;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .section-title:first-child { margin-top: 0; }
+
+        .section-number {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .form-group { margin-bottom: 32px; }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 16px 18px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            background-color: var(--input-bg);
+            font-size: 16px;
+            outline: none;
+            transition: .2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(4, 98, 0, 0.13); /* from accent-main */
+            border-color: var(--accent-main);
+        }
+
+        .action-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0; right: 0;
+            background: rgba(246,247,242,0.96);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid #E1E5DC;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .submit-btn {
+            background-color: var(--accent-main);
+            color: #fff;
+            padding: 14px 40px;
+            border-radius: 100px;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-deep);
+        }
+
+        .cancel-btn {
+            position: absolute;
+            left: 40px;
+            color: var(--text-muted);
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .dossier-container {
+                padding: 30px 20px;
+                box-shadow: none;
+                border: none;
+                background: transparent;
+            }
+            .cancel-btn { display: none; }
+            .doc-header h1 { font-size: 36px; }
+        }
+    </style>
+</head>
+
+<body>
+<header class="doc-header">
+    <div class="meta-tag">Reference: WSS-AUDIT-V2</div>
+    <h1>Systems Intake</h1>
+    <p style="color: var(--text-muted);">Confidential analysis of your operations.</p>
+</header>
+
+<div class="dossier-container">
+<form action="https://usebasin.com/f/94ff6103b733" method="POST">
+
+    <!-- SECTION 01 -->
+    <div class="section-title">
+        Business Snapshot
+        <span class="section-number">01 / 07</span>
+    </div>
+
+    <div class="form-group">
+        <label>Business Name</label>
+        <input name="business_name" type="text" required>
+    </div>
+
+    <div class="form-group">
+        <label>Industry</label>
+        <input name="industry" type="text" required>
+    </div>
+
+    <div class="form-group">
+        <label>Your Name</label>
+        <input name="owner_name" type="text" required>
+    </div>
+
+    <div class="form-group">
+        <label>Best Email</label>
+        <input name="email" type="email" required>
+    </div>
+
+    <div class="form-group">
+        <label>Team Size</label>
+        <select name="employees" required>
+            <option value="" disabled selected>Select...</option>
+            <option value="solo">Solo Founder</option>
+            <option value="2-5">2–5 Employees</option>
+            <option value="6-15">6–15 Employees</option>
+            <option value="16-30">16–30 Employees</option>
+            <option value="30+">30+ Employees</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Monthly Revenue</label>
+        <select name="revenue_range" required>
+            <option value="" disabled selected>Select...</option>
+            <option value="<5k">Under $5k</option>
+            <option value="5-15k">$5k–$15k</option>
+            <option value="15-30k">$15k–$30k</option>
+            <option value="30-60k">$30k–$60k</option>
+            <option value="60k+">$60k+</option>
+        </select>
+    </div>
+
+    <!-- SECTION 02 -->
+    <div class="section-title">
+        Lead Flow
+        <span class="section-number">02 / 07</span>
+    </div>
+
+    <div class="form-group">
+        <label>Lead Sources</label>
+        <input name="lead_sources" type="text" placeholder="e.g. Facebook, referrals, Google, walk-ins">
+    </div>
+
+    <div class="form-group">
+        <label>Avg. New Leads Per Week</label>
+        <input name="leads_per_week" type="number" min="0">
+    </div>
+
+    <!-- SECTION 03 -->
+    <div class="section-title">
+        Operations
+        <span class="section-number">03 / 07</span>
+    </div>
+
+    <div class="form-group">
+        <label>Typical Response Time to New Leads</label>
+        <select name="response_time">
+            <option value="" disabled selected>Select...</option>
+            <option value="0-5">0–5 minutes</option>
+            <option value="5-30">5–30 minutes</option>
+            <option value="same_day">Same day</option>
+            <option value="2+days">2+ days</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Current Lead / Client Tracking Method</label>
+        <select name="lead_tracking">
+            <option value="" disabled selected>Select...</option>
+            <option value="none">None</option>
+            <option value="paper">Paper / notes</option>
+            <option value="spreadsheet">Spreadsheet</option>
+            <option value="crm">CRM or booking platform</option>
+        </select>
+    </div>
+
+    <!-- SECTION 04 -->
+    <div class="section-title">
+        Bottlenecks
+        <span class="section-number">04 / 07</span>
+    </div>
+
+    <div class="form-group">
+        <label>Primary Slowdowns in Your Day</label>
+        <input name="top_bottlenecks" type="text" placeholder="e.g. Scheduling, follow-up, intake, rescheduling">
+    </div>
+
+    <div class="form-group">
+        <label>How often are you interrupted while working?</label>
+        <select name="interruptions">
+            <option value="" disabled selected>Select...</option>
+            <option value="5-10min">Every 5–10 minutes</option>
+            <option value="hour">About once per hour</option>
+            <option value="rarely">Rarely</option>
+        </select>
+    </div>
+
+    <!-- SECTION 05 -->
+    <div class="section-title">
+        System Structure
+        <span class="section-number">05 / 07</span>
+    </div>
+
+    <div class="form-group">
+        <label>How do clients currently book with you?</label>
+        <input name="booking_flow" type="text" placeholder="Website form, direct calls, DMs, calendar link, front desk, etc.">
+    </div>
+
+    <div class="form-group">
+        <label>How often do leads fall through the cracks?</label>
+        <select name="lead_loss_rate">
+            <option value="" disabled selected>Select...</option>
+            <option value="rarely">Rarely</option>
+            <option value="sometimes">Sometimes</option>
+            <option value="often">Often</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>What tools and platforms are you using right now?</label>
+        <input name="tools_used" type="text" placeholder="Google Calendar, Square, Vagaro, CRM, spreadsheets, none…">
+    </div>
+
+    <div class="form-group">
+        <label>Where does your workflow break down most often?</label>
+        <textarea name="workflow_failure_point" rows="3" placeholder="For example: after first contact, during scheduling, after first visit, during billing, etc."></textarea>
+    </div>
+
+    <!-- SECTION 06 -->
+    <div class="section-title">
+        Goals
+        <span class="section-number">06 / 07</span>
+    </div>
+
+    <div class="form-group">
+        <label>Primary 90-Day Outcome You Want from WisePath</label>
+        <textarea name="goal_90" rows="4" placeholder="e.g. Stop missing calls, cut no-shows in half, free up 10 hours/week from admin, etc."></textarea>
+    </div>
+
+    <!-- SECTION 07 -->
+    <div class="section-title">
+        Additional Context
+        <span class="section-number">07 / 07</span>
+    </div>
+
+    <div class="form-group">
+        <label>Anything else we should know about how your business runs?</label>
+        <textarea
+            name="ops_context"
+            rows="4"
+            style="resize: vertical;"
+            placeholder="Optional, but helpful. For example: how quickly you reply to leads, staff structure, seasons, past attempts at automations, anything unusual we should factor in."
+        ></textarea>
+    </div>
+
+    <div style="height: 60px;"></div>
+
+    <div class="action-bar">
+        <a href="index.html" class="cancel-btn">Cancel Audit</a>
+        <button type="submit" class="submit-btn">Submit for Analysis</button>
+    </div>
 
 </form>
 </div>
 
+</body>
+</html>
 </body>
 </html>

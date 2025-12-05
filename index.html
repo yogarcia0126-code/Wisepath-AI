@@ -5,13 +5,13 @@
   <meta http-equiv="x-ua-compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WisePath — Systems for Chaos</title>
-  <meta name="description" content="WisePath builds clean, high-end automations and AI systems for local businesses." />
+  <meta name="description" content="Clean, high-end automations for real businesses. Intake hubs, AI voice agents, docs, and analytics that actually ship." />
   <meta name="robots" content="index,follow"/>
   <meta name="theme-color" content="#0b0f14"/>
 
   <!-- Open Graph -->
   <meta property="og:title" content="WisePath — Systems for Chaos">
-  <meta property="og:description" content="Clean, high-end automations for real businesses.">
+  <meta property="og:description" content="Clean, high-end automations for real businesses." />
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://wisepathsystems.com/">
   <meta property="og:image" content="/og.png">
@@ -24,6 +24,7 @@
 
   <style>
     :root{
+      /* Core WisePath palette */
       --bg:#0b0f14; --bg-2:#0f141a; --card:#121821;
       --text:#e7eaf0; --muted:#9aa4b2;
       --accent:#38bdf8; --accent-2:#a78bfa;
@@ -40,17 +41,11 @@
     }
     a{color:inherit; text-decoration:none}
     .container{max-width:var(--container); margin-inline:auto; padding-inline:20px}
-
-    /* Skip link (a11y) */
-    .skip{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
-    .skip:focus{left:12px; top:12px; width:auto; height:auto; padding:8px 12px; background:#111826; border-radius:10px; z-index:1000}
-
-    /* Focus */
     :focus-visible{outline:2px solid var(--accent); outline-offset:2px; box-shadow:0 0 0 6px var(--ring)}
 
-    /* Header */
+    /* ===== Header ===== */
     .header{
-      position:sticky; top:0; z-index:50;
+      position:sticky; top:0; z-index:60;
       backdrop-filter:saturate(140%) blur(10px);
       background:linear-gradient(180deg, rgba(13,18,24,.78), rgba(13,18,24,.55));
       border-bottom:1px solid rgba(255,255,255,.06);
@@ -69,9 +64,17 @@
     .btn.ghost{background:transparent; color:var(--text); border-color:rgba(255,255,255,.12)}
     .btn.ghost:hover{background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.18)}
     .menu-btn{display:none; width:40px; height:40px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--text)}
-    .drawer{display:none;} /* important: keep hidden on desktop */
 
-    /* Hero */
+    /* ===== Ticker (TradingView-style, brand-mapped) ===== */
+    .ticker{height:40px; border-bottom:1px solid rgba(255,255,255,.08); background:#070a10; overflow:hidden; display:flex; align-items:center; position:sticky; top:64px; z-index:55}
+    .ticker .track{display:inline-block; white-space:nowrap; animation:ticker 22s linear infinite}
+    .ticker .item{display:inline-flex; align-items:center; gap:10px; padding:0 20px; font-size:12px; font-weight:600; color:var(--text)}
+    .up{color:#34D399} .down{color:#F87171}
+    @keyframes ticker{from{transform:translateX(0)} to{transform:translateX(-50%)}}
+    @media (prefers-reduced-motion:reduce){ .ticker .track{animation:none} }
+    .sr-only{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden}
+
+    /* ===== Hero (now split with chart card) ===== */
     .hero{
       position:relative; isolation:isolate; overflow:hidden;
       background:
@@ -94,19 +97,50 @@
     .eyebrow{display:inline-flex; gap:8px; align-items:center; color:var(--muted); font-weight:600; letter-spacing:.12em; font-size:12px; text-transform:uppercase; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); padding:8px 12px; border-radius:999px}
     .headline{font-size:clamp(36px,6vw,64px); line-height:1.05; letter-spacing:-.02em; font-weight:800; margin:16px 0 14px}
     .sub{max-width:720px; color:var(--muted); font-size:clamp(16px,2.2vw,18px)}
-    .hero-cta{display:flex; gap:12px; margin-top:26px}
+
+    .hero-grid{display:grid; grid-template-columns:1.05fr 1fr; gap:36px; align-items:center}
+    @media (max-width:980px){ .hero-grid{grid-template-columns:1fr} }
+
+    .hero-cta{display:flex; gap:12px; margin-top:26px; flex-wrap:wrap}
+
+    /* Faux performance card (TradingView feel) */
+    .tv-card{
+      background:var(--card); border:1px solid rgba(255,255,255,.08);
+      border-radius:16px; padding:20px; box-shadow:0 18px 48px rgba(0,0,0,.45);
+    }
+    .tv-head{display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,.08); padding-bottom:14px; margin-bottom:18px}
+    .tv-sym{font-weight:800; letter-spacing:.2px}
+    .tv-sym span{color:var(--muted); font-weight:600; margin-left:8px; font-size:13px}
+    .tv-value{font-weight:800; font-size:22px; color:#34D399}
+    .tv-candles{display:flex; align-items:flex-end; gap:8px; height:200px; margin-top:8px}
+    .bar{width:10px; border-radius:2px; position:relative}
+    .bar.green{background:#34D399} .bar.red{background:#F87171}
+    .bar:before{content:""; position:absolute; left:50%; bottom:-10px; width:1px; height:140%; transform:translateX(-50%); background:currentColor; opacity:.45}
+    .tv-axis{display:flex; justify-content:space-between; color:var(--muted); font-size:12px; margin-top:8px}
+    .tv-badge{position:absolute; top:-14px; right:-14px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#051018; padding:8px 12px; border-radius:10px; font-weight:800}
 
     /* Stripes / Cards */
-    .stripe{padding-block:56px; background:linear-gradient(180deg, transparent, rgba(255,255,255,.02) 30%, rgba(255,255,255,.03) 100%); content-visibility:auto; contain-intrinsic-size:800px;}
+    .stripe{padding-block:56px; background:linear-gradient(180deg, transparent, rgba(255,255,255,.02) 30%, rgba(255,255,255,.03) 100%)}
     .cards{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
-    .card{grid-column:span 6; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); overflow:hidden; position:relative}
+    .card{grid-column:span 6; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); overflow:hidden}
     .card .inner{padding:28px}
     .card h3{margin:0 0 8px; font-size:22px}
     .card p{margin:0; color:var(--muted)}
-    .card .art{height:220px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, rgba(56,189,248,.1), rgba(167,139,250,.06)), radial-gradient(600px 200px at 100% 0%, rgba(255,255,255,.06), transparent 60%), var(--card)}
     .card.small{grid-column:span 4}
     .card.tall{grid-column:span 8}
     .pill{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; font-size:12px; font-weight:600; color:var(--text); background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1)}
+
+    /* Logos */
+    .logos{display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:12px}
+    .logo-item{display:grid; place-items:center; height:64px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); color:var(--muted); font-weight:700; letter-spacing:.06em}
+    @media (max-width:980px){ .logos{grid-template-columns:repeat(3,1fr)} }
+    @media (max-width:560px){ .logos{grid-template-columns:repeat(2,1fr)} }
+
+    /* Screens gallery */
+    .screens-grid{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
+    .screen{grid-column:span 6; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:16px; overflow:hidden}
+    .frame{aspect-ratio:16/9; background:radial-gradient(600px 300px at 100% 0%, rgba(255,255,255,.06), transparent 60%), #0f141a; display:grid; place-items:center; color:#9aa4b2; font-weight:600; letter-spacing:.06em}
+    @media (max-width:980px){ .screen{grid-column:1/-1} }
 
     /* Footer */
     .footer{padding-block:48px; color:var(--muted); border-top:1px solid rgba(255,255,255,.06); background:linear-gradient(180deg, rgba(255,255,255,.02), transparent)}
@@ -127,31 +161,28 @@
       .card,.card.small,.card.tall{grid-column:1/-1}
       .footer .cols{grid-template-columns:1fr 1fr}
     }
-    @media (max-width:560px){
-      .footer .cols{grid-template-columns:1fr}
-    }
+    @media (max-width:560px){ .footer .cols{grid-template-columns:1fr} }
 
-    /* Animations (with reduced motion respect) */
+    /* Animations / perf */
     .reveal{opacity:0; transform:translateY(8px); animation:reveal .6s ease .05s forwards}
     .reveal-2{animation-delay:.15s}
     .reveal-3{animation-delay:.3s}
     @keyframes reveal{to{opacity:1; transform:none}}
+    .stripe{content-visibility:auto; contain-intrinsic-size:800px;}
     .onview{opacity:0; transform:translateY(8px)}
     .onview.viewed{animation:reveal .6s ease forwards}
-    @media (prefers-reduced-motion: reduce){
+    @media (prefers-reduced-motion:reduce){
       .reveal,.reveal-2,.reveal-3{animation:none; opacity:1; transform:none}
-      .onview,.onview.viewed{opacity:1; transform:none; animation:none}
+      .onview,.onview.viewed{animation:none; opacity:1; transform:none}
       html{scroll-behavior:auto}
     }
   </style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-
   <!-- Header / Global Nav -->
   <header class="header">
     <div class="container nav" role="navigation" aria-label="Primary">
-      <a href="#" class="brand" aria-label="WisePath home">
+      <a href="/" class="brand" aria-label="WisePath home">
         <!-- Constellation crown -->
         <svg class="logo" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
@@ -167,8 +198,10 @@
       <nav class="navlinks">
         <a href="#solutions">Solutions</a>
         <a href="#industries">Industries</a>
-        <a href="#pricing">Pricing</a>
+        <a href="#clients">Clients</a>
         <a href="#work">Work</a>
+        <a href="#screens">Screens</a>
+        <a href="#pricing">Pricing</a>
         <a href="#resources">Resources</a>
       </nav>
       <div class="cta-row">
@@ -180,244 +213,271 @@
     <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Mobile Menu">
       <a href="#solutions" onclick="closeDrawer()">Solutions</a>
       <a href="#industries" onclick="closeDrawer()">Industries</a>
-      <a href="#pricing" onclick="closeDrawer()">Pricing</a>
+      <a href="#clients" onclick="closeDrawer()">Clients</a>
       <a href="#work" onclick="closeDrawer()">Work</a>
+      <a href="#screens" onclick="closeDrawer()">Screens</a>
+      <a href="#pricing" onclick="closeDrawer()">Pricing</a>
       <a href="#resources" onclick="closeDrawer()">Resources</a>
       <a href="/intake.html" class="pill" onclick="closeDrawer()">Start Intake →</a>
     </div>
   </header>
 
-  <main id="main">
-    <!-- Hero -->
-    <section class="hero" aria-labelledby="h1">
-      <div class="container wrap">
-        <span class="eyebrow reveal">Systems for chaos</span>
-        <h1 id="h1" class="headline reveal-2">Clean, high-end automations<br/>for real businesses.</h1>
-        <p class="sub reveal-3">We design Apple-clean experiences with ruthless practicality: client intake hubs, AI voice agents, document workflows, and analytics that actually ship.</p>
-        <div class="hero-cta reveal-3">
-          <a class="btn primary" href="/intake.html">Build my system</a>
-          <a class="btn ghost" href="#work">See examples</a>
-        </div>
-      </div>
-    </section>
+  <!-- TradingView-style Ticker (accessible) -->
+  <div class="ticker" role="region" aria-label="Key operating metrics">
+    <button class="sr-only" aria-label="Pause ticker"
+      onclick="document.querySelector('.ticker .track').style.animationPlayState='paused'">Pause</button>
+    <div class="track">
+      <span class="item">LEADS <span class="up">▲ +12%</span></span>
+      <span class="item">REVENUE <span class="up">▲ +4.5%</span></span>
+      <span class="item">MISSED CALLS <span class="down">▼ -85%</span></span>
+      <span class="item">NO-SHOWS <span class="down">▼ -40%</span></span>
+      <span class="item">AUTOMATIONS LIVE <span class="up">▲ 100%</span></span>
+      <!-- loop (track is > 2x width so it scrolls seamlessly) -->
+      <span class="item">LEADS <span class="up">▲ +12%</span></span>
+      <span class="item">REVENUE <span class="up">▲ +4.5%</span></span>
+      <span class="item">MISSED CALLS <span class="down">▼ -85%</span></span>
+      <span class="item">NO-SHOWS <span class="down">▼ -40%</span></span>
+    </div>
+  </div>
 
-    <!-- Solutions -->
-    <section class="stripe" id="solutions" aria-labelledby="solutions-h">
-      <div class="container">
-        <h2 id="solutions-h" class="headline" style="font-size:28px; margin:0 0 18px;">Solutions</h2>
-        <div class="cards">
-          <article class="card tall">
-            <div class="inner">
-              <span class="pill">Automation Suite</span>
-              <h3>Client Intake Hub</h3>
-              <p>Smart forms, routing, and CRM handoff. Frictionless for clients, structured for ops.</p>
-            </div>
-            <div class="art" aria-hidden="true">
-              <svg width="340" height="120" viewBox="0 0 340 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs><linearGradient id="gg1" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
-                <path d="M0 90 Q60 10 120 60 T240 50 T340 30" stroke="url(#gg1)" stroke-width="3" fill="none"/>
-                <circle cx="120" cy="60" r="3" fill="#38bdf8"/>
-                <circle cx="240" cy="50" r="3" fill="#a78bfa"/>
-              </svg>
-            </div>
-          </article>
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Voice</span>
-              <h3>AI Call Agent</h3>
-              <p>Answers, books, confirms. Your tone, your rules, 24/7.</p>
-            </div>
-            <div class="art" aria-hidden="true"></div>
-          </article>
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Docs</span>
-              <h3>Signature & Files</h3>
-              <p>Generate, e-sign, store, and sync to your drive without touching a mouse.</p>
-            </div>
-            <div class="art" aria-hidden="true"></div>
-          </article>
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Analytics</span>
-              <h3>Ops Dashboard</h3>
-              <p>One board: pipeline, SLAs, revenue, and missed calls. See it. Fix it.</p>
-            </div>
-            <div class="art" aria-hidden="true"></div>
-          </article>
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Integrations</span>
-              <h3>Square • Gmail • Sheets</h3>
-              <p>Glue the tools you already use—no rip & replace.</p>
-            </div>
-            <div class="art" aria-hidden="true"></div>
-          </article>
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="h1">
+    <div class="container wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow reveal">Systems for chaos</span>
+          <h1 id="h1" class="headline reveal-2">Clean, high-end automations<br/>for real businesses.</h1>
+          <p class="sub reveal-3">We design Apple-clean experiences with ruthless practicality: client intake hubs, AI voice agents, document workflows, and analytics that actually ship.</p>
+          <div class="hero-cta reveal-3">
+            <a class="btn primary" href="/intake.html">Start Intake</a>
+            <a class="btn ghost" href="#work">See examples</a>
+          </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Industries -->
-    <section class="stripe" id="industries" aria-labelledby="industries-h">
-      <div class="container">
-        <h2 id="industries-h" class="headline" style="font-size:28px; margin:0 0 18px;">Industries</h2>
-        <div class="cards">
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Real Estate</span>
-              <h3>Brokerages & Property Mgmt</h3>
-              <p>Route leads, book tours, send disclosures, push to CRM in seconds.</p>
-            </div>
-            <div class="art" aria-hidden="true"></div>
-          </article>
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Clinics</span>
-              <h3>Dental • PT • Med Spa</h3>
-              <p>Insurance capture, consent e-sign, reminders, no-show rescue flows.</p>
-            </div>
-            <div class="art" aria-hidden="true"></div>
-          </article>
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Law</span>
-              <h3>PI • Immigration • Family</h3>
-              <p>Conflict checks, matter intake, fee agreements, and doc assembly.</p>
-            </div>
-            <div class="art" aria-hidden="true"></div>
-          </article>
+        <!-- Faux performance card -->
+        <div class="tv-card reveal-2" aria-label="Recent performance snapshot">
+          <div class="tv-badge">Revenue recovered</div>
+          <div class="tv-head">
+            <div class="tv-sym">WP-SYS <span>WisePath Systems</span></div>
+            <div class="tv-value">$12,450 <span style="color:var(--muted); font-size:13px; font-weight:600">(Last 30 days)</span></div>
+          </div>
+          <div class="tv-candles" aria-hidden="true">
+            <div class="bar red"   style="height:28%"></div>
+            <div class="bar green" style="height:46%"></div>
+            <div class="bar red"   style="height:22%"></div>
+            <div class="bar green" style="height:60%"></div>
+            <div class="bar green" style="height:55%"></div>
+            <div class="bar red"   style="height:40%"></div>
+            <div class="bar green" style="height:80%"></div>
+            <div class="bar green" style="height:70%"></div>
+            <div class="bar green" style="height:95%"></div>
+          </div>
+          <div class="tv-axis"><span>Feb 01</span><span>Feb 08</span><span>Feb 15</span><span>Feb 22</span></div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Pricing -->
-    <section class="stripe" id="pricing" aria-labelledby="pricing-h">
-      <div class="container">
-        <h2 id="pricing-h" class="headline" style="font-size:28px; margin:0 0 18px;">Pricing</h2>
-        <div class="cards">
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Pilot</span>
-              <h3>$1,500 setup</h3>
-              <p>One flow live in 2 weeks. Includes intake hub + simple dashboard.</p>
-            </div>
-          </article>
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Core</span>
-              <h3>$4,000 project</h3>
-              <p>Voice agent + docs + analytics. Most small teams start here.</p>
-            </div>
-          </article>
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Enterprise</span>
-              <h3>Custom</h3>
-              <p>Multi-location, SSO, SLAs. Request a scoped proposal.</p>
-            </div>
-          </article>
-        </div>
+  <!-- Solutions -->
+  <section class="stripe" id="solutions" aria-labelledby="solutions-h">
+    <div class="container">
+      <h2 id="solutions-h" class="headline" style="font-size:28px; margin:0 0 18px;">Solutions</h2>
+      <div class="cards">
+        <article class="card tall">
+          <div class="inner">
+            <span class="pill">Automation Suite</span>
+            <h3>Client Intake Hub</h3>
+            <p>Smart forms, routing, and CRM handoff. Frictionless for clients, structured for ops.</p>
+          </div>
+        </article>
+        <article class="card small">
+          <div class="inner">
+            <span class="pill">Voice</span>
+            <h3>AI Call Agent</h3>
+            <p>Answers, books, confirms. Your tone, your rules, 24/7.</p>
+          </div>
+        </article>
+        <article class="card small">
+          <div class="inner">
+            <span class="pill">Docs</span>
+            <h3>Signature & Files</h3>
+            <p>Generate, e-sign, store, and sync to your drive without touching a mouse.</p>
+          </div>
+        </article>
+        <article class="card small">
+          <div class="inner">
+            <span class="pill">Analytics</span>
+            <h3>Ops Dashboard</h3>
+            <p>One board: pipeline, SLAs, revenue, and missed calls. See it. Fix it.</p>
+          </div>
+        </article>
+        <article class="card small">
+          <div class="inner">
+            <span class="pill">Integrations</span>
+            <h3>Square • Gmail • Sheets</h3>
+            <p>Glue the tools you already use—no rip & replace.</p>
+          </div>
+        </article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Work -->
-    <section class="stripe" id="work" aria-labelledby="work-h">
-      <div class="container">
-        <h2 id="work-h" class="headline" style="font-size:28px; margin:0 0 18px;">Work</h2>
-        <div class="cards">
-          <article class="card tall">
-            <div class="inner">
-              <span class="pill">Snapshot</span>
-              <h3>Cut missed calls by 62%</h3>
-              <p>We deployed a call agent + SMS capture for a 4-office clinic. Booking time dropped to under 90s.</p>
-            </div>
-            <div class="art" aria-hidden="true"></div>
-          </article>
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Snapshot</span>
-              <h3>Tour booking in one tap</h3>
-              <p>Property managers received qualified leads with pre-screening and ID verification.</p>
-            </div>
-            <div class="art" aria-hidden="true"></div>
-          </article>
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Snapshot</span>
-              <h3>Faster fee agreements</h3>
-              <p>Auto-generated retainer + e-sign shaved 24 hours off new matter onboarding.</p>
-            </div>
-            <div class="art" aria-hidden="true"></div>
-          </article>
-        </div>
+  <!-- Industries -->
+  <section class="stripe" id="industries" aria-labelledby="industries-h">
+    <div class="container">
+      <h2 id="industries-h" class="headline" style="font-size:28px; margin:0 0 18px;">Industries</h2>
+      <div class="cards">
+        <article class="card small">
+          <div class="inner">
+            <span class="pill">Real Estate</span>
+            <h3>Brokerages & Property Mgmt</h3>
+            <p>Route leads, book tours, send disclosures, push to CRM in seconds.</p>
+          </div>
+        </article>
+        <article class="card small">
+          <div class="inner">
+            <span class="pill">Clinics</span>
+            <h3>Dental • PT • Med Spa</h3>
+            <p>Insurance capture, consent e-sign, reminders, no-show rescue flows.</p>
+          </div>
+        </article>
+        <article class="card small">
+          <div class="inner">
+            <span class="pill">Law</span>
+            <h3>PI • Immigration • Family</h3>
+            <p>Conflict checks, matter intake, fee agreements, and doc assembly.</p>
+          </div>
+        </article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Resources -->
-    <section class="stripe" id="resources" aria-labelledby="resources-h">
-      <div class="container">
-        <h2 id="resources-h" class="headline" style="font-size:28px; margin:0 0 18px;">Resources</h2>
-        <div class="cards">
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Guide</span>
-              <h3>Intake that converts</h3>
-              <p>5 patterns to capture leads without adding staff hours.</p>
-            </div>
-          </article>
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Checklist</span>
-              <h3>AI call agent readiness</h3>
-              <p>Scripts, escalation, compliance—what to prep before you deploy.</p>
-            </div>
-          </article>
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">Playbook</span>
-              <h3>Docs & e-sign flow</h3>
-              <p>From template to signed PDF in under two minutes.</p>
-            </div>
-          </article>
-        </div>
+  <!-- Clients -->
+  <section class="stripe" id="clients" aria-labelledby="clients-h">
+    <div class="container">
+      <h2 id="clients-h" class="headline" style="font-size:28px; margin:0 0 18px;">Clients</h2>
+      <p class="sub">Trusted by teams in real estate, clinics, and law—Chicago built, nationwide ready.</p>
+      <div class="logos" style="margin-top:18px">
+        <div class="logo-item">ACME REALTY</div>
+        <div class="logo-item">NORTHSIDE DENTAL</div>
+        <div class="logo-item">RIVER PT. LAW</div>
+        <div class="logo-item">LAKEVIEW PM</div>
+        <div class="logo-item">BRONZEVILLE PT</div>
+        <div class="logo-item">SOUTH LOOP SPA</div>
       </div>
-    </section>
+      <div class="hero-cta" style="margin-top:20px">
+        <a class="btn primary" href="/intake.html">Become a client</a>
+        <a class="btn ghost" href="#work">See case studies</a>
+      </div>
+    </div>
+  </section>
 
-    <!-- Intake CTA -->
-    <section class="stripe" id="intake" aria-labelledby="intake-h">
-      <div class="container">
-        <h2 id="intake-h" class="headline" style="font-size:28px; margin:0 0 18px;">Start Intake</h2>
-        <p class="sub">Ready to move? Kick off with the short form. We’ll reply same-day.</p>
-        <div class="hero-cta" style="margin-top:18px">
-          <a class="btn primary" href="/intake.html">Open the intake form</a>
-          <a class="btn ghost" href="#contact">Prefer email? Contact us</a>
-        </div>
+  <!-- Pricing -->
+  <section class="stripe" id="pricing" aria-labelledby="pricing-h">
+    <div class="container">
+      <h2 id="pricing-h" class="headline" style="font-size:28px; margin:0 0 18px;">Pricing</h2>
+      <div class="cards">
+        <article class="card small"><div class="inner"><span class="pill">Pilot</span><h3>$1,500 setup</h3><p>One flow live in 2 weeks. Includes intake hub + simple dashboard.</p></div></article>
+        <article class="card small"><div class="inner"><span class="pill">Core</span><h3>$4,000 project</h3><p>Voice agent + docs + analytics. Most small teams start here.</p></div></article>
+        <article class="card small"><div class="inner"><span class="pill">Enterprise</span><h3>Custom</h3><p>Multi-location, SSO, SLAs. Request a scoped proposal.</p></div></article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Contact -->
-    <section class="stripe" id="contact" aria-labelledby="contact-h">
-      <div class="container">
-        <h2 id="contact-h" class="headline" style="font-size:28px; margin:0 0 18px;">Contact</h2>
-        <div class="cards">
-          <article class="card tall">
-            <div class="inner">
-              <span class="pill">Email</span>
-              <h3><a href="mailto:hello@wisepathsystems.com?subject=WisePath%20Inquiry">hello@wisepathsystems.com</a></h3>
-              <p>Send context, links, and any current tools you use. We’ll scope fast.</p>
-            </div>
-          </article>
-          <article class="card small">
-            <div class="inner">
-              <span class="pill">HQ</span>
-              <h3>Chicago, IL</h3>
-              <p>Serving teams nationwide. Remote-first builds, on-site go-lives by request.</p>
-            </div>
-          </article>
-        </div>
+  <!-- Work -->
+  <section class="stripe" id="work" aria-labelledby="work-h">
+    <div class="container">
+      <h2 id="work-h" class="headline" style="font-size:28px; margin:0 0 18px;">Work</h2>
+      <div class="cards">
+        <article class="card tall">
+          <div class="inner">
+            <span class="pill">Snapshot</span>
+            <h3>Cut missed calls by 62%</h3>
+            <p>We deployed a call agent + SMS capture for a 4-office clinic. Booking time dropped to under 90s.</p>
+          </div>
+        </article>
+        <article class="card small">
+          <div class="inner">
+            <span class="pill">Snapshot</span>
+            <h3>Tour booking in one tap</h3>
+            <p>Property managers received qualified leads with pre-screening and ID verification.</p>
+          </div>
+        </article>
+        <article class="card small">
+          <div class="inner">
+            <span class="pill">Snapshot</span>
+            <h3>Faster fee agreements</h3>
+            <p>Auto-generated retainer + e-sign shaved 24 hours off new matter onboarding.</p>
+          </div>
+        </article>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+
+  <!-- Screens -->
+  <section class="stripe screens" id="screens" aria-labelledby="screens-h">
+    <div class="container">
+      <h2 id="screens-h" class="headline" style="font-size:28px; margin:0 0 18px;">Screens</h2>
+      <p class="sub">A quick look at the actual surfaces clients touch—clean, fast, and branded.</p>
+      <div class="screens-grid" style="margin-top:18px">
+        <article class="screen"><div class="frame">INTAKE HUB — DESKTOP</div></article>
+        <article class="screen"><div class="frame">AI CALL DASHBOARD</div></article>
+        <article class="screen"><div class="frame">DOCS & E-SIGN FLOW</div></article>
+        <article class="screen"><div class="frame">REAL-TIME ANALYTICS</div></article>
+      </div>
+      <div class="hero-cta" style="margin-top:20px">
+        <a class="btn primary" href="/intake.html">Build this for my team</a>
+        <a class="btn ghost" href="#work">See outcomes</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources -->
+  <section class="stripe" id="resources" aria-labelledby="resources-h">
+    <div class="container">
+      <h2 id="resources-h" class="headline" style="font-size:28px; margin:0 0 18px;">Resources</h2>
+      <div class="cards">
+        <article class="card small"><div class="inner"><span class="pill">Guide</span><h3>Intake that converts</h3><p>5 patterns to capture leads without adding staff hours.</p></div></article>
+        <article class="card small"><div class="inner"><span class="pill">Checklist</span><h3>AI call agent readiness</h3><p>Scripts, escalation, compliance—what to prep before you deploy.</p></div></article>
+        <article class="card small"><div class="inner"><span class="pill">Playbook</span><h3>Docs & e-sign flow</h3><p>From template to signed PDF in under two minutes.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intake CTA -->
+  <section class="stripe" id="intake" aria-labelledby="intake-h">
+    <div class="container">
+      <h2 id="intake-h" class="headline" style="font-size:28px; margin:0 0 18px;">Start Intake</h2>
+      <p class="sub">Ready to move? Kick off with the short form. We’ll reply same-day.</p>
+      <div class="hero-cta" style="margin-top:18px">
+        <a class="btn primary" href="/intake.html">Open the intake form</a>
+        <a class="btn ghost" href="#contact">Prefer email? Contact us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="stripe" id="contact" aria-labelledby="contact-h">
+    <div class="container">
+      <h2 id="contact-h" class="headline" style="font-size:28px; margin:0 0 18px;">Contact</h2>
+      <div class="cards">
+        <article class="card tall">
+          <div class="inner">
+            <span class="pill">Email</span>
+            <h3><a href="mailto:hello@wisepathsystems.com?subject=WisePath%20Inquiry">hello@wisepathsystems.com</a></h3>
+            <p>Send context, links, and any current tools you use. We’ll scope fast.</p>
+          </div>
+        </article>
+        <article class="card small">
+          <div class="inner">
+            <span class="pill">HQ</span>
+            <h3>Chicago, IL</h3>
+            <p>Serving teams nationwide. Remote-first builds, on-site go-lives by request.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="footer">
@@ -463,33 +523,26 @@
     // Year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Prefetch intake.html on first intent
+    // Prefetch intake on intent (hover/focus)
     (function(){
       const prefetch = (url) => {
-        const l = document.createElement('link');
-        l.rel = 'prefetch'; l.as = 'document'; l.href = url;
-        document.head.appendChild(l);
+        const l = document.createElement('link'); l.rel='prefetch'; l.as='document'; l.href=url; document.head.appendChild(l);
       };
       document.querySelectorAll('a[href="/intake.html"]').forEach(a=>{
         const go = () => prefetch('/intake.html');
         a.addEventListener('pointerenter', go, { once:true });
-        a.addEventListener('focus',        go, { once:true });
+        a.addEventListener('focus', go, { once:true });
       });
     })();
 
-    // Progressive on-view reveal (only existing sections)
+    // Cheap on-view reveal
     (function(){
       const targets = document.querySelectorAll(
-        '#solutions .headline, #industries .headline, #pricing .headline, #work .headline, #resources .headline, #contact .headline, .card'
+        '#solutions .headline, #industries .headline, #clients .headline, #screens .headline, #pricing .headline, #work .headline, #resources .headline, #contact .headline, .card, .logo-item, .screen'
       );
       targets.forEach(el => el.classList.add('onview'));
       const io = new IntersectionObserver((entries)=>{
-        for(const e of entries){
-          if(e.isIntersecting){
-            e.target.classList.add('viewed');
-            io.unobserve(e.target);
-          }
-        }
+        for(const e of entries){ if(e.isIntersecting){ e.target.classList.add('viewed'); io.unobserve(e.target); } }
       }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
       targets.forEach(el => io.observe(el));
     })();

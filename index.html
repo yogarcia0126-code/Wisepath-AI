@@ -8,17 +8,20 @@
   <meta name="description" content="WisePath builds clean, high-end automations and AI systems for local businesses." />
   <meta name="robots" content="index,follow"/>
   <meta name="theme-color" content="#0b0f14"/>
+
   <!-- Open Graph -->
-  <meta property="og:title" content="WisePath — Systems for curing Chaos">
+  <meta property="og:title" content="WisePath — Systems for Chaos">
   <meta property="og:description" content="Clean, high-end automations for real businesses.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://wisepathsystems.com/">
   <meta property="og:image" content="/og.png">
+
   <link rel="canonical" href="https://wisepathsystems.com/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root{
       --bg:#0b0f14; --bg-2:#0f141a; --card:#121821;
@@ -38,10 +41,14 @@
     a{color:inherit; text-decoration:none}
     .container{max-width:var(--container); margin-inline:auto; padding-inline:20px}
 
-    /* ===== A11y focus ===== */
+    /* Skip link (a11y) */
+    .skip{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
+    .skip:focus{left:12px; top:12px; width:auto; height:auto; padding:8px 12px; background:#111826; border-radius:10px; z-index:1000}
+
+    /* Focus */
     :focus-visible{outline:2px solid var(--accent); outline-offset:2px; box-shadow:0 0 0 6px var(--ring)}
 
-    /* ===== Header ===== */
+    /* Header */
     .header{
       position:sticky; top:0; z-index:50;
       backdrop-filter:saturate(140%) blur(10px);
@@ -62,8 +69,9 @@
     .btn.ghost{background:transparent; color:var(--text); border-color:rgba(255,255,255,.12)}
     .btn.ghost:hover{background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.18)}
     .menu-btn{display:none; width:40px; height:40px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--text)}
+    .drawer{display:none;} /* important: keep hidden on desktop */
 
-    /* ===== Hero ===== */
+    /* Hero */
     .hero{
       position:relative; isolation:isolate; overflow:hidden;
       background:
@@ -88,12 +96,8 @@
     .sub{max-width:720px; color:var(--muted); font-size:clamp(16px,2.2vw,18px)}
     .hero-cta{display:flex; gap:12px; margin-top:26px}
 
-    /* Badge */
-    .badge{display:inline-flex; align-items:center; gap:12px; margin-top:28px; color:var(--muted)}
-    .badge svg{opacity:.9}
-
-    /* ===== Stripes / Cards ===== */
-    .stripe{padding-block:56px; background:linear-gradient(180deg, transparent, rgba(255,255,255,.02) 30%, rgba(255,255,255,.03) 100%)}
+    /* Stripes / Cards */
+    .stripe{padding-block:56px; background:linear-gradient(180deg, transparent, rgba(255,255,255,.02) 30%, rgba(255,255,255,.03) 100%); content-visibility:auto; contain-intrinsic-size:800px;}
     .cards{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
     .card{grid-column:span 6; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); overflow:hidden; position:relative}
     .card .inner{padding:28px}
@@ -104,45 +108,14 @@
     .card.tall{grid-column:span 8}
     .pill{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; font-size:12px; font-weight:600; color:var(--text); background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1)}
 
-    /* ===== Clients (logos) ===== */
-    .logos{display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:12px}
-    .logo-item{
-      display:grid; place-items:center; height:64px; border-radius:12px;
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.08);
-      color:var(--muted); font-weight:700; letter-spacing:.06em;
-    }
-    @media (max-width:980px){ .logos{grid-template-columns:repeat(3,1fr);} }
-    @media (max-width:560px){ .logos{grid-template-columns:repeat(2,1fr);} }
-
-    /* ===== Screens (gallery) ===== */
-    .screens { padding-block:56px; }
-    .screens-grid{
-      display:grid; grid-template-columns:repeat(12,1fr); gap:16px;
-    }
-    .screen{
-      grid-column:span 6;
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:16px; overflow:hidden;
-    }
-    .screen .frame{
-      aspect-ratio: 16/9;
-      background:radial-gradient(600px 300px at 100% 0%, rgba(255,255,255,.06), transparent 60%), #0f141a;
-      display:grid; place-items:center;
-      color:#9aa4b2; font-weight:600; letter-spacing:.06em;
-    }
-    .screen img{ width:100%; height:auto; display:block; }
-    @media (max-width:980px){ .screen{ grid-column:1/-1; } }
-
-    /* ===== Footer ===== */
+    /* Footer */
     .footer{padding-block:48px; color:var(--muted); border-top:1px solid rgba(255,255,255,.06); background:linear-gradient(180deg, rgba(255,255,255,.02), transparent)}
     .footer .cols{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:24px}
     .footer h4{margin:0 0 10px; font-size:13px; color:var(--text); text-transform:uppercase; letter-spacing:.12em}
     .footer a{display:block; color:var(--muted); padding:6px 0; font-size:14px}
     .copyright{margin-top:18px; font-size:13px}
 
-    /* ===== Responsive ===== */
+    /* Responsive */
     @media (max-width:980px){
       .navlinks{display:none}
       .menu-btn{display:inline-grid; place-items:center}
@@ -158,26 +131,23 @@
       .footer .cols{grid-template-columns:1fr}
     }
 
-    /* Animations */
+    /* Animations (with reduced motion respect) */
     .reveal{opacity:0; transform:translateY(8px); animation:reveal .6s ease .05s forwards}
     .reveal-2{animation-delay:.15s}
     .reveal-3{animation-delay:.3s}
     @keyframes reveal{to{opacity:1; transform:none}}
-
-    /* PERF: render below-the-fold later for a faster first paint */
-    .stripe{content-visibility:auto; contain-intrinsic-size:800px;}
-
-    /* PERF: cheap on-view reveal that respects reduced motion */
-    .onview{opacity:0; transform:translateY(8px);}
-    .onview.viewed{animation:reveal .6s ease forwards;}
+    .onview{opacity:0; transform:translateY(8px)}
+    .onview.viewed{animation:reveal .6s ease forwards}
     @media (prefers-reduced-motion: reduce){
       .reveal,.reveal-2,.reveal-3{animation:none; opacity:1; transform:none}
-      .onview, .onview.viewed{opacity:1; transform:none; animation:none}
+      .onview,.onview.viewed{opacity:1; transform:none; animation:none}
       html{scroll-behavior:auto}
     }
   </style>
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
+
   <!-- Header / Global Nav -->
   <header class="header">
     <div class="container nav" role="navigation" aria-label="Primary">
@@ -197,10 +167,8 @@
       <nav class="navlinks">
         <a href="#solutions">Solutions</a>
         <a href="#industries">Industries</a>
-        <a href="#clients">Clients</a>
-        <a href="#work">Work</a>
-        <a href="#screens">Screens</a>
         <a href="#pricing">Pricing</a>
+        <a href="#work">Work</a>
         <a href="#resources">Resources</a>
       </nav>
       <div class="cta-row">
@@ -212,10 +180,8 @@
     <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Mobile Menu">
       <a href="#solutions" onclick="closeDrawer()">Solutions</a>
       <a href="#industries" onclick="closeDrawer()">Industries</a>
-      <a href="#clients" onclick="closeDrawer()">Clients</a>
-      <a href="#work" onclick="closeDrawer()">Work</a>
-      <a href="#screens" onclick="closeDrawer()">Screens</a>
       <a href="#pricing" onclick="closeDrawer()">Pricing</a>
+      <a href="#work" onclick="closeDrawer()">Work</a>
       <a href="#resources" onclick="closeDrawer()">Resources</a>
       <a href="/intake.html" class="pill" onclick="closeDrawer()">Start Intake →</a>
     </div>
@@ -231,13 +197,6 @@
         <div class="hero-cta reveal-3">
           <a class="btn primary" href="/intake.html">Build my system</a>
           <a class="btn ghost" href="#work">See examples</a>
-        </div>
-        <div class="badge reveal-3" aria-hidden="true">
-          <svg width="120" height="24" viewBox="0 0 120 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs><linearGradient id="l" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
-            <path d="M4 20 L28 6 L60 14 L92 8 L116 20" stroke="url(#l)" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <span>Charcoal UI • Constellation brand • Chicago-built</span>
         </div>
       </div>
     </section>
@@ -331,29 +290,6 @@
       </div>
     </section>
 
-    <!-- Clients -->
-    <section class="stripe" id="clients" aria-labelledby="clients-h">
-      <div class="container">
-        <h2 id="clients-h" class="headline" style="font-size:28px; margin:0 0 18px;">Clients</h2>
-        <p class="sub">Trusted by teams in real estate, clinics, and law—Chicago built, nationwide ready.</p>
-
-        <div class="logos" style="margin-top:18px">
-          <!-- Replace these placeholders with your SVG/PNG logos when you have them -->
-          <div class="logo-item">ACME REALTY</div>
-          <div class="logo-item">NORTHSIDE DENTAL</div>
-          <div class="logo-item">RIVER PT. LAW</div>
-          <div class="logo-item">LAKEVIEW PM</div>
-          <div class="logo-item">BRONZEVILLE PT</div>
-          <div class="logo-item">SOUTH LOOP SPA</div>
-        </div>
-
-        <div class="hero-cta" style="margin-top:20px">
-          <a class="btn primary" href="/intake.html">Become a client</a>
-          <a class="btn ghost" href="#work">See case studies</a>
-        </div>
-      </div>
-    </section>
-
     <!-- Pricing -->
     <section class="stripe" id="pricing" aria-labelledby="pricing-h">
       <div class="container">
@@ -417,27 +353,6 @@
       </div>
     </section>
 
-    <!-- Screens -->
-    <section class="stripe screens" id="screens" aria-labelledby="screens-h">
-      <div class="container">
-        <h2 id="screens-h" class="headline" style="font-size:28px; margin:0 0 18px;">Screens</h2>
-        <p class="sub">A quick look at the actual surfaces clients touch—clean, fast, and branded.</p>
-
-        <div class="screens-grid" style="margin-top:18px">
-          <!-- Placeholder frames – replace with <img src="/img/screen-1.jpg" alt="..."> when ready -->
-          <article class="screen"><div class="frame">INTAKE HUB — DESKTOP</div></article>
-          <article class="screen"><div class="frame">AI CALL DASHBOARD</div></article>
-          <article class="screen"><div class="frame">DOCS & E-SIGN FLOW</div></article>
-          <article class="screen"><div class="frame">REAL-TIME ANALYTICS</div></article>
-        </div>
-
-        <div class="hero-cta" style="margin-top:20px">
-          <a class="btn primary" href="/intake.html">Build this for my team</a>
-          <a class="btn ghost" href="#work">See outcomes</a>
-        </div>
-      </div>
-    </section>
-
     <!-- Resources -->
     <section class="stripe" id="resources" aria-labelledby="resources-h">
       <div class="container">
@@ -468,7 +383,7 @@
       </div>
     </section>
 
-    <!-- Intake (anchor target) -->
+    <!-- Intake CTA -->
     <section class="stripe" id="intake" aria-labelledby="intake-h">
       <div class="container">
         <h2 id="intake-h" class="headline" style="font-size:28px; margin:0 0 18px;">Start Intake</h2>
@@ -548,7 +463,7 @@
     // Year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // PERF: prefetch intake.html on first intent (hover/focus)
+    // Prefetch intake.html on first intent
     (function(){
       const prefetch = (url) => {
         const l = document.createElement('link');
@@ -562,10 +477,10 @@
       });
     })();
 
-    // PERF: progressive on-view reveal for headlines + cards + clients + screens
+    // Progressive on-view reveal (only existing sections)
     (function(){
       const targets = document.querySelectorAll(
-        '#solutions .headline, #industries .headline, #clients .headline, #screens .headline, #pricing .headline, #work .headline, #resources .headline, #contact .headline, .card, .logo-item, .screen'
+        '#solutions .headline, #industries .headline, #pricing .headline, #work .headline, #resources .headline, #contact .headline, .card'
       );
       targets.forEach(el => el.classList.add('onview'));
       const io = new IntersectionObserver((entries)=>{
@@ -596,4 +511,3 @@
   <noscript><div style="color:#9aa4b2; text-align:center; padding:8px 0;">JavaScript is disabled. Navigation and animations are simplified.</div></noscript>
 </body>
 </html>
-```0

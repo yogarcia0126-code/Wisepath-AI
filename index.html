@@ -1,422 +1,780 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WisePath Systems | Operational Architecture</title>
-    <meta name="description" content="Turn chaotic SMBs into automated machines. WisePath installs the operational architecture your business is missing.">
-    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WisePath Systems – Operational Architecture for SMBs</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* --- 1. CORE VARIABLES & RESET --- */
-        :root {
-            --bg-color: #FAFAFA;       /* Premium Off-White */
-            --card-bg: #F5F5F7;        /* Apple Panel Grey */
-            --text-main: #1D1D1F;      /* Almost Black */
-            --text-muted: #86868B;     /* Apple Grey */
-            --accent-blue: #0071E3;    /* Apple Action Blue */
-            --border-radius: 24px;     /* Smooth curves */
-            --nav-width: 400px;
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
+    <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+        }
+
+        :root {
+            /* WisePath Green Palette */
+            --green-deep: #013222;   /* strongest green */
+            --green-core: #004D14;   /* nav / headings */
+            --green-action: #046200; /* primary CTA */
+
+            --bg-main: #F6F7F2;      /* page background */
+            --card-bg: #E9EDE4;      /* cards / panels */
+            --border-soft: #E1E5DC;  /* dividers */
+
+            --text-main: #111111;
+            --text-muted: #6E6E73;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-color);
+            font-family: "Inter", sans-serif;
+            background-color: var(--bg-main);
             color: var(--text-main);
-            line-height: 1.4;
-            overflow-x: hidden;
+            line-height: 1.5;
         }
 
         a { text-decoration: none; color: inherit; }
 
-        /* --- 2. FLOATING NAVIGATION ISLAND --- */
-        .nav-island {
-            position: fixed;
-            top: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: var(--nav-width);
-            height: 56px;
-            border-radius: 100px;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+        /* NAVBAR */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(246, 247, 242, 0.96);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .nav-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 14px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 4px 6px 4px 24px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-            z-index: 1000;
-            animation: slideDown 1s cubic-bezier(0.16, 1, 0.3, 1);
+            gap: 16px;
         }
 
-        .nav-logo {
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--green-core), var(--green-action));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .logo-text {
             font-weight: 600;
-            font-size: 15px;
             letter-spacing: -0.02em;
-            color: var(--text-main);
+        }
+
+        .logo-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .nav-links a:hover {
+            color: var(--green-core);
         }
 
         .nav-cta {
-            background-color: var(--text-main);
-            color: #fff;
-            font-size: 13px;
-            font-weight: 500;
             padding: 10px 20px;
-            border-radius: 100px;
-            transition: opacity 0.2s;
-        }
-        .nav-cta:hover { opacity: 0.85; }
-
-        /* --- 3. HERO SECTION --- */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 120px 20px 60px;
-        }
-
-        .hero h1 {
-            font-size: clamp(48px, 8vw, 96px); /* Responsive Scaling */
-            line-height: 0.95;
-            letter-spacing: -0.04em;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: #000;
-        }
-
-        .hero p {
-            font-size: clamp(18px, 2vw, 24px);
-            color: var(--text-muted);
-            max-width: 600px;
-            font-weight: 400;
-            margin-bottom: 40px;
-            line-height: 1.4;
-        }
-
-        .hero-btn {
-            background-color: #000;
+            border-radius: 999px;
+            background-color: var(--green-action);
             color: #fff;
-            padding: 16px 32px;
-            border-radius: 100px;
-            font-size: 17px;
-            font-weight: 500;
-            transition: transform 0.2s;
-        }
-        .hero-btn:hover { transform: scale(1.02); }
-
-        .hero-caption {
-            margin-top: 16px;
-            font-size: 12px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* --- 4. AGITATION SECTION --- */
-        .agitation {
-            padding: 100px 20px;
-            display: flex;
-            justify-content: center;
-        }
-        
-        .agitation-text {
-            font-size: clamp(24px, 3vw, 40px);
-            text-align: center;
-            max-width: 800px;
-            color: var(--text-muted);
-            letter-spacing: -0.02em;
-            font-weight: 500;
-            line-height: 1.2;
-        }
-        .agitation-text strong { color: var(--text-main); }
-
-        /* --- 5. BENTO GRID (The Signature System) --- */
-        .systems {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 140px;
-        }
-
-        .section-header {
             font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 32px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
         }
 
-        .bento-grid {
+        .nav-cta:hover {
+            background-color: var(--green-core);
+        }
+
+        /* LAYOUT WRAPPER */
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+
+        /* HERO */
+        .hero {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+            gap: 40px;
+            align-items: center;
+            padding: 40px 0 60px;
         }
 
-        .bento-card {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 40px 32px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 340px;
-            position: relative;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .bento-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card-content h3 {
-            font-size: 24px;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
-        }
-
-        .card-content h4 {
-            font-size: 17px;
-            color: var(--text-muted);
-            font-weight: 400;
+        .hero-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--green-core);
+            font-weight: 600;
             margin-bottom: 16px;
         }
 
-        .card-content p {
-            font-size: 15px;
-            line-height: 1.5;
-            color: #424245;
+        .hero-title {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(40px, 6vw, 64px);
+            letter-spacing: -0.04em;
+            margin-bottom: 18px;
+            color: var(--green-deep);
         }
 
-        .tech-spec {
-            font-size: 10px;
-            font-weight: 700;
-            color: #BCBCBD;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: auto;
-            padding-top: 30px;
+        .hero-title span {
+            color: var(--green-action);
         }
 
-        /* --- 6. PROCESS SECTION (Vertical) --- */
-        .process {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px 140px;
-        }
-
-        .process-step {
-            display: flex;
-            gap: 32px;
-            padding: 40px 0;
-            border-top: 1px solid rgba(0,0,0,0.08);
-        }
-
-        .step-num {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-muted);
-            width: 40px;
-            padding-top: 6px;
-        }
-
-        .step-content h3 {
-            font-size: 28px;
-            letter-spacing: -0.02em;
-            margin-bottom: 12px;
-        }
-
-        .step-content p {
+        .hero-sub {
             font-size: 17px;
             color: var(--text-muted);
-            line-height: 1.6;
+            max-width: 480px;
+            margin-bottom: 26px;
         }
 
-        /* --- 7. FOOTER --- */
-        .footer-cta {
-            text-align: center;
-            padding: 100px 20px;
-            background-color: #000;
+        .hero-cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .hero-btn {
+            padding: 14px 28px;
+            border-radius: 999px;
+            background-color: var(--green-action);
             color: #fff;
-            border-radius: 40px 40px 0 0; /* Modern curved footer top */
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
         }
 
-        .footer-cta h2 {
-            font-size: clamp(32px, 5vw, 56px);
-            letter-spacing: -0.03em;
-            margin-bottom: 32px;
+        .hero-btn:hover {
+            background-color: var(--green-core);
         }
 
-        .btn-white {
-            background: #fff;
-            color: #000;
-            padding: 16px 32px;
-            border-radius: 100px;
-            font-weight: 500;
-            display: inline-block;
-        }
-
-        footer {
-            background-color: #000;
-            color: #555;
-            text-align: center;
-            padding: 20px;
+        .hero-note {
             font-size: 12px;
+            color: var(--text-muted);
         }
 
-        /* --- ANIMATIONS --- */
-        @keyframes slideDown {
-            from { top: -60px; opacity: 0; }
-            to { top: 24px; opacity: 1; }
+        .hero-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 26px;
+            font-size: 12px;
+            color: var(--text-muted);
         }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 1024px) {
-            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+        .metric-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
+        .metric-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background-color: var(--green-action);
+        }
+
+        /* HERO RIGHT – DIAGRAM */
+        .hero-card {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid var(--border-soft);
+            padding: 24px 22px;
+        }
+
+        .hero-card-header {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .hero-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .hero-pill {
+            font-size: 11px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background-color: #fff;
+            border: 1px solid var(--border-soft);
+            color: var(--green-core);
+        }
+
+        .diagram {
+            margin-top: 10px;
+            border-radius: 18px;
+            background: #fff;
+            border: 1px solid var(--border-soft);
+            padding: 16px 16px 18px;
+        }
+
+        .diagram-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .diagram-label {
+            color: var(--text-muted);
+        }
+
+        .diagram-chip {
+            padding: 4px 10px;
+            border-radius: 999px;
+            background-color: var(--green-action);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .diagram-line {
+            margin-top: 8px;
+            height: 4px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--green-core), var(--green-action));
+        }
+
+        /* SECTION WRAPPER */
+        .section {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .section-header {
+            margin-bottom: 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .section-kicker {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-family: "Playfair Display", serif;
+            font-size: 28px;
+            letter-spacing: -0.02em;
+            color: var(--green-deep);
+        }
+
+        .section-sub {
+            font-size: 14px;
+            color: var(--text-muted);
+            max-width: 520px;
+        }
+
+        /* SIGNATURE SYSTEM (BENTO) */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 22px 20px 24px;
+            border: 1px solid var(--border-soft);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .card-label {
+            font-size: 11px;
+            color: var(--green-core);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--green-deep);
+        }
+
+        .card-body {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* PROCESS */
+        .process-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .process-item {
+            display: flex;
+            gap: 16px;
+            padding: 18px 16px;
+            border-radius: 18px;
+            background-color: #fff;
+            border: 1px solid var(--border-soft);
+        }
+
+        .process-number {
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            background-color: var(--green-action);
+            color: #fff;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .process-main {
+            flex: 1;
+        }
+
+        .process-main h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--green-core);
+            margin-bottom: 4px;
+        }
+
+        .process-main p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .process-meta {
+            font-size: 11px;
+            color: var(--green-core);
+            margin-top: 4px;
+        }
+
+        /* WHO WE SERVE */
+        .grid-3-tight {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .serve-card {
+            background-color: #fff;
+            border-radius: 18px;
+            border: 1px solid var(--border-soft);
+            padding: 18px 18px 20px;
+        }
+
+        .serve-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--green-core);
+            margin-bottom: 8px;
+        }
+
+        .serve-list {
+            list-style: none;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .serve-list li {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .serve-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background-color: var(--green-action);
+            margin-top: 6px;
+        }
+
+        /* FINAL CTA */
+        .final-cta {
+            margin-top: 40px;
+            border-radius: 28px;
+            background-color: var(--green-deep);
+            color: #fdfdfd;
+            padding: 32px 22px 34px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+        }
+
+        .final-cta h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 26px;
+            letter-spacing: -0.02em;
+        }
+
+        .final-cta p {
+            font-size: 14px;
+            max-width: 520px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .final-cta-btn {
+            padding: 14px 32px;
+            border-radius: 999px;
+            background-color: #F6F7F2;
+            color: var(--green-deep);
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .final-cta-btn:hover {
+            background-color: #E9EDE4;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border-soft);
+            padding: 16px 20px 26px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        footer .footer-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .bento-grid { grid-template-columns: 1fr; }
-            .hero { padding-top: 140px; }
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .nav-inner {
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            .nav-links {
+                display: none;
+            }
+            .grid-3,
+            .grid-3-tight {
+                grid-template-columns: 1fr;
+            }
+            .final-cta {
+                border-radius: 24px 24px 0 0;
+            }
         }
     </style>
 </head>
 <body>
 
-    <nav class="nav-island">
-        <a href="#" class="nav-logo">WisePath</a>
-        <a href="intake.html" class="nav-cta">Start Audit →</a>
-    </nav>
-
-    <section class="hero">
-        <h1>Chaos.<br>Automated.</h1>
-        <p>Turn your service business into a machine that never leaks revenue. We install the operational architecture you are missing.</p>
-        
-        <a href="intake.html" class="hero-btn">Start Systems Audit</a>
-        <div class="hero-caption">Deployment in 48 Hours. No Code Required.</div>
-    </section>
-
-    <section class="agitation">
-        <div class="agitation-text">
-            "Most service businesses don't die from starvation. They die from indigestion. <strong>You have the leads, but you lack the machine to process them.</strong>"
+    <!-- NAV -->
+    <header class="nav">
+        <div class="nav-inner">
+            <div class="nav-left">
+                <div class="logo-mark">WP</div>
+                <div>
+                    <div class="logo-text">WisePath Systems</div>
+                    <div class="logo-sub">Operational Architecture · AI First</div>
+                </div>
+            </div>
+            <nav class="nav-links">
+                <a href="#systems">Systems</a>
+                <a href="#process">Process</a>
+                <a href="#clients">Who We Serve</a>
+            </nav>
+            <a href="intake.html" class="nav-cta">Start 4-Minute Audit →</a>
         </div>
-    </section>
+    </header>
 
-    <section class="systems">
-        <div class="section-header">The WisePath Signature System</div>
-        
-        <div class="bento-grid">
-            <div class="bento-card">
-                <div class="card-content">
-                    <h3>Lead Engine.</h3>
-                    <h4>Total Capture.</h4>
-                    <p>Captures, tags, and routes every inquiry from web, SMS, and voice. No lead left behind.</p>
+    <main class="page">
+        <!-- HERO -->
+        <section class="hero">
+            <div>
+                <div class="hero-tag">Fractional operations · AI deployment</div>
+                <h1 class="hero-title">
+                    Turn chaotic<br />
+                    <span>service businesses</span><br />
+                    into systems.
+                </h1>
+                <p class="hero-sub">
+                    WisePath builds and deploys end-to-end operational systems for lead capture, follow-up, booking, and reactivation—so you stop leaking revenue and start running on rails.
+                </p>
+                <div class="hero-cta-row">
+                    <a href="intake.html" class="hero-btn">Start Systems Intake (4 minutes)</a>
                 </div>
-                <div class="tech-spec">99.9% UPTIME</div>
-            </div>
+                <p class="hero-note">
+                    You get a concrete systems blueprint, not generic advice. Deployment can begin within 48 hours of acceptance.
+                </p>
 
-            <div class="bento-card">
-                <div class="card-content">
-                    <h3>AI Follow-Up.</h3>
-                    <h4>Instant Velocity.</h4>
-                    <p>24/7 intelligent SMS & email sequences. Qualifies leads while you sleep with <60s latency.</p>
+                <div class="hero-metrics">
+                    <div class="metric-pill">
+                        <span class="metric-dot"></span>
+                        48-hour deployment window
+                    </div>
+                    <div class="metric-pill">
+                        <span class="metric-dot"></span>
+                        Template-driven – no custom dev
+                    </div>
+                    <div class="metric-pill">
+                        <span class="metric-dot"></span>
+                        No long-term contracts
+                    </div>
                 </div>
-                <div class="tech-spec">Latency < 1min</div>
             </div>
 
-            <div class="bento-card">
-                <div class="card-content">
-                    <h3>Booking Stack.</h3>
-                    <h4>Flow State.</h4>
-                    <p>Automated scheduling, confirmations, and reminders. Reduces no-shows by ~40%.</p>
+            <aside class="hero-card">
+                <div class="hero-card-header">
+                    <span>WisePath Signature System</span>
+                    <span style="color: var(--green-core); font-weight: 600;">WSS-01</span>
                 </div>
-                <div class="tech-spec">Sync: 2-Way</div>
-            </div>
-
-            <div class="bento-card">
-                <div class="card-content">
-                    <h3>Onboarding.</h3>
-                    <h4>Zero Friction.</h4>
-                    <p>Contracts, forms, and welcome sequences trigger automatically upon deposit.</p>
+                <div class="hero-pills">
+                    <div class="hero-pill">Lead Engine</div>
+                    <div class="hero-pill">AI Follow-Up</div>
+                    <div class="hero-pill">Booking Stack</div>
+                    <div class="hero-pill">Intake & Onboarding</div>
+                    <div class="hero-pill">Reactivation</div>
                 </div>
-                <div class="tech-spec">Digital Sig</div>
-            </div>
 
-            <div class="bento-card">
-                <div class="card-content">
-                    <h3>Reactivation.</h3>
-                    <h4>Found Money.</h4>
-                    <p>Automated win-back campaigns turn cold leads and past clients into new revenue.</p>
+                <div class="diagram">
+                    <div class="diagram-row">
+                        <span class="diagram-label">Chaos Input</span>
+                        <span class="diagram-chip">Missed calls, DMs, forms</span>
+                    </div>
+                    <div class="diagram-line"></div>
+                    <div class="diagram-row" style="margin-top: 12px;">
+                        <span class="diagram-label">WisePath Engine</span>
+                        <span class="diagram-chip" style="background-color:#fff; color:var(--green-core); border:1px solid var(--border-soft);">
+                            Scored · Routed · Booked
+                        </span>
+                    </div>
+                    <div class="diagram-line"></div>
+                    <div class="diagram-row" style="margin-top: 12px;">
+                        <span class="diagram-label">Profit Output</span>
+                        <span class="diagram-chip">Predictable pipeline</span>
+                    </div>
                 </div>
-                <div class="tech-spec">ROI: High</div>
+            </aside>
+        </section>
+
+        <!-- SIGNATURE SYSTEM -->
+        <section id="systems" class="section">
+            <div class="section-header">
+                <div class="section-kicker">WisePath Signature System</div>
+                <h2 class="section-title">One install. Six connected systems. Zero chaos.</h2>
+                <p class="section-sub">
+                    We don’t sell “AI tools.” We architect the operational engine that your business runs on—so every inquiry is captured, worked, and booked.
+                </p>
             </div>
 
-            <div class="bento-card">
-                <div class="card-content">
-                    <h3>Dashboard.</h3>
-                    <h4>X-Ray Vision.</h4>
-                    <p>Real-time operational health metrics. Know exactly where your profit is leaking.</p>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-label">01 · Capture</div>
+                    <div class="card-title">Lead Engine</div>
+                    <p class="card-body">
+                        Every inquiry—web form, text, call, DM—is captured, tagged, and routed into a single pipeline. No more “who was that person from last week?”
+                    </p>
                 </div>
-                <div class="tech-spec">Live Data</div>
+
+                <div class="card">
+                    <div class="card-label">02 · Convert</div>
+                    <div class="card-title">AI Follow-Up</div>
+                    <p class="card-body">
+                        SMS and email follow-up that responds instantly, qualifies, and moves people to booking without needing a human to remember anything.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">03 · Lock-In</div>
+                    <div class="card-title">Booking Stack</div>
+                    <p class="card-body">
+                        Smart scheduling, confirmations, reminders, and reschedules—to cut no-shows and keep your calendar full with the right clients.
+                    </p>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <section class="process">
-        <div class="section-header">The Process</div>
+            <div class="grid-3" style="margin-top:20px;">
+                <div class="card">
+                    <div class="card-label">04 · Prepare</div>
+                    <div class="card-title">Intake & Onboarding</div>
+                    <p class="card-body">
+                        Intake forms, expectations, and internal tasks fire automatically when someone books—so your team walks in already prepared.
+                    </p>
+                </div>
 
-        <div class="process-step">
-            <div class="step-num">01</div>
-            <div class="step-content">
-                <h3>Diagnose.</h3>
-                <p>We don't guess. Your intake form runs against our 6-point indexing engine to identify exactly where your revenue is leaking.</p>
+                <div class="card">
+                    <div class="card-label">05 · Reactivate</div>
+                    <div class="card-title">Win-Back Flows</div>
+                    <p class="card-body">
+                        Reactivation campaigns for cold leads, past clients, and canceled members—turning old data into new revenue.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">06 · See Clearly</div>
+                    <div class="card-title">Performance View</div>
+                    <p class="card-body">
+                        Simple dashboards that show where leads come from, where they stall, and where money is leaking—so fixes are obvious instead of guesswork.
+                    </p>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <div class="process-step">
-            <div class="step-num">02</div>
-            <div class="step-content">
-                <h3>Deploy.</h3>
-                <p>We deploy the Lead Engine, Booking Stack, and Reactivation flows directly into your business. Max 48 hours.</p>
+        <!-- PROCESS -->
+        <section id="process" class="section">
+            <div class="section-header">
+                <div class="section-kicker">Process</div>
+                <h2 class="section-title">A 3-step deployment, not an endless project.</h2>
+                <p class="section-sub">
+                    WisePath is productized on purpose—so setup is fast, expectations are concrete, and you’re not paying for open-ended consulting hours.
+                </p>
             </div>
-        </div>
 
-        <div class="process-step">
-            <div class="step-num">03</div>
-            <div class="step-content">
-                <h3>Automate.</h3>
-                <p>The system runs in the background. It texts leads, books appointments, and chases payments. You only step in when money is on the table.</p>
+            <div class="process-list">
+                <div class="process-item">
+                    <div class="process-number">01</div>
+                    <div class="process-main">
+                        <h3>Systems Intake (4 minutes)</h3>
+                        <p>
+                            You complete the WisePath intake. We run it through our internal scoring model and map exactly where your operational leaks are.
+                        </p>
+                        <div class="process-meta">Time cost: your 4 minutes · Output: diagnostic + recommended build</div>
+                    </div>
+                </div>
+
+                <div class="process-item">
+                    <div class="process-number">02</div>
+                    <div class="process-main">
+                        <h3>Template Deployment (48 hours)</h3>
+                        <p>
+                            We install the WisePath Signature System for your business—using proven templates tuned for your vertical and stage.
+                        </p>
+                        <div class="process-meta">Time cost: our 48 hours · Output: live system inside your tools</div>
+                    </div>
+                </div>
+
+                <div class="process-item">
+                    <div class="process-number">03</div>
+                    <div class="process-main">
+                        <h3>Monitor & Refine</h3>
+                        <p>
+                            We track performance, adjust flows, and keep the system running so your team can stay focused on delivery—not chasing admin.
+                        </p>
+                        <div class="process-meta">Time cost: ~15 minutes/month review · Output: stable, compounding pipeline</div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <div class="footer-cta">
-        <h2>Stop running on chaos.<br>Start running on rails.</h2>
-        <a href="intake.html" class="btn-white">Begin Audit</a>
-    </div>
+        <!-- WHO WE SERVE -->
+        <section id="clients" class="section">
+            <div class="section-header">
+                <div class="section-kicker">Who We Serve</div>
+                <h2 class="section-title">Service businesses where every missed call is real money.</h2>
+                <p class="section-sub">
+                    We work with owner-led teams who feel their days slipping into inboxes, DMs, and callbacks instead of controlled systems.
+                </p>
+            </div>
+
+            <div class="grid-3-tight">
+                <div class="serve-card">
+                    <div class="serve-title">Realtors & Real Estate Teams</div>
+                    <ul class="serve-list">
+                        <li><span class="serve-dot"></span><span>Speed-to-lead on portal and website inquiries.</span></li>
+                        <li><span class="serve-dot"></span><span>Automated showing and consult booking.</span></li>
+                        <li><span class="serve-dot"></span><span>Compliance reminders and document follow-up.</span></li>
+                    </ul>
+                </div>
+
+                <div class="serve-card">
+                    <div class="serve-title">Gyms, Trainers, & Studios</div>
+                    <ul class="serve-list">
+                        <li><span class="serve-dot"></span><span>Follow-up on trials, leads, and walk-ins.</span></li>
+                        <li><span class="serve-dot"></span><span>Class reminders and membership renewals.</span></li>
+                        <li><span class="serve-dot"></span><span>Win-back flows for cold or canceled members.</span></li>
+                    </ul>
+                </div>
+
+                <div class="serve-card">
+                    <div class="serve-title">Clinics & Home Services</div>
+                    <ul class="serve-list">
+                        <li><span class="serve-dot"></span><span>Call-to-text capture for missed calls.</span></li>
+                        <li><span class="serve-dot"></span><span>Automated estimates, intake, and reminders.</span></li>
+                        <li><span class="serve-dot"></span><span>Post-visit follow-ups and reactivation nudges.</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="final-cta">
+                <h2>Stop leaking revenue. Start running on rails.</h2>
+                <p>
+                    If you’re answering the same questions, chasing the same leads, and plugging the same holes every week, you don’t need more effort—you need a system.
+                </p>
+                <a href="intake.html" class="final-cta-btn">Begin the WisePath Systems Intake →</a>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        WisePath Systems V2. Built in Chicago.
+        <div class="footer-inner">
+            <span>© <span id="year"></span> WisePath Systems. All rights reserved.</span>
+            <span>Built in Chicago. Operating everywhere.</span>
+        </div>
     </footer>
 
-</body>
-</html>
     <script>
         document.getElementById("year").textContent = new Date().getFullYear();
     </script>

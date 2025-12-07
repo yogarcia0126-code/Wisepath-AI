@@ -340,9 +340,9 @@
     })();
 
     // ===== Intake submit (Zapier-ready) =====
-    // 1) Put your Zapier Catch Hook URL below.
+    // 1) Zapier Catch Hook URL
     // 2) If left blank, we fall back to a mailto prompt.
-    const FORM_ENDPOINT = "https://hooks.zapier.com/hooks/catch/25546828/uf4hn9e/"; // e.g., "https://hooks.zapier.com/hooks/catch/XXXXX/YYYYY/"
+    const FORM_ENDPOINT = "https://hooks.zapier.com/hooks/catch/25546828/uf4hn9e/";
 
     const form = document.getElementById('wiseForm');
     const msg  = document.getElementById('formMsg');
@@ -369,16 +369,19 @@
     form.addEventListener('submit', async (ev)=>{
       ev.preventDefault();
       msg.className = 'msg'; msg.textContent = '';
+
       // basic required checks
       const requiredOk =
         form.name.value.trim() &&
         form.email.value.trim() &&
         form.message.value.trim() &&
         !form.website2.value; // honeypot
+
       if(!requiredOk){
         msg.classList.add('err'); msg.style.display='inline'; msg.textContent = 'Please fill required fields.';
         return;
       }
+
       submitBtn.disabled = true; submitBtn.textContent = 'Sending…';
 
       // Build payload
@@ -398,7 +401,8 @@
         utm_campaign: form.utm_campaign.value,
         utm_medium: form.utm_medium.value,
         utm_content: form.utm_content.value,
-        ts: new Date().toISOString()
+        ts: new Date().toISOString(),
+        intake_key: "WISEPATH-INTAKE-2025"
       };
 
       try{
@@ -439,6 +443,7 @@
     "address": { "@type": "PostalAddress", "addressLocality": "Chicago", "addressRegion": "IL", "addressCountry": "US" }
   }
   </script>
+
   <noscript><div style="color:#9aa4b2; text-align:center; padding:8px 0;">JavaScript is disabled. Form uses the email fallback.</div></noscript>
 </body>
 </html>

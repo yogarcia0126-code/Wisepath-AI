@@ -273,6 +273,12 @@
                   <textarea id="message" name="message" required placeholder="What’s broken today? What would ‘done’ look like? Include links to any forms, calendars, or docs."></textarea>
                 </div>
 
+                <!-- Tracking (hidden) -->
+                <input type="hidden" name="lead_source" id="lead_source">
+                <input type="hidden" name="utm_campaign" id="utm_campaign">
+                <input type="hidden" name="utm_medium" id="utm_medium">
+                <input type="hidden" name="utm_content" id="utm_content">
+
                 <!-- Honeypot -->
                 <input type="text" id="website2" name="website2" autocomplete="off" style="display:none">
 
@@ -282,7 +288,7 @@
                 </div>
 
                 <div class="col-12">
-                  <div class="help">Or email us: <a class="muted" href="mailto:hello@wisepathsystems.com?subject=WisePath%20Intake">hello@wisepathsystems.com</a></div>
+                  <div class="help">Or email us: <a class="muted" href="mailto:support@wisepathsystems.com?subject=WisePath%20Intake">support@wisepathsystems.com</a></div>
                 </div>
               </div>
             </form>
@@ -342,6 +348,24 @@
     const msg  = document.getElementById('formMsg');
     const submitBtn = document.getElementById('submitBtn');
 
+    // Tracking fields (lead source + UTM)
+    const params = new URLSearchParams(window.location.search);
+    const leadSourceInput  = document.getElementById('lead_source');
+    const utmCampaignInput = document.getElementById('utm_campaign');
+    const utmMediumInput   = document.getElementById('utm_medium');
+    const utmContentInput  = document.getElementById('utm_content');
+
+    if (leadSourceInput) {
+      leadSourceInput.value =
+        document.referrer && document.referrer !== ""
+          ? document.referrer
+          : "direct";
+
+      utmCampaignInput.value = params.get('utm_campaign') || "";
+      utmMediumInput.value   = params.get('utm_medium')   || "";
+      utmContentInput.value  = params.get('utm_content')  || "";
+    }
+
     form.addEventListener('submit', async (ev)=>{
       ev.preventDefault();
       msg.className = 'msg'; msg.textContent = '';
@@ -369,7 +393,11 @@
         timeline: form.timeline.value,
         needs: Array.from(form.querySelectorAll('input[name="needs"]:checked')).map(x=>x.value),
         message: form.message.value.trim(),
-        source: 'wisepathsystems.com/intake.html',
+        source: window.location.href,
+        lead_source: form.lead_source.value,
+        utm_campaign: form.utm_campaign.value,
+        utm_medium: form.utm_medium.value,
+        utm_content: form.utm_content.value,
         ts: new Date().toISOString()
       };
 
@@ -386,13 +414,13 @@
         }else{
           // No endpoint yet — open email draft as fallback
           const body = encodeURIComponent(
-            `Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nCompany: ${data.company}\nWebsite: ${data.website}\nIndustry: ${data.industry}\nNeeds: ${data.needs.join(', ')}\nBudget: ${data.budget}\nTimeline: ${data.timeline}\n\nContext:\n${data.message}`
+            `Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nCompany: ${data.company}\nWebsite: ${data.website}\nIndustry: ${data.industry}\nNeeds: ${data.needs.join(', ')}\nBudget: ${data.budget}\nTimeline: ${data.timeline}\nLead source: ${data.lead_source}\nUTM campaign: ${data.utm_campaign}\nUTM medium: ${data.utm_medium}\nUTM content: ${data.utm_content}\n\nContext:\n${data.message}`
           );
-          window.location.href = `mailto:hello@wisepathsystems.com?subject=WisePath Intake&body=${body}`;
+          window.location.href = `mailto:support@wisepathsystems.com?subject=WisePath Intake&body=${body}`;
           msg.classList.add('ok'); msg.style.display='inline'; msg.textContent = 'Opening your email app… (You can also paste the text above.)';
         }
       }catch(err){
-        msg.classList.add('err'); msg.style.display='inline'; msg.textContent = 'Could not send. Try again or email hello@wisepathsystems.com.';
+        msg.classList.add('err'); msg.style.display='inline'; msg.textContent = 'Could not send. Try again or email support@wisepathsystems.com.';
       }finally{
         submitBtn.disabled = false; submitBtn.textContent = 'Send intake';
       }
